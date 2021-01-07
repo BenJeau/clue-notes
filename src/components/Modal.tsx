@@ -29,14 +29,14 @@ const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
         borderTopStartRadius: 0,
       }}
       childrenStyle={{}}
-      handleStyle={{ backgroundColor: colors.text }}>
+      handleStyle={[{ backgroundColor: colors.text }, props?.handleStyle]}>
       <View
         style={[
-          props?.childrenStyle,
           {
             borderTopWidth: 1,
             borderColor: colors.border,
           },
+          props?.childrenStyle,
         ]}>
         {children}
       </View>

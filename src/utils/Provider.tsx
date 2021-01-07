@@ -17,7 +17,7 @@ const Provider: React.FC = ({ children }) => {
     <ReduxProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer
-          theme={scheme === 'light' ? DarkTheme : DefaultTheme}>
+          theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
           {children}
         </NavigationContainer>
       </PersistGate>

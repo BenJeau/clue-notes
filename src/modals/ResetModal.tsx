@@ -6,13 +6,14 @@ import { useDispatch } from 'react-redux';
 
 import { clearBoard, clearPlayers } from '../redux/slices/boardSlice';
 import { Button, Modal } from '../components';
+import { colors } from '../config/data';
 
 interface ResetModalProps {
   modalRef: React.RefObject<Modalize>;
 }
 
 const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
-  const { colors } = useTheme();
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const clearNotes = () => {
@@ -30,40 +31,34 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
 
   return (
     <Modal modalRef={modalRef} props={{ childrenStyle: { padding: 20 } }}>
-      <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>
+      <Text
+        style={{ color: theme.colors.text, fontSize: 20, fontWeight: 'bold' }}>
         Reset Board
       </Text>
+      <Text style={{ color: theme.colors.text }}>
+        Clear the content of the board
+      </Text>
 
-      <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+      <View style={{ flexDirection: 'row', paddingTop: 20 }}>
+        <Button
+          label="Clear everything"
+          onPress={clearEverything}
+          style={{
+            backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
+            flex: 1,
+            marginRight: 5,
+          }}
+        />
         <Button
           label="Only board content"
           onPress={clearNotes}
           style={{
-            backgroundColor: colors.card,
-            borderRadius: 5,
-            flex: 1,
-            marginRight: 5,
-          }}
-          pressableStyle={{ padding: 5 }}
-        />
-        <Button
-          label="Everything"
-          onPress={clearEverything}
-          style={{
-            backgroundColor: colors.card,
-            borderRadius: 5,
+            backgroundColor: theme.colors.card,
             flex: 1,
             marginLeft: 5,
           }}
-          pressableStyle={{ padding: 5 }}
         />
       </View>
-      <Button
-        label="Cancel"
-        onPress={dimiss}
-        style={{ backgroundColor: colors.card, borderRadius: 5 }}
-        pressableStyle={{ padding: 5 }}
-      />
     </Modal>
   );
 };

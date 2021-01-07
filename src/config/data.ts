@@ -35,30 +35,39 @@ export const sections: Section[] = [
   },
 ];
 
+export const colors = {
+  red: { dark: '#A5494F', light: '#ff595e' },
+  yellow: { dark: '#A7A15A', light: '#ffca3a' },
+  green: { dark: '#48864D', light: '#8ac926' },
+  blue: { dark: '#4A57BA', light: '#1982c4' },
+  purple: { dark: '#5F388B', light: '#6a4c93' },
+  white: { dark: '#BCBCBC', light: '#FFFFFF' },
+};
+
 export const headerData = [
   {
     suspect: 'Miss Scarlet',
-    color: { dark: '#A5494F', light: '#ff595e' },
+    color: colors.red,
   },
   {
     suspect: 'Col. Mustard',
-    color: { dark: '#A7A15A', light: '#ffca3a' },
+    color: colors.yellow,
   },
   {
     suspect: 'Mr. Green',
-    color: { dark: '#48864D', light: '#8ac926' },
+    color: colors.green,
   },
   {
     suspect: 'Mrs. Peacock',
-    color: { dark: '#4A57BA', light: '#1982c4' },
+    color: colors.blue,
   },
   {
     suspect: 'Prof. Plum',
-    color: { dark: '#5F388B', light: '#6a4c93' },
+    color: colors.purple,
   },
   {
     suspect: 'Mrs. White',
-    color: { dark: '#BCBCBC', light: '#FFFFFF' },
+    color: colors.white,
   },
 ];
 
@@ -69,7 +78,7 @@ export const icons = [
   'comment-search-outline',
   'eye-outline',
   'eye-off-outline',
-  'flash',
+  'flash-outline',
   'alien-outline',
   'arm-flex-outline',
 ];

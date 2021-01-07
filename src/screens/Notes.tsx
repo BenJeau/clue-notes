@@ -55,7 +55,6 @@ const Home: React.FC = () => {
                 style={{
                   color: colors.text,
                   fontSize: 16,
-                  fontWeight: 'bold',
                 }}>
                 {players[key]}
               </Text>
@@ -97,6 +96,9 @@ const Home: React.FC = () => {
       <SetPlayerNameModal
         modalRef={playerModalRef}
         selectedPlayerIndex={selectedPlayerIndex}
+        buttonColor={
+          headerData[selectedPlayerIndex].color[dark ? 'dark' : 'light']
+        }
       />
     </>
   );

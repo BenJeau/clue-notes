@@ -1,24 +1,27 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { Text, TextInput } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { Button, Text, TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { useDispatch } from 'react-redux';
 
-import { Modal } from '../components';
+import { Modal, Button } from '../components';
 import { setPlayer } from '../redux/slices/boardSlice';
 
 interface SetPlayerNameModalProps {
   modalRef: React.RefObject<Modalize>;
   selectedPlayerIndex: number;
+  buttonColor: string;
 }
 
 const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
   modalRef,
   selectedPlayerIndex,
+  buttonColor,
 }) => {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const [name, setName] = useState('');
+  const textInputRef = useRef<TextInput>(null);
 
   const save = () => {
     modalRef.current?.close();
@@ -27,17 +30,33 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
   };
 
   return (
-    <Modal modalRef={modalRef} props={{ childrenStyle: { padding: 20 } }}>
+    <Modal
+      modalRef={modalRef}
+      props={{
+        childrenStyle: { padding: 20 },
+        onOpened: () => textInputRef.current?.focus(),
+      }}>
       <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>
-        Set player name
+        Set Player Initials
       </Text>
+      <Text style={{ color: colors.text }}>Max of two characters</Text>
       <TextInput
+        ref={textInputRef}
         onChangeText={(text) => setName(text)}
         value={name}
         maxLength={2}
         autoCapitalize="characters"
+        onSubmitEditing={save}
+        placeholder="Player initials"
+        placeholderTextColor={`${buttonColor}80`}
+        selectionColor={buttonColor}
+        style={{ paddingLeft: 0, color: colors.text }}
       />
-      <Button title="Save" onPress={save} />
+      <Button
+        label="Save"
+        onPress={save}
+        style={{ backgroundColor: buttonColor }}
+      />
     </Modal>
   );
 };
