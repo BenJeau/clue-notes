@@ -28,7 +28,7 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
   };
 
   return (
-    <View style={[{ overflow: 'hidden', borderRadius: 5, margin: 4 }, style]}>
+    <View style={[{ overflow: 'hidden', borderRadius: 5, margin: 3 }, style]}>
       <Pressable
         style={{
           backgroundColor: isSelected ? colors.text : colors.card,

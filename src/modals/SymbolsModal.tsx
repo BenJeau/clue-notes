@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { useTheme } from '@react-navigation/native';
 
@@ -8,6 +8,7 @@ import {
   ALWAYS_OPEN,
   ALWAYS_OPEN_PADDING,
   ALWAYS_OPEN_TOP_PADDING,
+  SQUARE_SIZE,
 } from '../config/constants';
 import { icons, sheet } from '../config/data';
 
@@ -30,15 +31,26 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
       props={{
         alwaysOpen,
         childrenStyle: {
-          paddingTop: ALWAYS_OPEN_TOP_PADDING - 4,
+          padding:
+            (width -
+              parseInt(width / (SQUARE_SIZE + 6), 10) * (SQUARE_SIZE + 6)) /
+            2,
+          paddingTop: ALWAYS_OPEN_TOP_PADDING - 3,
           paddingBottom: ALWAYS_OPEN_PADDING,
+          alignItems: 'center',
+          width: '100%',
         },
       }}>
-      <View style={styles.section}>
-        <ModalPressable data={{ type: 'text', data: ' ' }} />
-        {icons.map((i, key) => (
-          <ModalPressable key={key} data={{ type: 'icon', data: i }} />
-        ))}
+      <View
+        style={{
+          alignItems: 'center',
+        }}>
+        <View style={styles.section}>
+          <ModalPressable data={{ type: 'text', data: ' ' }} />
+          {icons.map((i, key) => (
+            <ModalPressable key={key} data={{ type: 'icon', data: i }} />
+          ))}
+        </View>
       </View>
       {sheet.map((i, key) => (
         <View key={key}>
@@ -54,17 +66,19 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
   );
 };
 
+const { width } = Dimensions.get('screen');
+
 const styles = StyleSheet.create({
   section: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingBottom: 10,
     flexWrap: 'wrap',
   },
   header: {
-    textAlign: 'center',
     fontSize: 18,
-    paddingVertical: 10,
+    paddingVertical: 5,
+    paddingLeft: 3,
   },
 });
 
