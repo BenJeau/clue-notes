@@ -27,7 +27,7 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
   };
 
   return (
-    <Modal modalRef={modalRef}>
+    <Modal modalRef={modalRef} props={{ childrenStyle: { padding: 20 } }}>
       <Text style={{ color: colors.text, fontSize: 20, fontWeight: "bold" }}>
         Set player name
       </Text>

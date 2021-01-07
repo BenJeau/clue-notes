@@ -1,10 +1,10 @@
 import React from "react";
 
-import { RootStack } from "./src/navigation";
+import Navigator from "./src/navigation";
 import { Provider } from "./src/utils";
 
 export default () => (
   <Provider>
-    <RootStack />
+    <Navigator />
   </Provider>
 );

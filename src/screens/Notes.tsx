@@ -24,7 +24,6 @@ const Home: React.FC = () => {
           width: "100%",
           backgroundColor: colors.background,
           borderBottomWidth: 1,
-          borderTopWidth: 1,
           borderColor: colors.border,
           flexDirection: "row",
           justifyContent: "space-between",
