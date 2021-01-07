@@ -1,14 +1,14 @@
-import React from "react";
-import { Pressable, StyleProp, Text, View, ViewStyle } from "react-native";
-import { useTheme } from "@react-navigation/native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React from 'react';
+import { Pressable, StyleProp, Text, View, ViewStyle } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface ButtonProps {
   onPress: () => void;
   label: string;
   style?: StyleProp<ViewStyle>;
   pressableStyle?: StyleProp<ViewStyle>;
-  icon?: keyof typeof MaterialCommunityIcons.glyphMap;
+  icon?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   const { colors } = useTheme();
 
   return (
-    <View style={[{ overflow: "hidden" }, style]}>
+    <View style={[{ overflow: 'hidden' }, style]}>
       <Pressable
         onPress={onPress}
         android_ripple={{
@@ -29,13 +29,12 @@ const Button: React.FC<ButtonProps> = ({
         }}
         style={[
           {
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
           },
           pressableStyle,
-        ]}
-      >
+        ]}>
         {icon && (
           <MaterialCommunityIcons
             name={icon}

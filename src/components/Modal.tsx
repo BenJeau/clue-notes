@@ -1,8 +1,8 @@
-import React from "react";
-import { View } from "react-native";
-import { useTheme } from "@react-navigation/native";
-import { useHeaderHeight } from "@react-navigation/stack";
-import { Modalize, ModalizeProps } from "react-native-modalize";
+import React from 'react';
+import { View } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import { useHeaderHeight } from '@react-navigation/stack';
+import { Modalize, ModalizeProps } from 'react-native-modalize';
 
 interface ModalProps {
   modalRef: React.RefObject<Modalize>;
@@ -20,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
       handlePosition="inside"
       {...props}
       rootStyle={{
-        position: "absolute",
+        position: 'absolute',
         top: -headerHeight,
       }}
       modalStyle={{
@@ -29,8 +29,7 @@ const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
         borderTopStartRadius: 0,
       }}
       childrenStyle={{}}
-      handleStyle={{ backgroundColor: colors.text }}
-    >
+      handleStyle={{ backgroundColor: colors.text }}>
       <View
         style={[
           props?.childrenStyle,
@@ -38,8 +37,7 @@ const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
             borderTopWidth: 1,
             borderColor: colors.border,
           },
-        ]}
-      >
+        ]}>
         {children}
       </View>
     </Modalize>

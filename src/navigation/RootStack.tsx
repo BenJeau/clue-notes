@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
-import { Modalize } from "react-native-modalize";
-import { createStackNavigator } from "@react-navigation/stack";
+import React, { useRef } from 'react';
+import { Modalize } from 'react-native-modalize';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import { Notes } from "../screens";
-import { HeaderButton } from "../components";
-import { ResetModal } from "../modals";
-import { useTheme } from "@react-navigation/native";
+import { Notes } from '../screens';
+import { HeaderButton } from '../components';
+import { ResetModal } from '../modals';
+import { useTheme } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
@@ -23,8 +23,7 @@ const RootStack = () => {
             elevation: 0,
             backgroundColor: colors.background,
           },
-        }}
-      >
+        }}>
         <Stack.Screen
           name="Clue Notes"
           component={() => (

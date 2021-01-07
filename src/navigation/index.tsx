@@ -1,8 +1,8 @@
-import React from "react";
-import { StatusBar } from "react-native";
-import { useTheme } from "@react-navigation/native";
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 
-import RootStack from "./RootStack";
+import RootStack from './RootStack';
 
 const Navigator: React.FC = () => {
   const { colors, dark } = useTheme();
@@ -11,7 +11,7 @@ const Navigator: React.FC = () => {
     <>
       <StatusBar
         backgroundColor={colors.background}
-        barStyle={dark ? "light-content" : "dark-content"}
+        barStyle={dark ? 'light-content' : 'dark-content'}
       />
       <RootStack />
     </>

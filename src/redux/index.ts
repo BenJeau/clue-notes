@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
   persistReducer,
   persistStore,
@@ -8,21 +8,21 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+} from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   useSelector as useReduxSelector,
   TypedUseSelectorHook,
-} from "react-redux";
+} from 'react-redux';
 
-import rootReducer from "./slices";
+import rootReducer from './slices';
 
 const persistedReducer = persistReducer(
   {
-    key: "root",
+    key: 'root',
     storage: AsyncStorage,
   },
-  rootReducer
+  rootReducer,
 );
 
 export const store = configureStore({

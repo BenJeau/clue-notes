@@ -1,11 +1,11 @@
-import React from "react";
-import { useTheme } from "@react-navigation/native";
-import { Text, View } from "react-native";
-import { Modalize } from "react-native-modalize";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { useTheme } from '@react-navigation/native';
+import { Text, View } from 'react-native';
+import { Modalize } from 'react-native-modalize';
+import { useDispatch } from 'react-redux';
 
-import { clearBoard, clearPlayers } from "../redux/slices/boardSlice";
-import { Button, Modal } from "../components";
+import { clearBoard, clearPlayers } from '../redux/slices/boardSlice';
+import { Button, Modal } from '../components';
 
 interface ResetModalProps {
   modalRef: React.RefObject<Modalize>;
@@ -30,11 +30,11 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
 
   return (
     <Modal modalRef={modalRef} props={{ childrenStyle: { padding: 20 } }}>
-      <Text style={{ color: colors.text, fontSize: 20, fontWeight: "bold" }}>
+      <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>
         Reset Board
       </Text>
 
-      <View style={{ flexDirection: "row", marginBottom: 10 }}>
+      <View style={{ flexDirection: 'row', marginBottom: 10 }}>
         <Button
           label="Only board content"
           onPress={clearNotes}

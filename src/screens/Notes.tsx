@@ -1,13 +1,13 @@
-import React, { useMemo, useRef, useState } from "react";
-import { SectionList, Pressable, Text, View, Platform } from "react-native";
-import { useTheme } from "@react-navigation/native";
-import { Modalize } from "react-native-modalize";
+import React, { useRef, useState } from 'react';
+import { SectionList, Pressable, Text, View, Platform } from 'react-native';
+import { useTheme } from '@react-navigation/native';
+import { Modalize } from 'react-native-modalize';
 
-import { headerData, sections } from "../config/data";
-import { useSelector } from "../redux";
-import { BoardRow } from "../components";
-import { SQUARE_SIZE, ALWAYS_OPEN } from "../config/constants";
-import { SetPlayerNameModal, SymbolsModal } from "../modals";
+import { headerData, sections } from '../config/data';
+import { useSelector } from '../redux';
+import { BoardRow } from '../components';
+import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
+import { SetPlayerNameModal, SymbolsModal } from '../modals';
 
 const Home: React.FC = () => {
   const { colors, dark } = useTheme();
@@ -21,19 +21,18 @@ const Home: React.FC = () => {
     <>
       <View
         style={{
-          width: "100%",
+          width: '100%',
           backgroundColor: colors.background,
           borderBottomWidth: 1,
           borderColor: colors.border,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <View style={{ flex: 1, paddingLeft: 20, justifyContent: "center" }}>
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
+        <View style={{ flex: 1, paddingLeft: 20, justifyContent: 'center' }}>
           <Text style={{ color: colors.text }}></Text>
         </View>
 
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: 'row' }}>
           {headerData.map(({ color }, key) => (
             <Pressable
               key={key}
@@ -46,20 +45,18 @@ const Home: React.FC = () => {
                 width: SQUARE_SIZE,
                 borderStartWidth: 1,
                 borderColor: colors.border,
-                backgroundColor: color[dark ? "dark" : "light"],
-                opacity: Platform.OS === "ios" && pressed ? 0.5 : 1,
-                justifyContent: "center",
-                alignItems: "center",
+                backgroundColor: color[dark ? 'dark' : 'light'],
+                opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
+                justifyContent: 'center',
+                alignItems: 'center',
               })}
-              android_ripple={{ color: colors.background }}
-            >
+              android_ripple={{ color: colors.background }}>
               <Text
                 style={{
                   color: colors.text,
                   fontSize: 16,
-                  fontWeight: "bold",
-                }}
-              >
+                  fontWeight: 'bold',
+                }}>
                 {players[key]}
               </Text>
             </Pressable>
@@ -79,16 +76,14 @@ const Home: React.FC = () => {
               backgroundColor: colors.card,
               borderBottomWidth: 1,
               borderColor: colors.border,
-            }}
-          >
+            }}>
             <Text
               style={{
                 color: colors.text,
                 fontSize: 18,
                 paddingHorizontal: 20,
                 paddingVertical: 10,
-              }}
-            >
+              }}>
               {title}
             </Text>
           </View>

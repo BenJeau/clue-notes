@@ -1,13 +1,13 @@
-import React, { useMemo, useState } from "react";
-import { useTheme } from "@react-navigation/native";
-import { Platform, Pressable, Text, Vibration, View } from "react-native";
-import { useDispatch } from "react-redux";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useMemo, useState } from 'react';
+import { useTheme } from '@react-navigation/native';
+import { Platform, Pressable, Text, Vibration, View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { SQUARE_SIZE } from "../config/constants";
-import { headerData } from "../config/data";
-import { useSelector } from "../redux";
-import { setBoardValue } from "../redux/slices/boardSlice";
+import { SQUARE_SIZE } from '../config/constants';
+import { headerData } from '../config/data';
+import { useSelector } from '../redux';
+import { setBoardValue } from '../redux/slices/boardSlice';
 
 interface BoardRowProps {
   item: string;
@@ -28,36 +28,33 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
   return (
     <View
       style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderColor: colors.border,
-      }}
-    >
+      }}>
       <Pressable
         onPress={() => {
           Vibration.vibrate(10);
           setScratched((prev) => !prev);
         }}
         style={({ pressed }) => ({
-          opacity: Platform.OS === "ios" && pressed ? 0.5 : 1,
+          opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
           paddingLeft: 20,
-          justifyContent: "center",
+          justifyContent: 'center',
           flex: 1,
         })}
-        android_ripple={{ color: colors.border }}
-      >
+        android_ripple={{ color: colors.border }}>
         <Text
           style={{
-            color: scratched ? "red" : colors.text,
-            textDecorationLine: scratched ? "line-through" : "none",
+            color: scratched ? 'red' : colors.text,
+            textDecorationLine: scratched ? 'line-through' : 'none',
             opacity: scratched ? 0.5 : 1,
-          }}
-        >
+          }}>
           {item}
         </Text>
       </Pressable>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: 'row' }}>
         {headerData.map(({ color }, key) => {
           const updateBox = () => {
             dispatch(setBoardValue({ row: index, col: key }));
@@ -71,15 +68,14 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
                 width: SQUARE_SIZE,
                 borderStartWidth: 1,
                 borderColor: colors.border,
-                backgroundColor: `${color[dark ? "dark" : "light"]}20`,
-                justifyContent: "center",
-                alignItems: "center",
+                backgroundColor: `${color[dark ? 'dark' : 'light']}20`,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
               onPress={updateBox}
-              android_ripple={{ color: color[dark ? "dark" : "light"] }}
-            >
+              android_ripple={{ color: color[dark ? 'dark' : 'light'] }}>
               {data[key] &&
-                (data[key].type === "icon" ? (
+                (data[key].type === 'icon' ? (
                   <MaterialCommunityIcons
                     name={data[key].data}
                     size={20}

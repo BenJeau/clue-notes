@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface BoardEntry {
-  type: "icon" | "text";
+  type: 'icon' | 'text';
   data: string;
 }
 
@@ -21,25 +21,25 @@ const initialState: BoardType = {
   players: {},
   board: {},
   selected: {
-    type: "icon",
-    data: "check"
-  }
+    type: 'icon',
+    data: 'check',
+  },
 };
 
 const boardSlice = createSlice({
-  name: "board",
+  name: 'board',
   initialState,
   reducers: {
     setPlayer: (
       state,
-      action: PayloadAction<{ index: number; name: string }>
+      action: PayloadAction<{ index: number; name: string }>,
     ) => {
       const { index, name } = action.payload;
       state.players[index] = name;
     },
     setBoardValue: (
       state,
-      action: PayloadAction<{ row: string; col: number; }>
+      action: PayloadAction<{ row: string; col: number }>,
     ) => {
       const { row, col } = action.payload;
 
