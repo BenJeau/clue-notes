@@ -1,5 +1,3 @@
-import { BoardEntry } from "../redux/slices/boardSlice";
-
 export interface Section {
   title: string;
   data: string[];
@@ -72,12 +70,14 @@ export const icons = [
   "eye-outline",
   "eye-off-outline",
   "flash",
+  "alien-outline",
+  "arm-flex-outline",
 ];
 
 export const sheet = [
   {
     title: "Numbers",
-    data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    data: "0123456789".split(""),
   },
   {
     title: "Letters",

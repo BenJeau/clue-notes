@@ -10,7 +10,7 @@ interface BoardType {
     [key: number]: string;
   };
   board: {
-    [key: number]: {
+    [key: string]: {
       [key: number]: BoardEntry;
     };
   };
@@ -39,15 +39,18 @@ const boardSlice = createSlice({
     },
     setBoardValue: (
       state,
-      action: PayloadAction<{ row: number; col: number; data: BoardEntry }>
+      action: PayloadAction<{ row: string; col: number; }>
     ) => {
-      const { row, col, data } = action.payload;
+      const { row, col } = action.payload;
 
       if (!state.board[row]) {
         state.board[row] = {};
       }
 
-      state.board[row][col] = data;
+      state.board[row][col] = state.selected;
+    },
+    setSelected: (state, action: PayloadAction<BoardEntry>) => {
+      state.selected = action.payload;
     },
     clearBoard: (state) => {
       state.board = {};
@@ -63,5 +66,6 @@ export const {
   clearPlayers,
   setBoardValue,
   setPlayer,
+  setSelected,
 } = boardSlice.actions;
 export default boardSlice.reducer;

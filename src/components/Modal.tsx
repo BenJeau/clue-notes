@@ -1,7 +1,7 @@
-import { useTheme } from "@react-navigation/native";
-import { useHeaderHeight } from "@react-navigation/stack";
 import React from "react";
 import { View } from "react-native";
+import { useTheme } from "@react-navigation/native";
+import { useHeaderHeight } from "@react-navigation/stack";
 import { Modalize, ModalizeProps } from "react-native-modalize";
 
 interface ModalProps {
@@ -22,23 +22,23 @@ const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
       rootStyle={{
         position: "absolute",
         top: -headerHeight,
-        ...props?.rootStyle,
       }}
       modalStyle={{
         backgroundColor: colors.background,
         borderTopEndRadius: 0,
         borderTopStartRadius: 0,
-        ...props?.modalStyle,
       }}
       childrenStyle={{}}
-      handleStyle={{ backgroundColor: colors.text, ...props?.handleStyle }}
+      handleStyle={{ backgroundColor: colors.text }}
     >
       <View
-        style={{
-          borderTopWidth: 1,
-          borderColor: colors.border,
-          ...props?.childrenStyle,
-        }}
+        style={[
+          props?.childrenStyle,
+          {
+            borderTopWidth: 1,
+            borderColor: colors.border,
+          },
+        ]}
       >
         {children}
       </View>

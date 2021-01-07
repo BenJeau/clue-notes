@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import { Accelerometer } from "expo-sensors";
 import { useHeaderHeight } from "@react-navigation/stack";
-
 import Animated from "react-native-reanimated";
+import { useTheme } from "@react-navigation/native";
+import { Subscription } from "@unimodules/core";
 
-const Overlay = () => {
+const Overlay: React.FC = () => {
   const headerHeight = useHeaderHeight();
+  const { colors } = useTheme();
 
   const elevation = Animated.useValue<number>(0);
-  const [subscription, setSubscription] = useState(null);
+  const [subscription, setSubscription] = useState<Subscription>();
 
   const _subscribe = () => {
     setSubscription(
@@ -23,7 +25,7 @@ const Overlay = () => {
 
   const _unsubscribe = () => {
     subscription && subscription.remove();
-    setSubscription(null);
+    setSubscription(undefined);
   };
 
   useEffect(() => {
@@ -46,7 +48,7 @@ const Overlay = () => {
         zIndex: 100,
         elevation: 100,
         width: "100%",
-        backgroundColor: "red",
+        backgroundColor: colors.background,
         top: -headerHeight,
         opacity,
       }}
