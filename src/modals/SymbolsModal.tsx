@@ -1,5 +1,5 @@
-import React from 'react';
-import { Dimensions, FlatList, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { useTheme } from '@react-navigation/native';
 
@@ -17,74 +17,55 @@ interface SymbolsModalProps {
 
 const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
   const { colors } = useTheme();
+  const [alwaysOpen, setAlwaysOpen] = useState(0);
+
+  // Fixes a bug where the modal would open completely when loading the app
+  useEffect(() => {
+    setTimeout(() => setAlwaysOpen(ALWAYS_OPEN), 500);
+  }, []);
 
   return (
     <Modal
       modalRef={modalRef}
       props={{
-        alwaysOpen: ALWAYS_OPEN,
+        alwaysOpen,
         childrenStyle: {
-          padding: ALWAYS_OPEN_PADDING,
-          paddingTop: ALWAYS_OPEN_TOP_PADDING,
+          paddingTop: ALWAYS_OPEN_TOP_PADDING - 4,
+          paddingBottom: ALWAYS_OPEN_PADDING,
         },
       }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingBottom: 10,
-          flexWrap: 'wrap',
-        }}>
+      <View style={styles.section}>
         <ModalPressable data={{ type: 'text', data: ' ' }} />
         {icons.map((i, key) => (
           <ModalPressable key={key} data={{ type: 'icon', data: i }} />
         ))}
       </View>
       {sheet.map((i, key) => (
-        <>
-          <View
-            key={key}
-            style={{
-              width: '100%',
-            }}>
-            <Text
-              style={{
-                color: colors.text,
-                fontSize: 18,
-                paddingVertical: 10,
-              }}>
-              {i.title}
-            </Text>
+        <View key={key}>
+          <Text style={[styles.header, { color: colors.text }]}>{i.title}</Text>
+          <View style={styles.section}>
+            {i.data.map((j) => (
+              <ModalPressable key={j} data={{ type: 'text', data: j }} />
+            ))}
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              flex: 1,
-              justifyContent: 'space-between',
-            }}>
-            <FlatList
-              data={i.data}
-              renderItem={({ item }) => (
-                <ModalPressable key={key} data={{ type: 'text', data: item }} />
-              )}
-              numColumns={8}
-              style={{}}
-              contentContainerStyle={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-              }}
-              columnWrapperStyle={{
-                width: Dimensions.get('screen').width - ALWAYS_OPEN_PADDING * 2,
-                justifyContent: 'space-between',
-                paddingBottom: 8,
-              }}
-            />
-          </View>
-        </>
+        </View>
       ))}
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  section: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 10,
+    flexWrap: 'wrap',
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: 18,
+    paddingVertical: 10,
+  },
+});
 
 export default SymbolsModal;

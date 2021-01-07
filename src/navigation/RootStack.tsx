@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Notes } from '../screens';
 import { HeaderButton } from '../components';
-import { ResetModal } from '../modals';
 import { useTheme } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
@@ -26,12 +25,8 @@ const RootStack = () => {
         }}>
         <Stack.Screen
           name="Clue Notes"
-          component={() => (
-            <>
-              <Notes />
-              <ResetModal modalRef={resetModalRef} />
-            </>
-          )}
+          component={Notes}
+          initialParams={{ resetModalRef }}
           options={{
             headerRight: () => (
               <HeaderButton icon="restore" onPress={openModal} />

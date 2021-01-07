@@ -7,9 +7,21 @@ import { headerData, sections } from '../config/data';
 import { useSelector } from '../redux';
 import { BoardRow } from '../components';
 import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
-import { SetPlayerNameModal, SymbolsModal } from '../modals';
+import { ResetModal, SetPlayerNameModal, SymbolsModal } from '../modals';
 
-const Home: React.FC = () => {
+interface HomeProps {
+  route: {
+    params: {
+      resetModalRef: React.RefObject<Modalize>;
+    };
+  };
+}
+
+const Home: React.FC<HomeProps> = ({
+  route: {
+    params: { resetModalRef },
+  },
+}) => {
   const { colors, dark } = useTheme();
   const playerModalRef = useRef<Modalize>(null);
   const symbolsModalRef = useRef<Modalize>(null);
@@ -21,46 +33,40 @@ const Home: React.FC = () => {
     <>
       <View
         style={{
-          width: '100%',
-          backgroundColor: colors.background,
-          borderBottomWidth: 1,
           borderColor: colors.border,
+          backgroundColor: colors.background,
+          width: '100%',
+          borderBottomWidth: 1,
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
         }}>
-        <View style={{ flex: 1, paddingLeft: 20, justifyContent: 'center' }}>
-          <Text style={{ color: colors.text }}></Text>
-        </View>
-
-        <View style={{ flexDirection: 'row' }}>
-          {headerData.map(({ color }, key) => (
-            <Pressable
-              key={key}
-              onPress={() => {
-                setSelectedPlayerIndex(key);
-                playerModalRef.current?.open();
-              }}
-              style={({ pressed }) => ({
-                height: SQUARE_SIZE,
-                width: SQUARE_SIZE,
-                borderStartWidth: 1,
-                borderColor: colors.border,
-                backgroundColor: color[dark ? 'dark' : 'light'],
-                opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              })}
-              android_ripple={{ color: colors.background }}>
-              <Text
-                style={{
-                  color: colors.text,
-                  fontSize: 16,
-                }}>
-                {players[key]}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
+        {headerData.map(({ color }, key) => (
+          <Pressable
+            key={key}
+            onPress={() => {
+              setSelectedPlayerIndex(key);
+              playerModalRef.current?.open();
+            }}
+            style={({ pressed }) => ({
+              height: SQUARE_SIZE,
+              width: SQUARE_SIZE,
+              borderColor: colors.border,
+              backgroundColor: color[dark ? 'dark' : 'light'],
+              opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
+              borderStartWidth: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            })}
+            android_ripple={{ color: colors.background }}>
+            <Text
+              style={{
+                color: colors.text,
+                fontSize: 16,
+              }}>
+              {players[key]}
+            </Text>
+          </Pressable>
+        ))}
       </View>
 
       <SectionList
@@ -73,8 +79,8 @@ const Home: React.FC = () => {
           <View
             style={{
               backgroundColor: colors.card,
-              borderBottomWidth: 1,
               borderColor: colors.border,
+              borderBottomWidth: 1,
             }}>
             <Text
               style={{
@@ -92,6 +98,8 @@ const Home: React.FC = () => {
       />
 
       <SymbolsModal modalRef={symbolsModalRef} />
+
+      <ResetModal modalRef={resetModalRef} />
 
       <SetPlayerNameModal
         modalRef={playerModalRef}

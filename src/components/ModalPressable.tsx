@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, StyleProp, Text, View, ViewStyle } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -10,10 +10,12 @@ import { SQUARE_SIZE } from '../config/constants';
 
 interface ModalPressableProps {
   data: BoardEntry;
+  style?: StyleProp<ViewStyle>;
 }
 
 const ModalPressable: React.FC<ModalPressableProps> = ({
   data: { data, type },
+  style,
 }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
   };
 
   return (
-    <View style={{ overflow: 'hidden', borderRadius: 5 }}>
+    <View style={[{ overflow: 'hidden', borderRadius: 5, margin: 4 }, style]}>
       <Pressable
         style={{
           backgroundColor: isSelected ? colors.text : colors.card,
