@@ -1,8 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import { useHeaderHeight } from '@react-navigation/stack';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
+
+import { useTheme } from '../hooks';
 
 interface ModalProps {
   modalRef: React.RefObject<Modalize>;

@@ -12,7 +12,7 @@ interface ResetModalProps {
   modalRef: React.RefObject<Modalize>;
 }
 
-const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
+const ResetModal: React.FC<ResetModalProps> = ({ modalRef, animated }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -30,7 +30,12 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
   const dimiss = () => modalRef.current?.close();
 
   return (
-    <Modal modalRef={modalRef} props={{ childrenStyle: { padding: 20 } }}>
+    <Modal
+      modalRef={modalRef}
+      props={{
+        childrenStyle: { padding: 20 },
+        panGestureAnimatedValue: animated,
+      }}>
       <Text
         style={{ color: theme.colors.text, fontSize: 20, fontWeight: 'bold' }}>
         Reset Board

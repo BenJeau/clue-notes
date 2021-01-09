@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { SectionList, Pressable, Text, View, Platform } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import { Modalize } from 'react-native-modalize';
 
 import { headerData, sections } from '../config/data';
 import { useSelector } from '../redux';
-import { BoardRow } from '../components';
+import { BoardRow, Header } from '../components';
 import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
 import { ResetModal, SetPlayerNameModal, SymbolsModal } from '../modals';
+import { useTheme } from '../hooks';
 
 interface HomeProps {
   route: {
@@ -17,20 +17,21 @@ interface HomeProps {
   };
 }
 
-const Home: React.FC<HomeProps> = ({
-  route: {
-    params: { resetModalRef },
-  },
-}) => {
+const Home: React.FC<HomeProps> = () => {
   const { colors, dark } = useTheme();
   const playerModalRef = useRef<Modalize>(null);
   const symbolsModalRef = useRef<Modalize>(null);
+  const resetModalRef = useRef<Modalize>(null);
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(0);
 
   const { players } = useSelector(({ board }) => board);
 
+  const openModal = () => resetModalRef.current?.open();
   return (
     <>
+      <Header
+        icons={[{ name: 'undo-variant', openModal }, { name: 'dots-vertical' }]}
+      />
       <View
         style={{
           borderColor: colors.border,

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Pressable, StyleProp, Text, View, ViewStyle } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { useTheme } from '../hooks';
 
 interface ButtonProps {
   onPress: () => void;
@@ -32,7 +33,7 @@ const Button: React.FC<ButtonProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            padding: 7,
+            padding: 10,
           },
           pressableStyle,
         ]}>

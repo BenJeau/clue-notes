@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 import RootStack from './RootStack';
+import { useTheme } from '../hooks';
 
 const Navigator: React.FC = () => {
   const { colors, dark } = useTheme();
@@ -16,7 +16,7 @@ const Navigator: React.FC = () => {
     <>
       <StatusBar
         translucent
-        backgroundColor="#00000000"
+        backgroundColor={colors.background}
         barStyle={dark ? 'light-content' : 'dark-content'}
       />
       <RootStack />

@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { useTheme } from '@react-navigation/native';
 import { Platform, Pressable, Text, Vibration, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,6 +7,7 @@ import { SQUARE_SIZE } from '../config/constants';
 import { headerData } from '../config/data';
 import { useSelector } from '../redux';
 import { setBoardValue } from '../redux/slices/boardSlice';
+import { useTheme } from '../hooks';
 
 interface BoardRowProps {
   item: string;
