@@ -1,5 +1,12 @@
 import React from 'react';
-import { Pressable, StyleProp, Text, View, ViewStyle } from 'react-native';
+import {
+  Pressable,
+  StyleProp,
+  Text,
+  Vibration,
+  View,
+  ViewStyle,
+} from 'react-native';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { BoardEntry, setSelected } from '../redux/slices/boardSlice';
@@ -22,6 +29,7 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
   const isSelected = selected.data === data && selected.type === type;
 
   const updateSelected = () => {
+    Vibration.vibrate(10);
     dispatch(setSelected({ data, type }));
   };
 

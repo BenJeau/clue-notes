@@ -55,6 +55,7 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
       <View style={{ flexDirection: 'row' }}>
         {headerData.map(({ color }, key) => {
           const updateBox = () => {
+            Vibration.vibrate(10);
             dispatch(setBoardValue({ row: index, col: key }));
           };
 

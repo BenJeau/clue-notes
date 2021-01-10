@@ -1,12 +1,22 @@
 import React, { useRef, useState } from 'react';
-import { SectionList, Pressable, Text, View, Platform } from 'react-native';
+import {
+  SectionList,
+  Pressable,
+  Text,
+  View,
+  Platform,
+  Vibration,
+} from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { headerData, sections } from '../config/data';
 import { BoardRow, Header } from '../components';
 import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
 import {
+  CameraModal,
   CustomizeBoardModal,
+  ManualModifyBoardModal,
+  QrCodeModal,
   ResetModal,
   SetPlayerNameModal,
   SettingsModal,
@@ -20,6 +30,9 @@ const Home: React.FC = () => {
   const resetModalRef = useRef<Modalize>(null);
   const settingsModalRef = useRef<Modalize>(null);
   const customizeModalRef = useRef<Modalize>(null);
+  const cameraModalRef = useRef<Modalize>(null);
+  const qrModalRef = useRef<Modalize>(null);
+  const modifyBoardModalRef = useRef<Modalize>(null);
 
   const { colors, dark } = useTheme();
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(0);
@@ -29,6 +42,9 @@ const Home: React.FC = () => {
   const openResetModal = () => resetModalRef.current?.open();
   const openSettingsModal = () => settingsModalRef.current?.open();
   const openCustomizeModal = () => customizeModalRef.current?.open();
+  const openCameraModal = () => cameraModalRef.current?.open();
+  const openQrModal = () => qrModalRef.current?.open();
+  const openModifyBoardModal = () => modifyBoardModalRef.current?.open();
 
   return (
     <>
@@ -61,6 +77,7 @@ const Home: React.FC = () => {
             <Pressable
               key={key}
               onPress={() => {
+                Vibration.vibrate(10);
                 setSelectedPlayerIndex(key);
                 playerModalRef.current?.open();
               }}
@@ -121,7 +138,15 @@ const Home: React.FC = () => {
         modalRef={settingsModalRef}
         openCustomizeBoard={openCustomizeModal}
       />
-      <CustomizeBoardModal modalRef={customizeModalRef} />
+      <CustomizeBoardModal
+        modalRef={customizeModalRef}
+        openCameraModal={openCameraModal}
+        openQrModal={openQrModal}
+        openModifyBoardModal={openModifyBoardModal}
+      />
+      <QrCodeModal modalRef={qrModalRef} />
+      <CameraModal modalRef={cameraModalRef} />
+      <ManualModifyBoardModal modalRef={modifyBoardModalRef} />
 
       <SetPlayerNameModal
         modalRef={playerModalRef}

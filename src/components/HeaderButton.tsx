@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, Vibration, View, ViewStyle } from 'react-native';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { useTheme } from '../hooks';
@@ -20,7 +20,13 @@ const HeaderButton: React.FC<HeaderButtonProps> = ({
   return (
     <View style={[{ borderRadius: 17.5, overflow: 'hidden' }, style]}>
       <Pressable
-        onPress={onPress}
+        onPress={
+          onPress &&
+          (() => {
+            Vibration.vibrate(10);
+            onPress();
+          })
+        }
         android_ripple={{
           color: colors.text,
         }}
