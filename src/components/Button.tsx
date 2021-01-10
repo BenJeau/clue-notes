@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleProp, Text, View, ViewStyle } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { useTheme } from '../hooks';
 
@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
   const { colors } = useTheme();
 
   return (
-    <View style={[{ overflow: 'hidden', borderRadius: 5 }, style]}>
+    <View style={[{ overflow: 'hidden', borderRadius: 10 }, style]}>
       <Pressable
         onPress={onPress}
         android_ripple={{
@@ -33,7 +33,7 @@ const Button: React.FC<ButtonProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            padding: 10,
+            padding: 9,
           },
           pressableStyle,
         ]}>
@@ -45,7 +45,14 @@ const Button: React.FC<ButtonProps> = ({
             style={{ marginRight: 5 }}
           />
         )}
-        <Text style={{ color: colors.text, opacity: 0.9 }}>{label}</Text>
+        <Text
+          style={{
+            color: colors.text,
+            opacity: 0.8,
+            fontFamily: 'sans-serif-medium',
+          }}>
+          {label}
+        </Text>
       </Pressable>
     </View>
   );

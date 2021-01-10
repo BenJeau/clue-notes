@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
-import { useTheme } from '@react-navigation/native';
 
 import { Modal, ModalPressable } from '../components';
 import {
@@ -11,6 +10,7 @@ import {
   SQUARE_SIZE,
 } from '../config/constants';
 import { icons, sheet } from '../config/data';
+import { useTheme } from '../hooks';
 
 interface SymbolsModalProps {
   modalRef: React.RefObject<Modalize>;

@@ -1,27 +1,32 @@
-import React from 'react';
-import { useColorScheme } from 'react-native';
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { StatusBar, View } from 'react-native';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider as ReduxProvider } from 'react-redux';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 import { store, persistor } from '../redux';
+import { useTheme } from '../hooks';
 
 const Provider: React.FC = ({ children }) => {
-  const scheme = useColorScheme();
+  const { dark, colors } = useTheme();
+
+  useEffect(() => {
+    changeNavigationBarColor(colors.background, !dark, true);
+  }, [colors, dark]);
 
   return (
-    <ReduxProvider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer
-          theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <View style={{ backgroundColor: colors.background }}>
+      <StatusBar
+        translucent
+        backgroundColor={'#00000000'}
+        barStyle={dark ? 'light-content' : 'dark-content'}
+      />
+      <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           {children}
-        </NavigationContainer>
-      </PersistGate>
-    </ReduxProvider>
+        </PersistGate>
+      </ReduxProvider>
+    </View>
   );
 };
 

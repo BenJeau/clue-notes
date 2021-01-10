@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, StyleProp, Text, View, ViewStyle } from 'react-native';
 import { useDispatch } from 'react-redux';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { useSelector } from '../redux';
 import { BoardEntry, setSelected } from '../redux/slices/boardSlice';

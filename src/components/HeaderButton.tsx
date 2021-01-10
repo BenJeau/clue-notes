@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { useTheme } from '../hooks';
 

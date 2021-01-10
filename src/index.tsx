@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Navigator from './navigation';
+import { Notes } from './screens';
 import { Provider } from './utils';
 
 export default () => (
   <Provider>
-    <Navigator />
+    <Notes />
   </Provider>
 );

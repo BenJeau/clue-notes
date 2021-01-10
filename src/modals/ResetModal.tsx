@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { useDispatch } from 'react-redux';
@@ -7,12 +6,13 @@ import { useDispatch } from 'react-redux';
 import { clearBoard, clearPlayers } from '../redux/slices/boardSlice';
 import { Button, Modal } from '../components';
 import { colors } from '../config/data';
+import { useTheme } from '../hooks';
 
 interface ResetModalProps {
   modalRef: React.RefObject<Modalize>;
 }
 
-const ResetModal: React.FC<ResetModalProps> = ({ modalRef, animated }) => {
+const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -34,7 +34,6 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef, animated }) => {
       modalRef={modalRef}
       props={{
         childrenStyle: { padding: 20 },
-        panGestureAnimatedValue: animated,
       }}>
       <Text
         style={{ color: theme.colors.text, fontSize: 20, fontWeight: 'bold' }}>

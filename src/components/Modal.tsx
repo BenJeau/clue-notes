@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useHeaderHeight } from '@react-navigation/stack';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
 
 import { useTheme } from '../hooks';
@@ -12,7 +11,6 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
   const { colors } = useTheme();
-  const headerHeight = useHeaderHeight();
 
   return (
     <Modalize
@@ -20,10 +18,6 @@ const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
       adjustToContentHeight
       handlePosition="inside"
       {...props}
-      rootStyle={{
-        position: 'absolute',
-        top: -headerHeight,
-      }}
       modalStyle={{
         backgroundColor: colors.background,
         borderTopEndRadius: 0,

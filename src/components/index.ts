@@ -5,3 +5,4 @@ export { default as BoardRow } from './BoardRow';
 export { default as HeaderButton } from './HeaderButton';
 export { default as Button } from './Button';
 export { default as Header } from './Header';
+export { default as MaterialCommunityIcons } from './MaterialCommunityIcons';

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+
 import { useTheme } from '../hooks';
 import HeaderButton from './HeaderButton';
 
@@ -16,9 +18,12 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
   return (
     <View
       style={{
-        height: 60,
+        height: 55 + getStatusBarHeight(),
         width: '100%',
-        marginLeft: 16,
+        paddingTop: getStatusBarHeight(),
+        borderBottomWidth: 1,
+        borderColor: colors.border,
+        backgroundColor: colors.card,
       }}>
       <View
         style={{
@@ -26,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
           justifyContent: 'space-between',
           flexDirection: 'row',
           flex: 1,
-          marginRight: 21,
+          paddingLeft: 16,
         }}>
         <Text
           style={{
@@ -42,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
               key={key}
               icon={name}
               onPress={onPress}
-              style={{ marginLeft: 5 }}
+              style={{ marginRight: 5 }}
             />
           ))}
         </View>

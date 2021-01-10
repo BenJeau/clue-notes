@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { Text, TextInput } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import { Modalize } from 'react-native-modalize';
 import { useDispatch } from 'react-redux';
 
 import { Modal, Button } from '../components';
+import { useTheme } from '../hooks';
 import { setPlayer } from '../redux/slices/boardSlice';
 
 interface SetPlayerNameModalProps {
@@ -48,7 +48,7 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
         autoCapitalize="characters"
         onSubmitEditing={save}
         placeholder="Player initials"
-        placeholderTextColor={`${buttonColor}80`}
+        placeholderTextColor={`${colors.text}70`}
         selectionColor={buttonColor}
         style={{ paddingLeft: 0, color: colors.text }}
       />

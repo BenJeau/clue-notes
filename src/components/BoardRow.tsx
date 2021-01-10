@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Platform, Pressable, Text, Vibration, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { SQUARE_SIZE } from '../config/constants';
 import { headerData } from '../config/data';
