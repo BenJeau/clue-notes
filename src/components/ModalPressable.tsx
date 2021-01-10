@@ -1,12 +1,10 @@
 import React from 'react';
 import { Pressable, StyleProp, Text, View, ViewStyle } from 'react-native';
-import { useDispatch } from 'react-redux';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 
-import { useSelector } from '../redux';
 import { BoardEntry, setSelected } from '../redux/slices/boardSlice';
 import { SQUARE_SIZE } from '../config/constants';
-import { useTheme } from '../hooks';
+import { useTheme, useSelector, useDispatch } from '../hooks';
 
 interface ModalPressableProps {
   data: BoardEntry;

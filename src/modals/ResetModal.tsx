@@ -1,12 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
-import { useDispatch } from 'react-redux';
 
 import { clearBoard, clearPlayers } from '../redux/slices/boardSlice';
 import { Button, Modal } from '../components';
 import { colors } from '../config/data';
-import { useTheme } from '../hooks';
+import { useTheme, useDispatch } from '../hooks';
 
 interface ResetModalProps {
   modalRef: React.RefObject<Modalize>;

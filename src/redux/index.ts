@@ -10,10 +10,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  useSelector as useReduxSelector,
-  TypedUseSelectorHook,
-} from 'react-redux';
 
 import rootReducer from './slices';
 
@@ -36,6 +32,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-export type RootState = ReturnType<typeof rootReducer>;
-export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;

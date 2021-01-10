@@ -25,16 +25,18 @@ const Modal: React.FC<ModalProps> = ({ modalRef, children, props }) => {
       }}
       childrenStyle={{}}
       handleStyle={[{ backgroundColor: colors.text }, props?.handleStyle]}>
-      <View
-        style={[
-          {
-            borderTopWidth: 1,
-            borderColor: colors.border,
-          },
-          props?.childrenStyle,
-        ]}>
-        {children}
-      </View>
+      {children && (
+        <View
+          style={[
+            {
+              borderTopWidth: 1,
+              borderColor: colors.border,
+            },
+            props?.childrenStyle,
+          ]}>
+          {children}
+        </View>
+      )}
     </Modalize>
   );
 };

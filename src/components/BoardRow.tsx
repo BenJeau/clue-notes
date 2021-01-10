@@ -1,13 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { Platform, Pressable, Text, Vibration, View } from 'react-native';
-import { useDispatch } from 'react-redux';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { SQUARE_SIZE } from '../config/constants';
 import { headerData } from '../config/data';
-import { useSelector } from '../redux';
 import { setBoardValue } from '../redux/slices/boardSlice';
-import { useTheme } from '../hooks';
+import { useTheme, useSelector, useDispatch } from '../hooks';
 
 interface BoardRowProps {
   item: string;

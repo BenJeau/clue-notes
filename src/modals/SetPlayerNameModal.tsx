@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Text, TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
-import { useDispatch } from 'react-redux';
 
 import { Modal, Button } from '../components';
-import { useTheme } from '../hooks';
+import { useTheme, useDispatch } from '../hooks';
 import { setPlayer } from '../redux/slices/boardSlice';
 
 interface SetPlayerNameModalProps {

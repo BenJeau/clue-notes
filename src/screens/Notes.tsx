@@ -3,29 +3,32 @@ import { SectionList, Pressable, Text, View, Platform } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { headerData, sections } from '../config/data';
-import { useSelector } from '../redux';
 import { BoardRow, Header } from '../components';
 import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
 import {
+  CustomizeBoardModal,
   ResetModal,
   SetPlayerNameModal,
   SettingsModal,
   SymbolsModal,
 } from '../modals';
-import { useTheme } from '../hooks';
+import { useTheme, useSelector } from '../hooks';
 
 const Home: React.FC = () => {
-  const { colors, dark } = useTheme();
   const playerModalRef = useRef<Modalize>(null);
   const symbolsModalRef = useRef<Modalize>(null);
   const resetModalRef = useRef<Modalize>(null);
   const settingsModalRef = useRef<Modalize>(null);
+  const customizeModalRef = useRef<Modalize>(null);
+
+  const { colors, dark } = useTheme();
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(0);
 
   const { players } = useSelector(({ board }) => board);
 
   const openResetModal = () => resetModalRef.current?.open();
   const openSettingsModal = () => settingsModalRef.current?.open();
+  const openCustomizeModal = () => customizeModalRef.current?.open();
 
   return (
     <>
@@ -114,7 +117,11 @@ const Home: React.FC = () => {
 
       <SymbolsModal modalRef={symbolsModalRef} />
       <ResetModal modalRef={resetModalRef} />
-      <SettingsModal modalRef={settingsModalRef} />
+      <SettingsModal
+        modalRef={settingsModalRef}
+        openCustomizeBoard={openCustomizeModal}
+      />
+      <CustomizeBoardModal modalRef={customizeModalRef} />
 
       <SetPlayerNameModal
         modalRef={playerModalRef}
