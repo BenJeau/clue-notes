@@ -10,7 +10,7 @@ import {
 import { Modalize } from 'react-native-modalize';
 
 import { headerData } from '../config/data';
-import { BoardRow, Header } from '../components';
+import { BoardRow, Header, Overlay } from '../components';
 import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
 import {
   CameraModal,
@@ -136,6 +136,8 @@ const Home: React.FC = () => {
           ListFooterComponent={<View style={{ height: ALWAYS_OPEN - 1 }} />}
         />
       </View>
+
+      <Overlay />
 
       <SymbolsModal modalRef={symbolsModalRef} />
       <ResetModal modalRef={resetModalRef} />
