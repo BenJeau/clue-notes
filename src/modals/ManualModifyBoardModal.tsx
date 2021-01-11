@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   LayoutAnimation,
+  Vibration,
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
@@ -31,8 +32,17 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
     <Modal
       modalRef={modalRef}
       props={{
+        disableScrollIfPossible: false,
         HeaderComponent: () => (
-          <View style={{ padding: 20, paddingBottom: 10 }}>
+          <View
+            style={{
+              padding: 20,
+              paddingBottom: 10,
+              borderTopWidth: 1,
+              borderBottomWidth: 1,
+              borderColor: theme.colors.border,
+              backgroundColor: theme.colors.card,
+            }}>
             <Text
               style={{
                 color: theme.colors.text,
@@ -47,8 +57,14 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
             </Text>
           </View>
         ),
-        disableScrollIfPossible: false,
         sectionListProps: {
+          ListFooterComponent: () => (
+            <Button
+              label="Dismiss"
+              onPress={() => modalRef.current?.close()}
+              style={{ marginVertical: 10 }}
+            />
+          ),
           sections: [
             { title: 'suspects', data: sections.suspects },
             { title: 'weapons', data: sections.weapons },
@@ -115,6 +131,7 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
               </TextInput>
               <Pressable
                 onPress={() => {
+                  Vibration.vibrate(10);
                   LayoutAnimation.configureNext(
                     LayoutAnimation.Presets.easeInEaseOut,
                   );

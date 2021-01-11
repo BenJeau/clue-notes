@@ -28,6 +28,7 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
   return (
     <Modal
       modalRef={modalRef}
+      showDismiss={false}
       props={{
         alwaysOpen,
         childrenStyle: {

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Dimensions, Text } from 'react-native';
+import { Dimensions } from 'react-native';
 import {
   GoogleVisionBarcodesDetectedEvent,
   RNCamera,
 } from 'react-native-camera';
 import { Modalize } from 'react-native-modalize';
 
-import { Button, Modal } from '../components';
-import { useDispatch, useTheme } from '../hooks';
+import { Modal } from '../components';
+import { useDispatch } from '../hooks';
 import { setSections } from '../redux/slices/settingsSlice';
 
 interface CameraModalProps {
@@ -16,7 +16,6 @@ interface CameraModalProps {
 
 const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const onBarcodesDetected = ({
@@ -52,19 +51,16 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
   return (
     <Modal
       modalRef={modalRef}
+      showDismiss
+      header={{
+        title: 'Scan QR Code',
+        subtitle:
+          'Scan the QR code from the other application to import the board layout',
+      }}
       props={{
         onOpen: () => setIsFocused(true),
         onClosed: () => setIsFocused(false),
-        childrenStyle: {
-          padding: 20,
-        },
       }}>
-      <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>
-        Scan QR Code
-      </Text>
-      <Text style={{ color: colors.text, paddingBottom: 20 }}>
-        Scan the QR code from the other application to import the board layout
-      </Text>
       <RNCamera
         style={{
           width: Dimensions.get('screen').width - 40,
@@ -85,11 +81,6 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
           isFocused ? onBarcodesDetected : undefined
         }
         ratio="1:1"
-      />
-      <Button
-        label="Dismiss"
-        onPress={() => modalRef.current?.close()}
-        style={{ marginTop: 20, backgroundColor: colors.card }}
       />
     </Modal>
   );

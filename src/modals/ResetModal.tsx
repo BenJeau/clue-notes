@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { clearBoard, clearPlayers } from '../redux/slices/notesSlice';
@@ -31,37 +30,25 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
   return (
     <Modal
       modalRef={modalRef}
-      props={{
-        childrenStyle: { padding: 20 },
+      header={{
+        title: 'Reset Board',
+        subtitle: 'Clear the content of the board',
       }}>
-      <Text
-        style={{ color: theme.colors.text, fontSize: 20, fontWeight: 'bold' }}>
-        Reset Board
-      </Text>
-      <Text style={{ color: theme.colors.text }}>
-        Clear the content of the board
-      </Text>
-
-      <View style={{ flexDirection: 'row', paddingTop: 20 }}>
-        <Button
-          label="Clear everything"
-          onPress={clearEverything}
-          style={{
-            backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
-            flex: 1,
-            marginRight: 5,
-          }}
-        />
-        <Button
-          label="Only board content"
-          onPress={clearNotes}
-          style={{
-            backgroundColor: theme.colors.card,
-            flex: 1,
-            marginLeft: 5,
-          }}
-        />
-      </View>
+      <Button
+        label="Clear everything"
+        onPress={clearEverything}
+        style={{
+          backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
+        }}
+      />
+      <Button
+        label="Only board content"
+        onPress={clearNotes}
+        style={{
+          backgroundColor: theme.colors.card,
+          marginTop: 10,
+        }}
+      />
     </Modal>
   );
 };

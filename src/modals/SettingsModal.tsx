@@ -23,16 +23,32 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     <Modal
       modalRef={modalRef}
       props={{
-        childrenStyle: { padding: 20 },
+        FooterComponent: () => (
+          <Pressable
+            onPress={() => Linking.openURL('https://github.com/BenJeau')}
+            style={({ pressed }) => ({
+              flexDirection: 'row',
+              paddingBottom: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              opacity: pressed ? 0.2 : 0.5,
+            })}>
+            <Text style={{ color: colors.text, paddingRight: 5 }}>
+              Open source and available on GitHub
+            </Text>
+
+            <MaterialCommunityIcons
+              name="github"
+              size={20}
+              color={colors.text}
+            />
+          </Pressable>
+        ),
+      }}
+      header={{
+        title: 'Settings',
+        subtitle: 'Modify board content and toggle features',
       }}>
-      <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>
-        Settings
-      </Text>
-
-      <Text style={{ color: colors.text, marginBottom: 20 }}>
-        Modify board content and toggle features
-      </Text>
-
       <Button
         label="Customize board"
         style={{ backgroundColor: colors.card }}
@@ -46,22 +62,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         style={{ backgroundColor: colors.card, marginTop: 10 }}
         onPress={() => dispatch(toggleAutoHide())}
       />
-
-      <Pressable
-        onPress={() => Linking.openURL('https://github.com/BenJeau')}
-        style={({ pressed }) => ({
-          flexDirection: 'row',
-          paddingTop: 20,
-          justifyContent: 'center',
-          alignItems: 'center',
-          opacity: pressed ? 0.2 : 0.5,
-        })}>
-        <Text style={{ color: colors.text, paddingRight: 5 }}>
-          Open source and available on GitHub
-        </Text>
-
-        <MaterialCommunityIcons name="github" size={20} color={colors.text} />
-      </Pressable>
     </Modal>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { Dimensions, Text, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import QRCode from 'react-native-qrcode-svg';
 
-import { Button, Modal } from '../components';
+import { Modal } from '../components';
 import { useSelector, useTheme } from '../hooks';
 
 interface QrCodeModalProps {
@@ -19,14 +19,14 @@ const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
   ]);
 
   return (
-    <Modal modalRef={modalRef} props={{ childrenStyle: { padding: 20 } }}>
-      <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>
-        Share Board Layout
-      </Text>
-      <Text style={{ color: colors.text }}>
-        Scan this QR code within the other application to share your board
-        layout
-      </Text>
+    <Modal
+      modalRef={modalRef}
+      showDismiss
+      header={{
+        title: 'Share Board Layout',
+        subtitle:
+          'Scan this QR code within the other application to share your board layout',
+      }}>
       <View
         style={{
           backgroundColor: colors.text,
@@ -34,7 +34,6 @@ const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
           justifyContent: 'center',
           padding: 5,
           borderRadius: 5,
-          marginTop: 20,
         }}>
         <QRCode
           value={qrCodeValue}
@@ -43,11 +42,6 @@ const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
           color={colors.card}
         />
       </View>
-      <Button
-        label="Dismiss"
-        onPress={() => modalRef.current?.close()}
-        style={{ marginTop: 20, backgroundColor: colors.card }}
-      />
     </Modal>
   );
 };

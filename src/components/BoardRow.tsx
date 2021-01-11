@@ -69,10 +69,10 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, rowIndex, section }) => {
         {headerData.map((color, key) => {
           const updateBox = () => {
             Vibration.vibrate(10);
-            dispatch(setBoardValue({ row: rowIndex, col: key, section }));
             LayoutAnimation.configureNext(
               LayoutAnimation.Presets.easeInEaseOut,
             );
+            dispatch(setBoardValue({ row: rowIndex, col: key, section }));
           };
 
           return (

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Button, Modal } from '../components';
@@ -31,20 +30,11 @@ const CustomizeBoardModal: React.FC<CustomizeBoardModalProps> = ({
   return (
     <Modal
       modalRef={modalRef}
-      props={{
-        childrenStyle: { padding: 20 },
+      header={{
+        title: 'Customize Board',
+        subtitle:
+          'Modify the content of the board to reflect your game of Clue',
       }}>
-      <Text
-        style={{
-          color: theme.colors.text,
-          fontSize: 20,
-          fontWeight: 'bold',
-        }}>
-        Customize Board
-      </Text>
-      <Text style={{ color: theme.colors.text, marginBottom: 20 }}>
-        Modify the content of the board to reflect your game of Clue
-      </Text>
       <Button
         label="Import board via QR code"
         onPress={openCameraModal}

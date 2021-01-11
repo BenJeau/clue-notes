@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Text, TextInput } from 'react-native';
+import { TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Modal, Button } from '../components';
@@ -32,13 +32,13 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
     <Modal
       modalRef={modalRef}
       props={{
-        childrenStyle: { padding: 20 },
         onOpened: () => textInputRef.current?.focus(),
+        childrenStyle: { paddingTop: 10 },
+      }}
+      header={{
+        title: 'Set Player Initials',
+        subtitle: 'Max of two characters',
       }}>
-      <Text style={{ color: colors.text, fontSize: 20, fontWeight: 'bold' }}>
-        Set Player Initials
-      </Text>
-      <Text style={{ color: colors.text }}>Max of two characters</Text>
       <TextInput
         ref={textInputRef}
         onChangeText={(text) => setName(text)}
