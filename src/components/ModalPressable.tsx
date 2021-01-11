@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 
-import { BoardEntry } from '../redux/slices/boardSlice';
+import { BoardEntry } from '../redux/slices/notesSlice';
 import { SQUARE_SIZE } from '../config/constants';
 import { useTheme, useSelector, useDispatch } from '../hooks';
 import { setSelected } from '../redux/slices/stateSlice';

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BoardEntry } from './boardSlice';
+import { BoardEntry } from './notesSlice';
 
 interface StateType {
   selected: BoardEntry;

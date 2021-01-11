@@ -4,7 +4,7 @@ import { Modalize } from 'react-native-modalize';
 
 import { Modal, Button } from '../components';
 import { useTheme, useDispatch } from '../hooks';
-import { setPlayer } from '../redux/slices/boardSlice';
+import { setPlayer } from '../redux/slices/notesSlice';
 
 interface SetPlayerNameModalProps {
   modalRef: React.RefObject<Modalize>;

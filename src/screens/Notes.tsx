@@ -37,7 +37,7 @@ const Home: React.FC = () => {
   const { colors, dark } = useTheme();
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(0);
 
-  const { players } = useSelector(({ board }) => board);
+  const { players } = useSelector(({ notes }) => notes);
   const { sections } = useSelector(({ settings }) => settings);
 
   const openResetModal = () => resetModalRef.current?.open();
@@ -106,13 +106,13 @@ const Home: React.FC = () => {
 
         <SectionList
           sections={[
-            { title: 'Suspects', data: sections.suspects },
-            { title: 'Weapons', data: sections.weapons },
-            { title: 'Rooms', data: sections.rooms },
+            { title: 'suspects', data: sections.suspects },
+            { title: 'weapons', data: sections.weapons },
+            { title: 'rooms', data: sections.rooms },
           ]}
           keyExtractor={(item, index) => `${item}${index}`}
-          renderItem={({ item, index }) => (
-            <BoardRow item={item} index={`${item}${index}`} />
+          renderItem={({ item, index, section }) => (
+            <BoardRow item={item} rowIndex={index} section={section.title} />
           )}
           renderSectionHeader={({ section: { title } }) => (
             <View

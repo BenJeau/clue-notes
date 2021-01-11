@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { clearBoard, clearPlayers } from '../redux/slices/boardSlice';
+import { clearBoard, clearPlayers } from '../redux/slices/notesSlice';
 import { Button, Modal } from '../components';
 import { colors } from '../config/data';
 import { useTheme, useDispatch } from '../hooks';

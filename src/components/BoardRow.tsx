@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   LayoutAnimation,
   Platform,
@@ -11,24 +11,24 @@ import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { SQUARE_SIZE } from '../config/constants';
 import { headerData } from '../config/data';
-import { setBoardValue } from '../redux/slices/boardSlice';
+import { setBoardValue, setScratched } from '../redux/slices/notesSlice';
 import { useTheme, useSelector, useDispatch } from '../hooks';
 
 interface BoardRowProps {
   item: string;
-  index: string;
+  rowIndex: number;
+  section: 'suspects' | 'weapons' | 'rooms';
 }
 
-const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
+const BoardRow: React.FC<BoardRowProps> = ({ item, rowIndex, section }) => {
   const { colors, dark } = useTheme();
-  const [scratched, setScratched] = useState(false);
-  const { board } = useSelector(({ board }) => board);
+  const { board } = useSelector(({ notes }) => notes);
   const dispatch = useDispatch();
 
-  const data = useMemo(() => (board[index] ? board[index] : {}), [
-    board,
-    index,
-  ]);
+  const data = useMemo(
+    () => (board[section][rowIndex] ? board[section][rowIndex] : {}),
+    [board, rowIndex, section],
+  );
 
   return (
     <View
@@ -41,7 +41,13 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
       <Pressable
         onPress={() => {
           Vibration.vibrate(10);
-          setScratched((prev) => !prev);
+          dispatch(
+            setScratched({
+              row: rowIndex,
+              scratched: !data.scratched,
+              section,
+            }),
+          );
         }}
         style={({ pressed }) => ({
           opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
@@ -52,9 +58,9 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
         android_ripple={{ color: colors.border }}>
         <Text
           style={{
-            color: scratched ? 'red' : colors.text,
-            textDecorationLine: scratched ? 'line-through' : 'none',
-            opacity: scratched ? 0.5 : 1,
+            color: data.scratched ? 'red' : colors.text,
+            textDecorationLine: data.scratched ? 'line-through' : 'none',
+            opacity: data.scratched ? 0.5 : 1,
           }}>
           {item}
         </Text>
@@ -63,7 +69,7 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
         {headerData.map((color, key) => {
           const updateBox = () => {
             Vibration.vibrate(10);
-            dispatch(setBoardValue({ row: index, col: key }));
+            dispatch(setBoardValue({ row: rowIndex, col: key, section }));
             LayoutAnimation.configureNext(
               LayoutAnimation.Presets.easeInEaseOut,
             );
