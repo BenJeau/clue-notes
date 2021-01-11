@@ -1,5 +1,12 @@
 import React, { useMemo, useState } from 'react';
-import { Platform, Pressable, Text, Vibration, View } from 'react-native';
+import {
+  LayoutAnimation,
+  Platform,
+  Pressable,
+  Text,
+  Vibration,
+  View,
+} from 'react-native';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 
 import { SQUARE_SIZE } from '../config/constants';
@@ -57,6 +64,9 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
           const updateBox = () => {
             Vibration.vibrate(10);
             dispatch(setBoardValue({ row: index, col: key }));
+            LayoutAnimation.configureNext(
+              LayoutAnimation.Presets.easeInEaseOut,
+            );
           };
 
           return (

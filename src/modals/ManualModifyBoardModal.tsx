@@ -4,8 +4,6 @@ import {
   Text,
   View,
   TextInput,
-  Platform,
-  UIManager,
   LayoutAnimation,
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
@@ -20,12 +18,6 @@ import {
 
 interface ManualModifyBoardModalProps {
   modalRef: React.RefObject<Modalize>;
-}
-
-if (Platform.OS === 'android') {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
 }
 
 const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
