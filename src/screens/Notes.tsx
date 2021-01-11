@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { headerData, sections } from '../config/data';
+import { headerData } from '../config/data';
 import { BoardRow, Header } from '../components';
 import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
 import {
@@ -38,6 +38,7 @@ const Home: React.FC = () => {
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(0);
 
   const { players } = useSelector(({ board }) => board);
+  const { sections } = useSelector(({ settings }) => settings);
 
   const openResetModal = () => resetModalRef.current?.open();
   const openSettingsModal = () => settingsModalRef.current?.open();
@@ -73,7 +74,7 @@ const Home: React.FC = () => {
             }}>
             <Text style={{ color: colors.text }}>Players</Text>
           </View>
-          {headerData.map(({ color }, key) => (
+          {headerData.map((color, key) => (
             <Pressable
               key={key}
               onPress={() => {
@@ -104,7 +105,11 @@ const Home: React.FC = () => {
         </View>
 
         <SectionList
-          sections={sections}
+          sections={[
+            { title: 'Suspects', data: sections.suspects },
+            { title: 'Weapons', data: sections.weapons },
+            { title: 'Rooms', data: sections.rooms },
+          ]}
           keyExtractor={(item, index) => `${item}${index}`}
           renderItem={({ item, index }) => (
             <BoardRow item={item} index={`${item}${index}`} />
@@ -151,9 +156,7 @@ const Home: React.FC = () => {
       <SetPlayerNameModal
         modalRef={playerModalRef}
         selectedPlayerIndex={selectedPlayerIndex}
-        buttonColor={
-          headerData[selectedPlayerIndex].color[dark ? 'dark' : 'light']
-        }
+        buttonColor={headerData[selectedPlayerIndex][dark ? 'dark' : 'light']}
       />
     </>
   );

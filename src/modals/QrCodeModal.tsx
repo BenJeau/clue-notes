@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Dimensions, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import QRCode from 'react-native-qrcode-svg';
 
 import { Button, Modal } from '../components';
-import { sections } from '../config/data';
-import { useTheme } from '../hooks';
+import { useSelector, useTheme } from '../hooks';
 
 interface QrCodeModalProps {
   modalRef: React.RefObject<Modalize>;
@@ -13,6 +12,11 @@ interface QrCodeModalProps {
 
 const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
   const { colors } = useTheme();
+  const { sections } = useSelector(({ settings }) => settings);
+
+  const qrCodeValue = useMemo(() => JSON.stringify(Object.values(sections)), [
+    sections,
+  ]);
 
   return (
     <Modal modalRef={modalRef} props={{ childrenStyle: { padding: 20 } }}>
@@ -33,7 +37,7 @@ const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
           marginTop: 20,
         }}>
         <QRCode
-          value={JSON.stringify(sections)}
+          value={qrCodeValue}
           size={Dimensions.get('screen').width - 50}
           backgroundColor={colors.text}
           color={colors.card}

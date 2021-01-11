@@ -1,22 +1,40 @@
-import React, { useRef, useState } from 'react';
-import { Pressable, Text, View, TextInput } from 'react-native';
+import React from 'react';
+import {
+  Pressable,
+  Text,
+  View,
+  TextInput,
+  Platform,
+  UIManager,
+  LayoutAnimation,
+} from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Button, MaterialCommunityIcons, Modal } from '../components';
-import { useTheme } from '../hooks';
-import { sections } from '../config/data';
+import { useDispatch, useSelector, useTheme } from '../hooks';
+import {
+  addSectionItem,
+  editSectionItem,
+  removeSectionItem,
+} from '../redux/slices/settingsSlice';
 
 interface ManualModifyBoardModalProps {
   modalRef: React.RefObject<Modalize>;
+}
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
 }
 
 const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
   modalRef,
 }) => {
   const theme = useTheme();
-  const [id, setIndex] = useState(-1);
+  const dispatch = useDispatch();
+  const { sections } = useSelector(({ settings }) => settings);
 
-  const ref = useRef<TextInput>(null);
   return (
     <Modal
       modalRef={modalRef}
@@ -39,7 +57,11 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
         ),
         disableScrollIfPossible: false,
         sectionListProps: {
-          sections,
+          sections: [
+            { title: 'suspects', data: sections.suspects },
+            { title: 'weapons', data: sections.weapons },
+            { title: 'rooms', data: sections.rooms },
+          ],
           keyExtractor: (item) => item,
           renderSectionHeader: ({ section: { title } }) => (
             <Text
@@ -53,6 +75,12 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
           ),
           renderSectionFooter: ({ section: { title } }) => (
             <Button
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                );
+                dispatch(addSectionItem({ section: title, item: '' }));
+              }}
               label={`Add ${title.toLowerCase().substr(0, title.length - 1)}`}
               style={{ backgroundColor: theme.colors.border, marginBottom: 10 }}
             />
@@ -61,7 +89,7 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
             padding: 20,
             paddingTop: 0,
           },
-          renderItem: ({ item, index }) => (
+          renderItem: ({ item, index, section }) => (
             <View
               style={{
                 flexDirection: 'row',
@@ -76,21 +104,31 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
                 height: 37.5,
               }}>
               <TextInput
-                ref={id === index ? ref : null}
                 style={{
                   color: theme.colors.text,
                   padding: 0,
                   margin: 0,
                   flex: 1,
                 }}
-                value={item}
-              />
+                onEndEditing={({ nativeEvent: { text } }) => {
+                  dispatch(
+                    editSectionItem({
+                      index,
+                      section: section.title,
+                      item: text,
+                    }),
+                  );
+                }}>
+                {item}
+              </TextInput>
               <Pressable
                 onPress={() => {
-                  setIndex(index);
-                  setTimeout(() => {
-                    ref.current?.focus();
-                  }, 100);
+                  LayoutAnimation.configureNext(
+                    LayoutAnimation.Presets.easeInEaseOut,
+                  );
+                  dispatch(
+                    removeSectionItem({ index, section: section.title }),
+                  );
                 }}
                 android_ripple={{ color: theme.colors.text, borderless: true }}>
                 <MaterialCommunityIcons

@@ -4,7 +4,7 @@ import { Modalize } from 'react-native-modalize';
 
 import { Modal, MaterialCommunityIcons, Button } from '../components';
 import { useDispatch, useSelector, useTheme } from '../hooks';
-import { toggleAutoHide } from '../redux/slices/stateSlice';
+import { toggleAutoHide } from '../redux/slices/settingsSlice';
 
 interface SettingsModalProps {
   modalRef: React.RefObject<Modalize>;
@@ -16,7 +16,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   openCustomizeBoard,
 }) => {
   const { colors } = useTheme();
-  const { autoHide } = useSelector(({ state }) => state);
+  const { autoHide } = useSelector(({ settings }) => settings);
   const dispatch = useDispatch();
 
   return (

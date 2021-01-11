@@ -1,40 +1,3 @@
-export interface Section {
-  title: string;
-  data: string[];
-}
-
-export const sections: Section[] = [
-  {
-    title: 'Suspects',
-    data: [
-      'Miss Scarlet',
-      'Col. Mustard',
-      'Mrs. White',
-      'Mr. Green',
-      'Mrs. Peacock',
-      'Prof. Plum',
-    ],
-  },
-  {
-    title: 'Weapons',
-    data: ['Candlestick', 'Knife', 'Rope', 'Revolver', 'Lead Pipe', 'Wrench'],
-  },
-  {
-    title: 'Rooms',
-    data: [
-      'Ball Room',
-      'Billiard Room',
-      'Conservatory',
-      'Dinning Room',
-      'Hall',
-      'Kitchen',
-      'Library',
-      'Lounge',
-      'Study',
-    ],
-  },
-];
-
 export const colors = {
   red: { dark: '#A5494F', light: '#ff595e' },
   yellow: { dark: '#A7A15A', light: '#ffca3a' },
@@ -45,30 +8,12 @@ export const colors = {
 };
 
 export const headerData = [
-  {
-    suspect: 'Miss Scarlet',
-    color: colors.red,
-  },
-  {
-    suspect: 'Col. Mustard',
-    color: colors.yellow,
-  },
-  {
-    suspect: 'Mr. Green',
-    color: colors.green,
-  },
-  {
-    suspect: 'Mrs. Peacock',
-    color: colors.blue,
-  },
-  {
-    suspect: 'Prof. Plum',
-    color: colors.purple,
-  },
-  {
-    suspect: 'Mrs. White',
-    color: colors.white,
-  },
+  colors.red,
+  colors.yellow,
+  colors.green,
+  colors.blue,
+  colors.purple,
+  colors.white,
 ];
 
 export const icons = [

@@ -53,7 +53,7 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, index }) => {
         </Text>
       </Pressable>
       <View style={{ flexDirection: 'row' }}>
-        {headerData.map(({ color }, key) => {
+        {headerData.map((color, key) => {
           const updateBox = () => {
             Vibration.vibrate(10);
             dispatch(setBoardValue({ row: index, col: key }));

@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
-import { Text, TextInput } from 'react-native';
+import React from 'react';
+import { Text } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Button, Modal } from '../components';
-import { useTheme } from '../hooks';
+import { useDispatch, useTheme } from '../hooks';
 import { colors } from '../config/data';
+import { resetSections } from '../redux/slices/settingsSlice';
 
 interface CustomizeBoardModalProps {
   modalRef: React.RefObject<Modalize>;
@@ -20,9 +21,13 @@ const CustomizeBoardModal: React.FC<CustomizeBoardModalProps> = ({
   openQrModal,
 }) => {
   const theme = useTheme();
-  const [id, setIndex] = useState(-1);
 
-  const ref = useRef<TextInput>(null);
+  const dispatch = useDispatch();
+
+  const resetBoardSections = () => {
+    dispatch(resetSections());
+  };
+
   return (
     <Modal
       modalRef={modalRef}
@@ -69,6 +74,7 @@ const CustomizeBoardModal: React.FC<CustomizeBoardModalProps> = ({
         style={{
           backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
         }}
+        onPress={resetBoardSections}
       />
     </Modal>
   );

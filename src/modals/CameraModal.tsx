@@ -7,7 +7,8 @@ import {
 import { Modalize } from 'react-native-modalize';
 
 import { Button, Modal } from '../components';
-import { useTheme } from '../hooks';
+import { useDispatch, useTheme } from '../hooks';
+import { setSections } from '../redux/slices/settingsSlice';
 
 interface CameraModalProps {
   modalRef: React.RefObject<Modalize>;
@@ -16,6 +17,7 @@ interface CameraModalProps {
 const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
   const [isFocused, setIsFocused] = useState(false);
   const { colors } = useTheme();
+  const dispatch = useDispatch();
 
   const onBarcodesDetected = ({
     barcodes,
@@ -25,7 +27,23 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
 
       if (barcodeType === 'QR_CODE') {
         try {
-          console.log(JSON.parse(data));
+          const parsedData = JSON.parse(data);
+
+          if (
+            parsedData.length === 3 &&
+            Object.values(parsedData).every((i) =>
+              (i as any[]).every((j) => typeof j === 'string'),
+            )
+          ) {
+            dispatch(
+              setSections({
+                suspects: parsedData[0],
+                weapons: parsedData[1],
+                rooms: parsedData[2],
+              }),
+            );
+            modalRef.current?.close();
+          }
         } catch (e) {}
       }
     });
