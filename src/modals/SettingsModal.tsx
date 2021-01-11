@@ -47,7 +47,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       }}
       header={{
         title: 'Settings',
-        subtitle: 'Modify board content and toggle features',
+        subtitle: 'Modify the rows of the board and toggle features',
       }}>
       <Button
         label="Customize board"

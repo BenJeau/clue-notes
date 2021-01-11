@@ -31,21 +31,21 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
     <Modal
       modalRef={modalRef}
       header={{
-        title: 'Reset Board',
-        subtitle: 'Clear the content of the board',
+        title: 'Clear Notes',
+        subtitle: 'Removes the notes taken',
       }}>
       <Button
-        label="Clear everything"
-        onPress={clearEverything}
-        style={{
-          backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
-        }}
-      />
-      <Button
-        label="Only board content"
+        label="Clear content of the board"
         onPress={clearNotes}
         style={{
           backgroundColor: theme.colors.card,
+        }}
+      />
+      <Button
+        label="Clear content of the board and players"
+        onPress={clearEverything}
+        style={{
+          backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
           marginTop: 10,
         }}
       />

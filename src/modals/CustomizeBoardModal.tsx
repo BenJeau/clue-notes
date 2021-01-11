@@ -32,8 +32,7 @@ const CustomizeBoardModal: React.FC<CustomizeBoardModalProps> = ({
       modalRef={modalRef}
       header={{
         title: 'Customize Board',
-        subtitle:
-          'Modify the content of the board to reflect your game of Clue',
+        subtitle: 'Modify the rows of the board to reflect your game of Clue',
       }}>
       <Button
         label="Import board via QR code"
