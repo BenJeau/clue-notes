@@ -22,7 +22,7 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
 
   // Fixes a bug where the modal would open completely when loading the app
   useEffect(() => {
-    setTimeout(() => setAlwaysOpen(ALWAYS_OPEN), 500);
+    setTimeout(() => setAlwaysOpen(ALWAYS_OPEN), 800);
   }, []);
 
   return (
