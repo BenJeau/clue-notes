@@ -62,7 +62,7 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
                 fontSize: 18,
                 paddingVertical: 10,
               }}>
-              {title}
+              {`${title[0].toUpperCase()}${title.substr(1, title.length)}`}
             </Text>
           ),
           renderSectionFooter: ({ section: { title } }) => (

@@ -128,7 +128,7 @@ const Home: React.FC = () => {
                   paddingHorizontal: 20,
                   paddingVertical: 10,
                 }}>
-                {title}
+                {`${title[0].toUpperCase()}${title.substr(1, title.length)}`}
               </Text>
             </View>
           )}
