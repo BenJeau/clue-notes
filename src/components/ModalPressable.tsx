@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 
-import { BoardEntry, setSelected } from '../redux/slices/boardSlice';
+import { BoardEntry } from '../redux/slices/boardSlice';
 import { SQUARE_SIZE } from '../config/constants';
 import { useTheme, useSelector, useDispatch } from '../hooks';
+import { setSelected } from '../redux/slices/stateSlice';
 
 interface ModalPressableProps {
   data: BoardEntry;
@@ -24,7 +25,7 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
 }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const { selected } = useSelector(({ board }) => board);
+  const { selected } = useSelector(({ state }) => state);
 
   const isSelected = selected.data === data && selected.type === type;
 

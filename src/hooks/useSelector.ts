@@ -3,7 +3,6 @@ import {
   TypedUseSelectorHook,
 } from 'react-redux';
 
-import rootReducer from '../redux/slices';
+import { RootState } from '../redux';
 
-type RootState = ReturnType<typeof rootReducer>;
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;

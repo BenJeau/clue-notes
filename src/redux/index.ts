@@ -17,6 +17,7 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
+    blacklist: ['state'],
   },
   rootReducer,
 );
@@ -32,3 +33,8 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof rootReducer>;
+export interface ThunkParamType {
+  state: RootState;
+}

@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ThunkParamType } from '..';
 
 export interface BoardEntry {
   type: 'icon' | 'text';
@@ -14,17 +15,27 @@ interface BoardType {
       [key: number]: BoardEntry;
     };
   };
-  selected: BoardEntry;
 }
 
 const initialState: BoardType = {
   players: {},
   board: {},
-  selected: {
-    type: 'icon',
-    data: 'check',
-  },
 };
+
+export const setBoardValue = createAsyncThunk<
+  {
+    row: string;
+    col: number;
+    selected: BoardEntry;
+  },
+  {
+    row: string;
+    col: number;
+  },
+  ThunkParamType
+>('board/setBoardValue', async (param, { getState }) => {
+  return { ...param, selected: getState().state.selected };
+});
 
 const boardSlice = createSlice({
   name: 'board',
@@ -37,21 +48,6 @@ const boardSlice = createSlice({
       const { index, name } = action.payload;
       state.players[index] = name;
     },
-    setBoardValue: (
-      state,
-      action: PayloadAction<{ row: string; col: number }>,
-    ) => {
-      const { row, col } = action.payload;
-
-      if (!state.board[row]) {
-        state.board[row] = {};
-      }
-
-      state.board[row][col] = state.selected;
-    },
-    setSelected: (state, action: PayloadAction<BoardEntry>) => {
-      state.selected = action.payload;
-    },
     clearBoard: (state) => {
       state.board = {};
     },
@@ -59,13 +55,18 @@ const boardSlice = createSlice({
       state.players = {};
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(setBoardValue.fulfilled, (state, action) => {
+      const { row, col, selected } = action.payload;
+
+      if (!state.board[row]) {
+        state.board[row] = {};
+      }
+
+      state.board[row][col] = selected;
+    });
+  },
 });
 
-export const {
-  clearBoard,
-  clearPlayers,
-  setBoardValue,
-  setPlayer,
-  setSelected,
-} = boardSlice.actions;
+export const { clearBoard, clearPlayers, setPlayer } = boardSlice.actions;
 export default boardSlice.reducer;
