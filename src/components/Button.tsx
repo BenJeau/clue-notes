@@ -63,6 +63,7 @@ const Button: React.FC<ButtonProps> = ({
             color: colors.text,
             opacity: 0.8,
             fontFamily: 'sans-serif-medium',
+            textAlign: 'center',
           }}>
           {label}
         </Text>

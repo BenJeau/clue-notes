@@ -79,7 +79,7 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, rowIndex, section }) => {
             <Pressable
               key={key}
               style={{
-                height: SQUARE_SIZE,
+                minHeight: SQUARE_SIZE,
                 width: SQUARE_SIZE,
                 borderStartWidth: 1,
                 borderColor: colors.border,

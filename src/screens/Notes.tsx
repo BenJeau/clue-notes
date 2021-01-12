@@ -83,7 +83,7 @@ const Home: React.FC = () => {
                 playerModalRef.current?.open();
               }}
               style={({ pressed }) => ({
-                height: SQUARE_SIZE,
+                minHeight: SQUARE_SIZE,
                 width: SQUARE_SIZE,
                 borderColor: colors.border,
                 backgroundColor: color[dark ? 'dark' : 'light'],
