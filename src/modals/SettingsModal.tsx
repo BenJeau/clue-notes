@@ -57,7 +57,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 
       <Button
         label={`${
-          autoHide ? 'Enable' : 'Disable'
+          autoHide ? 'Disable' : 'Enable'
         } experimental auto screen hiding`}
         style={{ backgroundColor: colors.card, marginTop: 10 }}
         onPress={() => dispatch(toggleAutoHide())}

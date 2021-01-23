@@ -21,6 +21,7 @@ import {
   SetPlayerNameModal,
   SettingsModal,
   SymbolsModal,
+  HideModal,
 } from '../modals';
 import { useTheme, useSelector } from '../hooks';
 
@@ -33,6 +34,7 @@ const Home: React.FC = () => {
   const cameraModalRef = useRef<Modalize>(null);
   const qrModalRef = useRef<Modalize>(null);
   const modifyBoardModalRef = useRef<Modalize>(null);
+  const hideModalRef = useRef<Modalize>(null);
 
   const { colors, dark } = useTheme();
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState<number>(0);
@@ -46,12 +48,14 @@ const Home: React.FC = () => {
   const openCameraModal = () => cameraModalRef.current?.open();
   const openQrModal = () => qrModalRef.current?.open();
   const openModifyBoardModal = () => modifyBoardModalRef.current?.open();
+  const openHideModal = () => hideModalRef.current?.open();
 
   return (
     <>
       <View style={{ height: '100%' }}>
         <Header
           icons={[
+            { name: 'eye-off-outline', onPress: openHideModal },
             { name: 'undo-variant', onPress: openResetModal },
             { name: 'dots-vertical', onPress: openSettingsModal },
           ]}
@@ -152,12 +156,12 @@ const Home: React.FC = () => {
       <QrCodeModal modalRef={qrModalRef} />
       <CameraModal modalRef={cameraModalRef} />
       <ManualModifyBoardModal modalRef={modifyBoardModalRef} />
-
       <SetPlayerNameModal
         modalRef={playerModalRef}
         selectedPlayerIndex={selectedPlayerIndex}
         buttonColor={headerData[selectedPlayerIndex][dark ? 'dark' : 'light']}
       />
+      <HideModal modalRef={hideModalRef} />
     </>
   );
 };

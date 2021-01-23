@@ -6,3 +6,4 @@ export { default as CustomizeBoardModal } from './CustomizeBoardModal';
 export { default as CameraModal } from './CameraModal';
 export { default as QrCodeModal } from './QrCodeModal';
 export { default as ManualModifyBoardModal } from './ManualModifyBoardModal';
+export { default as HideModal } from './HideModal';

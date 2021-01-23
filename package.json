@@ -19,6 +19,7 @@
     "react-native-modalize": "^2.0.8",
     "react-native-navigation-bar-color": "^2.0.1",
     "react-native-qrcode-svg": "^6.0.6",
+    "react-native-sensors": "^7.0.2",
     "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^7.1.0",

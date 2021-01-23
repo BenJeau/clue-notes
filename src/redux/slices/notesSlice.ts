@@ -16,6 +16,7 @@ interface BoardSection {
 }
 
 interface BoardType {
+  userPlayerIndex: number;
   players: {
     [key: number]: string;
   };
@@ -27,6 +28,7 @@ interface BoardType {
 }
 
 const initialState: BoardType = {
+  userPlayerIndex: 0,
   players: {},
   board: {
     suspects: {},
@@ -85,6 +87,9 @@ const notesSlice = createSlice({
 
       state.board[section][row].scratched = scratched;
     },
+    setUserPlayerIndex: (state, action: PayloadAction<number>) => {
+      state.userPlayerIndex = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setBoardValue.fulfilled, (state, action) => {
@@ -104,5 +109,6 @@ export const {
   clearPlayers,
   setPlayer,
   setScratched,
+  setUserPlayerIndex,
 } = notesSlice.actions;
 export default notesSlice.reducer;

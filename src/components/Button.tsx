@@ -17,6 +17,7 @@ interface ButtonProps {
   style?: StyleProp<ViewStyle>;
   pressableStyle?: StyleProp<ViewStyle>;
   icon?: string;
+  textColor?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -25,6 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   style,
   pressableStyle,
   icon,
+  textColor,
 }) => {
   const { colors } = useTheme();
 
@@ -39,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
           })
         }
         android_ripple={{
-          color: colors.text,
+          color: textColor || colors.text,
         }}
         style={[
           {
@@ -60,7 +62,7 @@ const Button: React.FC<ButtonProps> = ({
         )}
         <Text
           style={{
-            color: colors.text,
+            color: textColor || colors.text,
             opacity: 0.8,
             fontFamily: 'sans-serif-medium',
             textAlign: 'center',

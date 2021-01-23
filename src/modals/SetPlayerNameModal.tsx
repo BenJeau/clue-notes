@@ -4,7 +4,7 @@ import { Modalize } from 'react-native-modalize';
 
 import { Modal, Button } from '../components';
 import { useTheme, useDispatch } from '../hooks';
-import { setPlayer } from '../redux/slices/notesSlice';
+import { setPlayer, setUserPlayerIndex } from '../redux/slices/notesSlice';
 
 interface SetPlayerNameModalProps {
   modalRef: React.RefObject<Modalize>;
@@ -23,17 +23,23 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
   const textInputRef = useRef<TextInput>(null);
 
   const save = () => {
-    modalRef.current?.close();
     setName('');
     dispatch(setPlayer({ index: selectedPlayerIndex, name }));
   };
+
+  const updatePlayer = () => {
+    dispatch(setUserPlayerIndex(selectedPlayerIndex));
+    dismiss();
+  };
+
+  const dismiss = () => modalRef.current?.close();
 
   return (
     <Modal
       modalRef={modalRef}
       props={{
         onOpened: () => textInputRef.current?.focus(),
-        childrenStyle: { paddingTop: 10 },
+        onClose: save,
       }}
       header={{
         title: 'Set Player Initials',
@@ -45,15 +51,15 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
         value={name}
         maxLength={2}
         autoCapitalize="characters"
-        onSubmitEditing={save}
+        onSubmitEditing={dismiss}
         placeholder="Player initials"
         placeholderTextColor={`${colors.text}70`}
         selectionColor={buttonColor}
-        style={{ paddingLeft: 0, color: colors.text }}
+        style={{ paddingLeft: 0, color: colors.text, marginTop: -10 }}
       />
       <Button
-        label="Save"
-        onPress={save}
+        label="I am this player (changes overlay color)"
+        onPress={updatePlayer}
         style={{ backgroundColor: buttonColor }}
       />
     </Modal>

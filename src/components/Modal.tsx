@@ -30,12 +30,14 @@ const Modal: React.FC<ModalProps> = ({
       adjustToContentHeight
       handlePosition="inside"
       {...props}
-      modalStyle={{
-        backgroundColor: colors.background,
-        borderTopEndRadius: 0,
-        borderTopStartRadius: 0,
-      }}
-      childrenStyle={{}}
+      modalStyle={[
+        {
+          backgroundColor: colors.background,
+          borderTopEndRadius: 0,
+          borderTopStartRadius: 0,
+        },
+        props?.modalStyle,
+      ]}
       handleStyle={[{ backgroundColor: colors.text }, props?.handleStyle]}>
       {children && (
         <>
@@ -67,8 +69,8 @@ const Modal: React.FC<ModalProps> = ({
           <View
             style={[
               { padding: 20 },
-              props?.childrenStyle,
               header ? {} : { borderTopWidth: 1, borderColor: colors.border },
+              props?.childrenStyle,
             ]}>
             {children}
             {showDismiss && (
