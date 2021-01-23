@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Modal, Button } from '../components';
-import { useTheme, useDispatch } from '../hooks';
+import { useTheme, useDispatch, useSelector } from '../hooks';
 import { setPlayer, setUserPlayerIndex } from '../redux/slices/notesSlice';
 
 interface SetPlayerNameModalProps {
@@ -17,6 +17,7 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
   selectedPlayerIndex,
   buttonColor,
 }) => {
+  const { players } = useSelector(({ notes }) => notes);
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const [name, setName] = useState('');
@@ -33,6 +34,14 @@ const SetPlayerNameModal: React.FC<SetPlayerNameModalProps> = ({
   };
 
   const dismiss = () => modalRef.current?.close();
+
+  useEffect(() => {
+    if (players[selectedPlayerIndex]) {
+      setName(players[selectedPlayerIndex]);
+    } else {
+      setName('');
+    }
+  }, [players, selectedPlayerIndex]);
 
   return (
     <Modal
