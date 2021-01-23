@@ -6,6 +6,7 @@ import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 import { store, persistor } from '../redux';
 import { useTheme } from '../hooks';
+import SplashScreen from './SplashScreen';
 
 const Provider: React.FC = ({ children }) => {
   const { dark, colors } = useTheme();
@@ -23,7 +24,7 @@ const Provider: React.FC = ({ children }) => {
       />
       <ReduxProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          {children}
+          <SplashScreen>{children}</SplashScreen>
         </PersistGate>
       </ReduxProvider>
     </View>
