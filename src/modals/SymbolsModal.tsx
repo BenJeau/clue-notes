@@ -22,7 +22,7 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
 
   // Fixes a bug where the modal would open completely when loading the app
   useEffect(() => {
-    setTimeout(() => setAlwaysOpen(ALWAYS_OPEN), 800);
+    setTimeout(() => setAlwaysOpen(ALWAYS_OPEN), 1500);
   }, []);
 
   return (
@@ -33,7 +33,9 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
         alwaysOpen,
         childrenStyle: {
           padding:
-            (width - Number(width / (SQUARE_SIZE + 6)) * (SQUARE_SIZE + 6)) / 2,
+            (width -
+              Math.floor(width / (SQUARE_SIZE + 6)) * (SQUARE_SIZE + 6)) /
+            2,
           paddingTop: ALWAYS_OPEN_TOP_PADDING - 3,
           paddingBottom: ALWAYS_OPEN_PADDING,
           alignItems: 'center',

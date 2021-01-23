@@ -38,6 +38,7 @@ const Modal: React.FC<ModalProps> = ({
         },
         props?.modalStyle,
       ]}
+      childrenStyle={{}}
       handleStyle={[{ backgroundColor: colors.text }, props?.handleStyle]}>
       {children && (
         <>
