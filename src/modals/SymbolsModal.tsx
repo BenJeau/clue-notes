@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
@@ -12,11 +12,7 @@ import {
 import { icons, sheet } from '../config/data';
 import { useTheme } from '../hooks';
 
-interface SymbolsModalProps {
-  modalRef: React.RefObject<Modalize>;
-}
-
-const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
+const SymbolsModal = forwardRef<Modalize>((_, ref) => {
   const { colors } = useTheme();
   const [alwaysOpen, setAlwaysOpen] = useState(ALWAYS_OPEN);
 
@@ -27,7 +23,7 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
 
   return (
     <Modal
-      modalRef={modalRef}
+      ref={ref}
       showDismiss={false}
       props={{
         alwaysOpen,
@@ -47,13 +43,13 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
           alignItems: 'center',
         }}>
         <View style={styles.section}>
-          {/* <ModalPressable data={{ type: 'text', data: ' ' }} />
+          <ModalPressable data={{ type: 'text', data: ' ' }} />
           {icons.map((i, key) => {
             console.log(key, i);
             return (
               <ModalPressable key={key} data={{ type: 'icon', data: i }} />
             );
-          })} */}
+          })}
         </View>
       </View>
       {/* {sheet.map((i, key) => (
@@ -68,7 +64,7 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
       ))} */}
     </Modal>
   );
-};
+});
 
 const { width } = Dimensions.get('screen');
 

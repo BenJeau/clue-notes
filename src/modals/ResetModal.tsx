@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { Modalize } from 'react-native-modalize';
 
 import { clearBoard, clearPlayers } from '../redux/slices/notesSlice';
 import { Button, Modal } from '../components';
 import { colors } from '../config/data';
-import { useTheme, useDispatch } from '../hooks';
+import { useTheme, useDispatch, useCombinedRefs } from '../hooks';
 
-interface ResetModalProps {
-  modalRef: React.RefObject<Modalize>;
-}
-
-const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
+const ResetModal = forwardRef<Modalize>((_, ref) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+
+  const innerRef = useRef<Modalize>(null);
+  const combinedRef = useCombinedRefs(ref, innerRef);
 
   const clearNotes = () => {
     dispatch(clearBoard());
@@ -25,11 +24,11 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
     dimiss();
   };
 
-  const dimiss = () => modalRef.current?.close();
+  const dimiss = () => innerRef.current?.close();
 
   return (
     <Modal
-      modalRef={modalRef}
+      ref={combinedRef}
       header={{
         title: 'Clear Notes',
         subtitle: 'Removes the notes taken',
@@ -51,6 +50,6 @@ const ResetModal: React.FC<ResetModalProps> = ({ modalRef }) => {
       />
     </Modal>
   );
-};
+});
 
 export default ResetModal;

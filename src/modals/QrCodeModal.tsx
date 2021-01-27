@@ -1,18 +1,19 @@
-import React, { useMemo } from 'react';
-import { Dimensions, View } from 'react-native';
+import React, { forwardRef, useMemo } from 'react';
+import { Dimensions, useWindowDimensions, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import QRCode from 'react-native-qrcode-svg';
 
 import { Modal } from '../components';
 import { useSelector, useTheme } from '../hooks';
 
-interface QrCodeModalProps {
-  modalRef: React.RefObject<Modalize>;
-}
+const window = Dimensions.get('window');
 
-const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
+const QrCodeModal = forwardRef<Modalize>((_, ref) => {
   const { colors } = useTheme();
   const { sections } = useSelector(({ settings }) => settings);
+
+  const qrSize =
+    (window.width > window.height ? window.height : window.width) - 50;
 
   const qrCodeValue = useMemo(() => JSON.stringify(Object.values(sections)), [
     sections,
@@ -20,13 +21,14 @@ const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
 
   return (
     <Modal
-      modalRef={modalRef}
+      ref={ref}
       showDismiss
       header={{
         title: 'Share Board Layout',
         subtitle:
           'Scan this QR code within the other application to share your board layout',
-      }}>
+      }}
+      props={{ childrenStyle: { flex: 1 } }}>
       <View
         style={{
           backgroundColor: colors.text,
@@ -34,16 +36,17 @@ const QrCodeModal: React.FC<QrCodeModalProps> = ({ modalRef }) => {
           justifyContent: 'center',
           padding: 5,
           borderRadius: 5,
+          flex: 1,
         }}>
         <QRCode
           value={qrCodeValue}
-          size={Dimensions.get('screen').width - 50}
+          size={qrSize}
           backgroundColor={colors.text}
           color={colors.card}
         />
       </View>
     </Modal>
   );
-};
+});
 
 export default QrCodeModal;

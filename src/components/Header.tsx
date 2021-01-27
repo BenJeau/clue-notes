@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 import { Text, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { deepEqual } from 'fast-equals';
-
+import isEqual from 'react-fast-compare';
 
 import { useTheme } from '../hooks';
 import HeaderButton from './HeaderButton';
@@ -58,4 +57,4 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
   );
 };
 
-export default memo(Header, deepEqual);
+export default memo(Header, isEqual);

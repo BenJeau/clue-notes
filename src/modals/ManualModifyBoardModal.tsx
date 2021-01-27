@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useRef } from 'react';
 import {
   Pressable,
   Text,
@@ -10,27 +10,25 @@ import {
 import { Modalize } from 'react-native-modalize';
 
 import { Button, MaterialCommunityIcons, Modal } from '../components';
-import { useDispatch, useSelector, useTheme } from '../hooks';
+import { useCombinedRefs, useDispatch, useSelector, useTheme } from '../hooks';
 import {
   addSectionItem,
   editSectionItem,
   removeSectionItem,
 } from '../redux/slices/settingsSlice';
 
-interface ManualModifyBoardModalProps {
-  modalRef: React.RefObject<Modalize>;
-}
-
-const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
-  modalRef,
-}) => {
+const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { sections } = useSelector(({ settings }) => settings);
 
+  // TODO: a combined hook, since this is often used
+  const innerRef = useRef<Modalize>(null);
+  const combinedRef = useCombinedRefs(ref, innerRef);
+
   return (
     <Modal
-      modalRef={modalRef}
+      ref={combinedRef}
       props={{
         disableScrollIfPossible: false,
         HeaderComponent: () => (
@@ -61,7 +59,7 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
           ListFooterComponent: () => (
             <Button
               label="Dismiss"
-              onPress={() => modalRef.current?.close()}
+              onPress={() => innerRef.current?.close()}
               style={{ marginVertical: 10 }}
             />
           ),
@@ -152,6 +150,6 @@ const ManualModifyBoardModal: React.FC<ManualModifyBoardModalProps> = ({
       }}
     />
   );
-};
+});
 
 export default ManualModifyBoardModal;

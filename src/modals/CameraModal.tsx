@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dimensions } from 'react-native';
+import React, { forwardRef, useRef, useState } from 'react';
+import { Dimensions, useWindowDimensions } from 'react-native';
 import {
   GoogleVisionBarcodesDetectedEvent,
   RNCamera,
@@ -7,16 +7,20 @@ import {
 import { Modalize } from 'react-native-modalize';
 
 import { Modal } from '../components';
-import { useDispatch } from '../hooks';
+import { useCombinedRefs, useDispatch } from '../hooks';
 import { setSections } from '../redux/slices/settingsSlice';
 
-interface CameraModalProps {
-  modalRef: React.RefObject<Modalize>;
-}
+const window = Dimensions.get('window');
 
-const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
+const CameraModal = forwardRef<Modalize>((_, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const dispatch = useDispatch();
+
+  const cameraSize =
+    (window.width > window.height ? window.height : window.width) - 40;
+
+  const innerRef = useRef<Modalize>(null);
+  const combinedRef = useCombinedRefs(ref, innerRef);
 
   const onBarcodesDetected = ({
     barcodes,
@@ -41,7 +45,7 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
                 rooms: parsedData[2],
               }),
             );
-            modalRef.current?.close();
+            innerRef.current?.close();
           }
         } catch (e) {}
       }
@@ -50,7 +54,7 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
 
   return (
     <Modal
-      ref={modalRef}
+      ref={combinedRef}
       showDismiss
       header={{
         title: 'Scan QR Code',
@@ -60,13 +64,16 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
       props={{
         onOpen: () => setIsFocused(true),
         onClosed: () => setIsFocused(false),
+        childrenStyle: {
+          alignItems: 'center',
+        },
       }}>
       <RNCamera
         style={{
-          width: Dimensions.get('screen').width - 40,
+          width: cameraSize,
           borderRadius: 5,
           overflow: 'hidden',
-          height: Dimensions.get('screen').width - 40,
+          height: cameraSize,
         }}
         captureAudio={false}
         type={RNCamera.Constants.Type.back}
@@ -84,6 +91,6 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
       />
     </Modal>
   );
-};
+});
 
 export default CameraModal;

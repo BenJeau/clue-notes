@@ -6,6 +6,7 @@ import { useCombinedRefs, useTheme } from '../hooks';
 import Button from './Button';
 
 interface ModalProps {
+  children?: React.ReactNode;
   props?: ModalizeProps;
   header?: {
     title?: string;
@@ -14,8 +15,8 @@ interface ModalProps {
   showDismiss?: boolean;
 }
 
-const Modal = forwardRef<React.Ref<Modalize>, ModalProps>(
-  ({ children, props, header, showDismiss }, ref?) => {
+const Modal = forwardRef<Modalize, ModalProps>(
+  ({ children, props, header, showDismiss }, ref) => {
     const { colors } = useTheme();
 
     const innerRef = useRef<Modalize>(null);
@@ -75,7 +76,7 @@ const Modal = forwardRef<React.Ref<Modalize>, ModalProps>(
                 <Button
                   label="Dismiss"
                   onPress={() => innerRef.current?.close()}
-                  style={{ marginTop: 10 }}
+                  style={{ marginTop: 10, width: '100%' }}
                 />
               )}
             </View>

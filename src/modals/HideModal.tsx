@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { Modalize } from 'react-native-modalize';
 
 import { Button, MaterialCommunityIcons, Modal } from '../components';
 import { headerData } from '../config/data';
-import { useDispatch, useSelector, useTheme } from '../hooks';
-import { Dimensions, Pressable, Text } from 'react-native';
+import { useCombinedRefs, useDispatch, useSelector, useTheme } from '../hooks';
+import { Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import {
   accelerometer,
@@ -13,17 +13,18 @@ import {
 } from 'react-native-sensors';
 import { toggleAutoHide } from '../redux/slices/settingsSlice';
 
-interface VisibilityModalProps {
-  modalRef: React.RefObject<Modalize>;
-}
-
-const VisibilityModal: React.FC<VisibilityModalProps> = ({ modalRef }) => {
+const VisibilityModal = forwardRef<Modalize>((_, ref) => {
   const theme = useTheme();
   const { autoHide } = useSelector(({ settings }) => settings);
   const { userPlayerIndex } = useSelector(({ notes }) => notes);
   const dispatch = useDispatch();
 
-  const dimiss = () => modalRef.current?.close();
+  const innerRef = useRef<Modalize>(null);
+  const combinedRef = useCombinedRefs(ref, innerRef);
+
+  const dimiss = () => innerRef.current?.close();
+
+  const window = useWindowDimensions();
 
   const color = headerData[userPlayerIndex][theme.dark ? 'dark' : 'light'];
 
@@ -33,7 +34,7 @@ const VisibilityModal: React.FC<VisibilityModalProps> = ({ modalRef }) => {
   useEffect(() => {
     if (autoHide) {
       if (shouldOpen) {
-        modalRef.current?.open();
+        innerRef.current?.open();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,9 +43,9 @@ const VisibilityModal: React.FC<VisibilityModalProps> = ({ modalRef }) => {
   useEffect(() => {
     if (autoHide) {
       if (shouldClose) {
-        modalRef.current?.close();
+        innerRef.current?.close();
       } else if (shouldOpen) {
-        modalRef.current?.open();
+        innerRef.current?.open();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,20 +68,20 @@ const VisibilityModal: React.FC<VisibilityModalProps> = ({ modalRef }) => {
 
   return (
     <Modal
-      modalRef={modalRef}
+      ref={combinedRef}
       props={{
         adjustToContentHeight: false,
-        modalHeight: Dimensions.get('window').height,
+        modalHeight: window.height,
         handleStyle: {
           marginTop: getStatusBarHeight(),
           backgroundColor: theme.dark ? color : '#00000080',
         },
         childrenStyle: {
-          height: Dimensions.get('window').height,
-          width: Dimensions.get('window').width,
+          height: window.height,
+          width: window.width,
           borderTopWidth: 0,
-          padding: 0,
           backgroundColor: theme.dark ? '#00000080' : '',
+          padding: 0,
         },
         modalStyle: {
           backgroundColor: color,
@@ -91,48 +92,53 @@ const VisibilityModal: React.FC<VisibilityModalProps> = ({ modalRef }) => {
         style={{
           height: '100%',
           width: '100%',
+          padding: 20,
           justifyContent: 'center',
-          alignItems: 'center',
+          // flex: 1,
         }}
         onPress={dimiss}>
-        <MaterialCommunityIcons
-          name={'eye-off-outline'}
-          size={150}
-          color={theme.dark ? color : '#00000080'}
-        />
-        <Text
+        <View
           style={{
-            color: theme.dark ? color : '#00000080',
-            fontWeight: 'bold',
-            fontSize: 20,
-            marginTop: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          Your notes are hidden
-        </Text>
-        <Text
-          style={{
-            color: theme.dark ? color : '#00000080',
-          }}>
-          Slide down or press anywhere to view your notes
-        </Text>
-      </Pressable>
+          <MaterialCommunityIcons
+            name={'eye-off-outline'}
+            size={150}
+            color={theme.dark ? color : '#00000080'}
+          />
+          <Text
+            style={{
+              color: theme.dark ? color : '#00000080',
+              fontWeight: 'bold',
+              fontSize: 20,
+              marginTop: 20,
+            }}>
+            Your notes are hidden
+          </Text>
+          <Text
+            style={{
+              color: theme.dark ? color : '#00000080',
+            }}>
+            Slide down or press anywhere to view your notes
+          </Text>
+        </View>
 
-      <Button
-        label={`${
-          autoHide ? 'Disable' : 'Enable'
-        } experimental auto screen hiding`}
-        style={{
-          backgroundColor: '#00000080',
-          position: 'absolute',
-          bottom: 20,
-          left: 20,
-          right: 20,
-        }}
-        onPress={() => dispatch(toggleAutoHide())}
-        textColor={color}
-      />
+        <Button
+          label={`${
+            autoHide ? 'Disable' : 'Enable'
+          } experimental auto screen hiding`}
+          style={{
+            backgroundColor: '#00000080',
+            width: '100%',
+            marginTop: 20
+          }}
+          onPress={() => dispatch(toggleAutoHide())}
+          textColor={color}
+        />
+      </Pressable>
     </Modal>
   );
-};
+});
 
 export default VisibilityModal;

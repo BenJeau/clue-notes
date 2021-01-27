@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import {
   Pressable,
   StyleProp,
@@ -7,13 +7,16 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { deepEqual } from 'fast-equals';
+import isEqual from 'react-fast-compare';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 import { BoardEntry } from '../redux/slices/notesSlice';
 import { SQUARE_SIZE } from '../config/constants';
 import { useTheme, useSelector, useDispatch } from '../hooks';
 import { setSelected } from '../redux/slices/stateSlice';
+
+
+const MemoPressable = memo(Pressable, isEqual);
 
 interface ModalPressableProps {
   data: BoardEntry;
@@ -30,14 +33,14 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
 
   const isSelected = selected.data === data && selected.type === type;
 
-  const updateSelected = () => {
+  const updateSelected = useCallback(() => {
     Vibration.vibrate(10);
     dispatch(setSelected({ data, type }));
-  };
+  }, [data, dispatch, type]);
 
   return (
     <View style={[{ overflow: 'hidden', borderRadius: 5, margin: 3 }, style]}>
-      <Pressable
+      <MemoPressable
         style={{
           backgroundColor: isSelected ? colors.text : colors.card,
           height: SQUARE_SIZE,
@@ -58,9 +61,9 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
             {data}
           </Text>
         )}
-      </Pressable>
+      </MemoPressable>
     </View>
   );
 };
 
-export default memo(ModalPressable, deepEqual);
+export default memo(ModalPressable, isEqual);
