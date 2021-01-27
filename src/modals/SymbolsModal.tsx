@@ -18,7 +18,7 @@ interface SymbolsModalProps {
 
 const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
   const { colors } = useTheme();
-  const [alwaysOpen, setAlwaysOpen] = useState(0);
+  const [alwaysOpen, setAlwaysOpen] = useState(ALWAYS_OPEN);
 
   // Fixes a bug where the modal would open completely when loading the app
   useEffect(() => {
@@ -47,13 +47,16 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
           alignItems: 'center',
         }}>
         <View style={styles.section}>
-          <ModalPressable data={{ type: 'text', data: ' ' }} />
-          {icons.map((i, key) => (
-            <ModalPressable key={key} data={{ type: 'icon', data: i }} />
-          ))}
+          {/* <ModalPressable data={{ type: 'text', data: ' ' }} />
+          {icons.map((i, key) => {
+            console.log(key, i);
+            return (
+              <ModalPressable key={key} data={{ type: 'icon', data: i }} />
+            );
+          })} */}
         </View>
       </View>
-      {sheet.map((i, key) => (
+      {/* {sheet.map((i, key) => (
         <View key={key}>
           <Text style={[styles.header, { color: colors.text }]}>{i.title}</Text>
           <View style={styles.section}>
@@ -62,7 +65,7 @@ const SymbolsModal: React.FC<SymbolsModalProps> = ({ modalRef }) => {
             ))}
           </View>
         </View>
-      ))}
+      ))} */}
     </Modal>
   );
 };

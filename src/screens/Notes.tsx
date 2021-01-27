@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   SectionList,
   Pressable,
@@ -25,7 +25,7 @@ import {
 } from '../modals';
 import { useTheme, useSelector } from '../hooks';
 
-const Home: React.FC = () => {
+const Home: React.FC = (props) => {
   const playerModalRef = useRef<Modalize>(null);
   const symbolsModalRef = useRef<Modalize>(null);
   const resetModalRef = useRef<Modalize>(null);
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
           ]}
         />
 
-        <View
+        {/* <View
           style={{
             borderColor: colors.border,
             backgroundColor: colors.background,
@@ -106,13 +106,13 @@ const Home: React.FC = () => {
               </Text>
             </Pressable>
           ))}
-        </View>
+        </View> */}
 
         <SectionList
           sections={[
-            { title: 'suspects', data: sections.suspects },
-            { title: 'weapons', data: sections.weapons },
-            { title: 'rooms', data: sections.rooms },
+            { title: 'suspects', data: [sections.suspects[0]]},
+            // { title: 'weapons', data: sections.weapons },
+            // { title: 'rooms', data: sections.rooms },
           ]}
           keyExtractor={(item, index) => `${item}${index}`}
           renderItem={({ item, index, section }) => (
@@ -142,7 +142,7 @@ const Home: React.FC = () => {
       </View>
 
       <SymbolsModal modalRef={symbolsModalRef} />
-      <ResetModal modalRef={resetModalRef} />
+      {/* <ResetModal modalRef={resetModalRef} />
       <SettingsModal
         modalRef={settingsModalRef}
         openCustomizeBoard={openCustomizeModal}
@@ -161,7 +161,7 @@ const Home: React.FC = () => {
         selectedPlayerIndex={selectedPlayerIndex}
         buttonColor={headerData[selectedPlayerIndex][dark ? 'dark' : 'light']}
       />
-      <HideModal modalRef={hideModalRef} />
+      <HideModal modalRef={hideModalRef} /> */}
     </>
   );
 };

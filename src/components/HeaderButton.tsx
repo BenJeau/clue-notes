@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable, StyleProp, Vibration, View, ViewStyle } from 'react-native';
-import MaterialCommunityIcons from './MaterialCommunityIcons';
+import deepEqual from 'fast-deep-equal';
 
+import MaterialCommunityIcons from './MaterialCommunityIcons';
 import { useTheme } from '../hooks';
 
 interface HeaderButtonProps {
@@ -42,4 +43,4 @@ const HeaderButton: React.FC<HeaderButtonProps> = ({
   );
 };
 
-export default HeaderButton;
+export default memo(HeaderButton, deepEqual);

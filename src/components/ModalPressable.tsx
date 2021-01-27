@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Pressable,
   StyleProp,
@@ -7,8 +7,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import MaterialCommunityIcons from './MaterialCommunityIcons';
+import { deepEqual } from 'fast-equals';
 
+import MaterialCommunityIcons from './MaterialCommunityIcons';
 import { BoardEntry } from '../redux/slices/notesSlice';
 import { SQUARE_SIZE } from '../config/constants';
 import { useTheme, useSelector, useDispatch } from '../hooks';
@@ -62,4 +63,4 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
   );
 };
 
-export default ModalPressable;
+export default memo(ModalPressable, deepEqual);

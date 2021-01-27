@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   LayoutAnimation,
   Platform,
@@ -107,4 +107,4 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, rowIndex, section }) => {
   );
 };
 
-export default BoardRow;
+export default memo(BoardRow);

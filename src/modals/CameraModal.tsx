@@ -50,7 +50,7 @@ const CameraModal: React.FC<CameraModalProps> = ({ modalRef }) => {
 
   return (
     <Modal
-      modalRef={modalRef}
+      ref={modalRef}
       showDismiss
       header={{
         title: 'Scan QR Code',
