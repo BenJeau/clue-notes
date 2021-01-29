@@ -12,6 +12,7 @@ import { colors } from '../config/data';
 import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
 import {
   addSectionItem,
+  cleanupSections,
   editSectionItem,
   removeSectionItem,
 } from '../redux/slices/settingsSlice';
@@ -150,14 +151,18 @@ const SectionItem = ({ item, index, section }) => {
 
 const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
   const { sections } = useSelector(({ settings }) => settings);
+  const dispatch = useDispatch();
 
   const [combinedRef, innerRef] = useInnerRef(ref);
   const close = useCallback(() => innerRef.current?.close(), [innerRef]);
+
+  const onClose = useCallback(() => dispatch(cleanupSections()), [dispatch]);
 
   return (
     <Modal
       ref={combinedRef}
       props={{
+        onClose,
         sectionListProps: {
           sections: [
             { title: 'suspects', data: sections.suspects },

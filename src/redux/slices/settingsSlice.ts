@@ -8,10 +8,12 @@ interface SectionsType {
 
 interface SettingsType {
   autoHide: boolean;
+  vibrate: boolean;
   sections: SectionsType;
 }
 
 const initialState: SettingsType = {
+  vibrate: true,
   autoHide: false,
   sections: {
     suspects: [
@@ -50,6 +52,9 @@ const settingsSlice = createSlice({
   reducers: {
     toggleAutoHide: (state) => {
       state.autoHide = !state.autoHide;
+    },
+    toggleVibrate: (state) => {
+      state.vibrate = !state.vibrate;
     },
     addSectionItem: (
       state,
@@ -91,15 +96,23 @@ const settingsSlice = createSlice({
     setSections: (state, action: PayloadAction<SectionsType>) => {
       state.sections = action.payload;
     },
+    cleanupSections: (state) => {
+      state.sections = Object.keys(state.sections).reduce((acc, key) => {
+        acc[key] = state.sections[key].filter((i) => i.trim() !== '');
+        return acc;
+      }, {} as SectionsType);
+    },
   },
 });
 
 export const {
   toggleAutoHide,
+  toggleVibrate,
   addSectionItem,
   editSectionItem,
   removeSectionItem,
   resetSections,
   setSections,
+  cleanupSections,
 } = settingsSlice.actions;
 export default settingsSlice.reducer;

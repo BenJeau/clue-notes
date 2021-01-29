@@ -9,7 +9,7 @@ import {
   Pressable,
 } from '../components';
 import { useDispatch, useSelector, useTheme } from '../hooks';
-import { toggleAutoHide } from '../redux/slices/settingsSlice';
+import { toggleAutoHide, toggleVibrate } from '../redux/slices/settingsSlice';
 
 interface SettingsModalProps {
   openCustomizeBoard: () => void;
@@ -18,7 +18,7 @@ interface SettingsModalProps {
 const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
   ({ openCustomizeBoard }, ref) => {
     const { colors } = useTheme();
-    const { autoHide } = useSelector(({ settings }) => settings);
+    const { autoHide, vibrate } = useSelector(({ settings }) => settings);
     const dispatch = useDispatch();
 
     const openGithub = useCallback(
@@ -36,6 +36,10 @@ const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
       [],
     );
     const toggleScreenHiding = useCallback(() => dispatch(toggleAutoHide()), [
+      dispatch,
+    ]);
+
+    const toggleButtonVibration = useCallback(() => dispatch(toggleVibrate()), [
       dispatch,
     ]);
 
@@ -73,6 +77,12 @@ const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
           } experimental auto screen hiding`}
           style={{ backgroundColor: colors.card, marginTop: 10 }}
           onPress={toggleScreenHiding}
+        />
+
+        <Button
+          label={`${vibrate ? 'Disable' : 'Enable'} button vibration`}
+          style={{ backgroundColor: colors.card, marginTop: 10 }}
+          onPress={toggleButtonVibration}
         />
       </Modal>
     );
