@@ -13,7 +13,7 @@ const QrCodeModal = forwardRef<Modalize>((_, ref) => {
   const { sections } = useSelector(({ settings }) => settings);
 
   const qrSize =
-    (window.width > window.height ? window.height : window.width) - 50;
+    (window.width > window.height ? window.height : window.width) - 40 - 14;
 
   const qrCodeValue = useMemo(() => JSON.stringify(Object.values(sections)), [
     sections,
@@ -34,8 +34,8 @@ const QrCodeModal = forwardRef<Modalize>((_, ref) => {
           backgroundColor: colors.text,
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 5,
-          borderRadius: 5,
+          padding: 7,
+          borderRadius: 10,
           flex: 1,
         }}>
         <QRCode

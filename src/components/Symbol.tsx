@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { StyleProp, Text, Vibration, View, ViewStyle } from 'react-native';
+import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import isEqual from 'react-fast-compare';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
@@ -9,15 +9,12 @@ import { SQUARE_SIZE } from '../config/constants';
 import { useTheme, useSelector, useDispatch } from '../hooks';
 import { setSelected } from '../redux/slices/stateSlice';
 
-interface ModalPressableProps {
+interface SymbolProps {
   data: BoardEntry;
   style?: StyleProp<ViewStyle>;
 }
 
-const ModalPressable: React.FC<ModalPressableProps> = ({
-  data: { data, type },
-  style,
-}) => {
+const Symbol: React.FC<SymbolProps> = ({ data: { data, type }, style }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const { selected } = useSelector(({ state }) => state);
@@ -25,12 +22,21 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
   const isSelected = selected.data === data && selected.type === type;
 
   const updateSelected = useCallback(() => {
-    Vibration.vibrate(10);
     dispatch(setSelected({ data, type }));
   }, [data, dispatch, type]);
 
   return (
-    <View style={[{ overflow: 'hidden', borderRadius: 5, margin: 3 }, style]}>
+    <View
+      style={[
+        {
+          overflow: 'hidden',
+          borderRadius: 5,
+          margin: 3,
+          borderWidth: 1,
+          borderColor: colors.border,
+        },
+        style,
+      ]}>
       <Pressable
         style={{
           backgroundColor: isSelected ? colors.text : colors.card,
@@ -57,4 +63,4 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
   );
 };
 
-export default memo(ModalPressable, isEqual);
+export default memo(Symbol, isEqual);

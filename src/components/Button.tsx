@@ -26,7 +26,16 @@ const Button: React.FC<ButtonProps> = ({
   const { colors } = useTheme();
 
   return (
-    <View style={[{ overflow: 'hidden', borderRadius: 10 }, style]}>
+    <View
+      style={[
+        {
+          overflow: 'hidden',
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: colors.border,
+        },
+        style,
+      ]}>
       <Pressable
         onPress={onPress}
         android_ripple={{
@@ -37,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',
-            padding: 9,
+            padding: 10,
           },
           pressableStyle,
         ]}>

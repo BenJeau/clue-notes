@@ -1,15 +1,13 @@
 import React, { forwardRef } from 'react';
-import {
-  Pressable,
-  Text,
-  View,
-  TextInput,
-  LayoutAnimation,
-  Vibration,
-} from 'react-native';
+import { Text, View, TextInput, LayoutAnimation } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { Button, MaterialCommunityIcons, Modal } from '../components';
+import {
+  Button,
+  MaterialCommunityIcons,
+  Modal,
+  Pressable,
+} from '../components';
 import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
 import {
   addSectionItem,
@@ -103,9 +101,11 @@ const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
                 marginBottom: 10,
                 overflow: 'hidden',
                 justifyContent: 'space-between',
-                paddingHorizontal: 9,
+                paddingHorizontal: 12,
                 alignItems: 'center',
-                height: 37.5,
+                height: 43.5,
+                borderWidth: 1,
+                borderColor: theme.colors.border,
               }}>
               <TextInput
                 style={{
@@ -127,7 +127,6 @@ const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
               </TextInput>
               <Pressable
                 onPress={() => {
-                  Vibration.vibrate(10);
                   LayoutAnimation.configureNext(
                     LayoutAnimation.Presets.easeInEaseOut,
                   );

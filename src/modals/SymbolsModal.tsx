@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { Modal, ModalPressable } from '../components';
+import { Modal, Symbol } from '../components';
 import {
   ALWAYS_OPEN,
   ALWAYS_OPEN_PADDING,
@@ -30,7 +30,8 @@ const SymbolsModal = forwardRef<Modalize>((_, ref) => {
         childrenStyle: {
           padding:
             (width -
-              Math.floor(width / (SQUARE_SIZE + 6)) * (SQUARE_SIZE + 6)) /
+              Math.floor(width / (SQUARE_SIZE + 6 + 2)) *
+                (SQUARE_SIZE + 6 + 2)) /
             2,
           paddingTop: ALWAYS_OPEN_TOP_PADDING - 3,
           paddingBottom: ALWAYS_OPEN_PADDING,
@@ -43,9 +44,9 @@ const SymbolsModal = forwardRef<Modalize>((_, ref) => {
           alignItems: 'center',
         }}>
         <View style={styles.section}>
-          <ModalPressable data={{ type: 'text', data: ' ' }} />
+          <Symbol data={{ type: 'text', data: ' ' }} />
           {icons.map((i, key) => (
-            <ModalPressable key={key} data={{ type: 'icon', data: i }} />
+            <Symbol key={key} data={{ type: 'icon', data: i }} />
           ))}
         </View>
       </View>
@@ -54,7 +55,7 @@ const SymbolsModal = forwardRef<Modalize>((_, ref) => {
           <Text style={[styles.header, { color: colors.text }]}>{i.title}</Text>
           <View style={styles.section}>
             {i.data.map((j) => (
-              <ModalPressable key={j} data={{ type: 'text', data: j }} />
+              <Symbol key={j} data={{ type: 'text', data: j }} />
             ))}
           </View>
         </View>

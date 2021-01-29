@@ -1,4 +1,4 @@
-export const SQUARE_SIZE = 40;
+export const SQUARE_SIZE = 38;
 export const ALWAYS_OPEN_PADDING = 7;
 export const ALWAYS_OPEN_TOP_PADDING = 20;
 export const ALWAYS_OPEN =

@@ -71,7 +71,7 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
       <View
         style={{
           width: cameraSize,
-          borderRadius: 5,
+          borderRadius: 10,
           overflow: 'hidden',
           height: cameraSize,
           backgroundColor: colors.card,
