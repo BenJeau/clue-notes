@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
 
@@ -20,6 +20,8 @@ const Modal = forwardRef<Modalize, ModalProps>(
     const { colors } = useTheme();
 
     const [combinedRef, innerRef] = useInnerRef(ref);
+
+    const close = useCallback(() => innerRef.current?.close(), [innerRef]);
 
     return (
       <Modalize
@@ -74,7 +76,7 @@ const Modal = forwardRef<Modalize, ModalProps>(
               {showDismiss && (
                 <Button
                   label="Dismiss"
-                  onPress={() => innerRef.current?.close()}
+                  onPress={close}
                   style={{ marginTop: 10, width: '100%' }}
                 />
               )}

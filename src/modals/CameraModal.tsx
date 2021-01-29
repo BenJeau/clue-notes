@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 import { Dimensions, StyleSheet, View, Text, Linking } from 'react-native';
 import {
   GoogleVisionBarcodesDetectedEvent,
@@ -21,6 +21,8 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
     (window.width > window.height ? window.height : window.width) - 40;
 
   const [combinedRef, innerRef] = useInnerRef(ref);
+
+  const openSettings = useCallback(() => Linking.openSettings(), []);
 
   const onBarcodesDetected = ({
     barcodes,
@@ -90,7 +92,7 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
           }}
           notAuthorizedView={
             <Pressable
-              onPress={() => Linking.openSettings()}
+              onPress={openSettings}
               style={[
                 StyleSheet.absoluteFill,
                 { justifyContent: 'center', alignItems: 'center', padding: 50 },

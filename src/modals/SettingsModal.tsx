@@ -21,7 +21,10 @@ const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
     const { autoHide } = useSelector(({ settings }) => settings);
     const dispatch = useDispatch();
 
-    const openGithub = () => Linking.openURL('https://github.com/BenJeau');
+    const openGithub = useCallback(
+      () => Linking.openURL('https://github.com/BenJeau'),
+      [],
+    );
     const style = useCallback(
       ({ pressed }: PressableStateCallbackType) => ({
         flexDirection: 'row',
@@ -32,6 +35,9 @@ const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
       }),
       [],
     );
+    const toggleScreenHiding = useCallback(() => dispatch(toggleAutoHide()), [
+      dispatch,
+    ]);
 
     return (
       <Modal
@@ -66,7 +72,7 @@ const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
             autoHide ? 'Disable' : 'Enable'
           } experimental auto screen hiding`}
           style={{ backgroundColor: colors.card, marginTop: 10 }}
-          onPress={() => dispatch(toggleAutoHide())}
+          onPress={toggleScreenHiding}
         />
       </Modal>
     );

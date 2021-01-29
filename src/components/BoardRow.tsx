@@ -37,7 +37,7 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, rowIndex, section }) => {
         borderColor: colors.border,
       }}>
       <MemoBoardRowTitle
-        scratched={data.scratched}
+        scratched={!!data.scratched}
         section={section}
         rowIndex={rowIndex}>
         {item}

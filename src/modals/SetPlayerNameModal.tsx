@@ -1,21 +1,28 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Modal, Button } from '../components';
+import { headerData } from '../config/data';
 import { useTheme, useDispatch, useSelector, useInnerRef } from '../hooks';
 import { setPlayer, setUserPlayerIndex } from '../redux/slices/notesSlice';
 
 interface SetPlayerNameModalProps {
   selectedPlayerIndex: number;
-  buttonColor: string;
 }
 
 const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
-  ({ selectedPlayerIndex, buttonColor }, ref) => {
+  ({ selectedPlayerIndex }, ref) => {
     const { players } = useSelector(({ notes }) => notes);
     const dispatch = useDispatch();
-    const { colors } = useTheme();
+    const { colors, dark } = useTheme();
     const [name, setName] = useState('');
     const textInputRef = useRef<TextInput>(null);
 
@@ -26,12 +33,17 @@ const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
       dispatch(setPlayer({ index: selectedPlayerIndex, name }));
     };
 
-    const updatePlayer = () => {
+    const dismiss = useCallback(() => innerRef.current?.close(), [innerRef]);
+
+    const updatePlayer = useCallback(() => {
       dispatch(setUserPlayerIndex(selectedPlayerIndex));
       dismiss();
-    };
+    }, [dismiss, dispatch, selectedPlayerIndex]);
 
-    const dismiss = () => innerRef.current?.close();
+    const buttonColor = useMemo(
+      () => headerData[selectedPlayerIndex][dark ? 'dark' : 'light'],
+      [dark, selectedPlayerIndex],
+    );
 
     useEffect(() => {
       if (players[selectedPlayerIndex]) {
@@ -54,7 +66,7 @@ const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
         }}>
         <TextInput
           ref={textInputRef}
-          onChangeText={(text) => setName(text)}
+          onChangeText={setName}
           value={name}
           maxLength={2}
           autoCapitalize="characters"

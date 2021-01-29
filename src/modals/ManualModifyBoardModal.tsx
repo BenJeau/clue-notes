@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useCallback } from 'react';
 import { Text, View, TextInput, LayoutAnimation } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
@@ -8,6 +8,7 @@ import {
   Modal,
   Pressable,
 } from '../components';
+import { colors } from '../config/data';
 import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
 import {
   addSectionItem,
@@ -15,50 +16,149 @@ import {
   removeSectionItem,
 } from '../redux/slices/settingsSlice';
 
-const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
+const ModalHeader = () => {
+  const theme = useTheme();
+  return (
+    <View
+      style={{
+        padding: 20,
+        paddingBottom: 10,
+        borderTopWidth: 1,
+        borderColor: theme.colors.border,
+        backgroundColor: theme.colors.card,
+      }}>
+      <Text
+        style={{
+          color: theme.colors.text,
+          fontSize: 20,
+          fontWeight: 'bold',
+        }}>
+        Modify Board
+      </Text>
+      <Text style={{ color: theme.colors.text }}>
+        Press the name to edit the items, delete items, add items or reset board
+      </Text>
+    </View>
+  );
+};
+
+const SectionHeader: React.FC<{ title: string }> = ({ title }) => {
+  const theme = useTheme();
+  return (
+    <View
+      style={{
+        backgroundColor: theme.colors.card,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderColor: theme.colors.border,
+      }}>
+      <Text
+        style={{
+          color: theme.colors.text,
+          fontSize: 18,
+        }}>
+        {`${title[0].toUpperCase()}${title.substr(1, title.length)}`}
+      </Text>
+    </View>
+  );
+};
+
+const SectionFooter: React.FC<{ title: string }> = ({ title }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+
+  const onPress = useCallback(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    dispatch(addSectionItem({ section: title, item: '' }));
+  }, [dispatch, title]);
+
+  return (
+    <Button
+      onPress={onPress}
+      label={`Add ${title.toLowerCase().substr(0, title.length - 1)}`}
+      style={{
+        backgroundColor: colors.blue[theme.dark ? 'dark' : 'light'],
+        marginVertical: 10,
+        marginHorizontal: 20,
+        marginBottom: 20,
+      }}
+    />
+  );
+};
+
+const SectionItem = ({ item, index, section }) => {
+  const theme = useTheme();
+  const dispatch = useDispatch();
+
+  const removeItem = useCallback(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    dispatch(removeSectionItem({ index, section: section.title }));
+  }, [dispatch, index, section.title]);
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        backgroundColor: theme.colors.card,
+        flex: 1,
+        borderRadius: 10,
+        alignItems: 'center',
+        overflow: 'hidden',
+        justifyContent: 'space-between',
+        paddingHorizontal: 12,
+        height: 43.5,
+        borderWidth: 1,
+        borderColor: theme.colors.border,
+        marginHorizontal: 20,
+        marginTop: 10,
+      }}>
+      <TextInput
+        placeholder="Entry name"
+        placeholderTextColor={`${theme.colors.text}70`}
+        selectionColor={colors.blue[theme.dark ? 'dark' : 'light']}
+        style={{
+          color: theme.colors.text,
+          padding: 0,
+          margin: 0,
+          flex: 1,
+        }}
+        onEndEditing={({ nativeEvent: { text } }) => {
+          dispatch(
+            editSectionItem({
+              index,
+              section: section.title,
+              item: text,
+            }),
+          );
+        }}>
+        {item}
+      </TextInput>
+      <Pressable
+        onPress={removeItem}
+        android_ripple={{ color: theme.colors.text, borderless: true }}>
+        <MaterialCommunityIcons
+          name="close"
+          size={24}
+          color={theme.colors.text}
+        />
+      </Pressable>
+    </View>
+  );
+};
+
+const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
   const { sections } = useSelector(({ settings }) => settings);
 
   const [combinedRef, innerRef] = useInnerRef(ref);
+  const close = useCallback(() => innerRef.current?.close(), [innerRef]);
 
   return (
     <Modal
       ref={combinedRef}
       props={{
-        disableScrollIfPossible: false,
-        HeaderComponent: () => (
-          <View
-            style={{
-              padding: 20,
-              paddingBottom: 10,
-              borderTopWidth: 1,
-              borderBottomWidth: 1,
-              borderColor: theme.colors.border,
-              backgroundColor: theme.colors.card,
-            }}>
-            <Text
-              style={{
-                color: theme.colors.text,
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>
-              Modify Board
-            </Text>
-            <Text style={{ color: theme.colors.text }}>
-              Press the name to edit the items, delete items, add items or reset
-              board
-            </Text>
-          </View>
-        ),
         sectionListProps: {
-          ListFooterComponent: () => (
-            <Button
-              label="Dismiss"
-              onPress={() => innerRef.current?.close()}
-              style={{ marginVertical: 10 }}
-            />
-          ),
           sections: [
             { title: 'suspects', data: sections.suspects },
             { title: 'weapons', data: sections.weapons },
@@ -66,82 +166,22 @@ const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
           ],
           keyExtractor: (item) => item,
           renderSectionHeader: ({ section: { title } }) => (
-            <Text
-              style={{
-                color: theme.colors.text,
-                fontSize: 18,
-                paddingVertical: 10,
-              }}>
-              {`${title[0].toUpperCase()}${title.substr(1, title.length)}`}
-            </Text>
+            <SectionHeader title={title} />
           ),
           renderSectionFooter: ({ section: { title } }) => (
-            <Button
-              onPress={() => {
-                LayoutAnimation.configureNext(
-                  LayoutAnimation.Presets.easeInEaseOut,
-                );
-                dispatch(addSectionItem({ section: title, item: '' }));
-              }}
-              label={`Add ${title.toLowerCase().substr(0, title.length - 1)}`}
-              style={{ backgroundColor: theme.colors.border, marginBottom: 10 }}
-            />
+            <SectionFooter title={title} />
           ),
-          style: {
-            padding: 20,
-            paddingTop: 0,
-          },
           renderItem: ({ item, index, section }) => (
-            <View
-              style={{
-                flexDirection: 'row',
-                backgroundColor: theme.colors.card,
-                flex: 1,
-                borderRadius: 10,
-                marginBottom: 10,
-                overflow: 'hidden',
-                justifyContent: 'space-between',
-                paddingHorizontal: 12,
-                alignItems: 'center',
-                height: 43.5,
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-              }}>
-              <TextInput
-                style={{
-                  color: theme.colors.text,
-                  padding: 0,
-                  margin: 0,
-                  flex: 1,
-                }}
-                onEndEditing={({ nativeEvent: { text } }) => {
-                  dispatch(
-                    editSectionItem({
-                      index,
-                      section: section.title,
-                      item: text,
-                    }),
-                  );
-                }}>
-                {item}
-              </TextInput>
-              <Pressable
-                onPress={() => {
-                  LayoutAnimation.configureNext(
-                    LayoutAnimation.Presets.easeInEaseOut,
-                  );
-                  dispatch(
-                    removeSectionItem({ index, section: section.title }),
-                  );
-                }}
-                android_ripple={{ color: theme.colors.text, borderless: true }}>
-                <MaterialCommunityIcons
-                  name="close"
-                  size={24}
-                  color={theme.colors.text}
-                />
-              </Pressable>
-            </View>
+            <SectionItem item={item} index={index} section={section} />
+          ),
+          ListHeaderComponent: <ModalHeader />,
+          stickySectionHeadersEnabled: true,
+          ListFooterComponent: () => (
+            <Button
+              label="Dismiss"
+              onPress={close}
+              style={{ marginBottom: 20, marginHorizontal: 20 }}
+            />
           ),
         },
       }}
