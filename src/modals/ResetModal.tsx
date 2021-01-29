@@ -1,17 +1,16 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { Modalize } from 'react-native-modalize';
 
 import { clearBoard, clearPlayers } from '../redux/slices/notesSlice';
 import { Button, Modal } from '../components';
 import { colors } from '../config/data';
-import { useTheme, useDispatch, useCombinedRefs } from '../hooks';
+import { useTheme, useDispatch, useInnerRef } from '../hooks';
 
 const ResetModal = forwardRef<Modalize>((_, ref) => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
-  const innerRef = useRef<Modalize>(null);
-  const combinedRef = useCombinedRefs(ref, innerRef);
+  const [combinedRef, innerRef] = useInnerRef(ref);
 
   const clearNotes = () => {
     dispatch(clearBoard());

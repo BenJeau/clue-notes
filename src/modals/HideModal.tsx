@@ -1,16 +1,21 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
+import { Text, useWindowDimensions, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
-
-import { Button, MaterialCommunityIcons, Modal } from '../components';
-import { headerData } from '../config/data';
-import { useCombinedRefs, useDispatch, useSelector, useTheme } from '../hooks';
-import { Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import {
   accelerometer,
   SensorTypes,
   setUpdateIntervalForType,
 } from 'react-native-sensors';
+
+import {
+  Button,
+  MaterialCommunityIcons,
+  Modal,
+  Pressable,
+} from '../components';
+import { headerData } from '../config/data';
+import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
 import { toggleAutoHide } from '../redux/slices/settingsSlice';
 
 const VisibilityModal = forwardRef<Modalize>((_, ref) => {
@@ -19,8 +24,7 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
   const { userPlayerIndex } = useSelector(({ notes }) => notes);
   const dispatch = useDispatch();
 
-  const innerRef = useRef<Modalize>(null);
-  const combinedRef = useCombinedRefs(ref, innerRef);
+  const [combinedRef, innerRef] = useInnerRef(ref);
 
   const dimiss = () => innerRef.current?.close();
 
@@ -94,7 +98,6 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
           width: '100%',
           padding: 20,
           justifyContent: 'center',
-          // flex: 1,
         }}
         onPress={dimiss}>
         <View
@@ -131,7 +134,7 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
           style={{
             backgroundColor: '#00000080',
             width: '100%',
-            marginTop: 20
+            marginTop: 20,
           }}
           onPress={() => dispatch(toggleAutoHide())}
           textColor={color}

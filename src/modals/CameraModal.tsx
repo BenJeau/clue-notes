@@ -1,5 +1,5 @@
-import React, { forwardRef, useRef, useState } from 'react';
-import { Dimensions, useWindowDimensions } from 'react-native';
+import React, { forwardRef, useState } from 'react';
+import { Dimensions } from 'react-native';
 import {
   GoogleVisionBarcodesDetectedEvent,
   RNCamera,
@@ -7,7 +7,7 @@ import {
 import { Modalize } from 'react-native-modalize';
 
 import { Modal } from '../components';
-import { useCombinedRefs, useDispatch } from '../hooks';
+import { useDispatch, useInnerRef } from '../hooks';
 import { setSections } from '../redux/slices/settingsSlice';
 
 const window = Dimensions.get('window');
@@ -19,8 +19,7 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
   const cameraSize =
     (window.width > window.height ? window.height : window.width) - 40;
 
-  const innerRef = useRef<Modalize>(null);
-  const combinedRef = useCombinedRefs(ref, innerRef);
+  const [combinedRef, innerRef] = useInnerRef(ref);
 
   const onBarcodesDetected = ({
     barcodes,

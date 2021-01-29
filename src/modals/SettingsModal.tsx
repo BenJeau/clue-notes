@@ -1,8 +1,13 @@
 import React, { forwardRef } from 'react';
-import { Linking, Pressable, Text } from 'react-native';
+import { Linking, Text } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { Modal, MaterialCommunityIcons, Button } from '../components';
+import {
+  Modal,
+  MaterialCommunityIcons,
+  Button,
+  Pressable,
+} from '../components';
 import { useDispatch, useSelector, useTheme } from '../hooks';
 import { toggleAutoHide } from '../redux/slices/settingsSlice';
 
@@ -23,6 +28,7 @@ const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
           FooterComponent: () => (
             <Pressable
               onPress={() => Linking.openURL('https://github.com/BenJeau')}
+              android_ripple={{}}
               style={({ pressed }) => ({
                 flexDirection: 'row',
                 paddingBottom: 20,

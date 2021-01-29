@@ -1,5 +1,5 @@
 import React, { forwardRef, useMemo } from 'react';
-import { Dimensions, useWindowDimensions, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import QRCode from 'react-native-qrcode-svg';
 

@@ -1,8 +1,8 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { View, Text } from 'react-native';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
 
-import { useCombinedRefs, useTheme } from '../hooks';
+import { useInnerRef, useTheme } from '../hooks';
 import Button from './Button';
 
 interface ModalProps {
@@ -19,8 +19,7 @@ const Modal = forwardRef<Modalize, ModalProps>(
   ({ children, props, header, showDismiss }, ref) => {
     const { colors } = useTheme();
 
-    const innerRef = useRef<Modalize>(null);
-    const combinedRef = useCombinedRefs(ref, innerRef);
+    const [combinedRef, innerRef] = useInnerRef(ref);
 
     return (
       <Modalize

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useColorScheme } from 'react-native';
 import { themeColors } from '../config/style';
 
-export default () => {
+export const useTheme = () => {
   const scheme = useColorScheme();
 
   const dark = useMemo(() => scheme === 'dark', [scheme]);

@@ -3,7 +3,7 @@ import { TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Modal, Button } from '../components';
-import { useTheme, useDispatch, useSelector, useCombinedRefs } from '../hooks';
+import { useTheme, useDispatch, useSelector, useInnerRef } from '../hooks';
 import { setPlayer, setUserPlayerIndex } from '../redux/slices/notesSlice';
 
 interface SetPlayerNameModalProps {
@@ -19,8 +19,7 @@ const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
     const [name, setName] = useState('');
     const textInputRef = useRef<TextInput>(null);
 
-    const innerRef = useRef<Modalize>(null);
-    const combinedRef = useCombinedRefs(ref, innerRef);
+    const [combinedRef, innerRef] = useInnerRef(ref);
 
     const save = () => {
       setName('');

@@ -1,17 +1,10 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
-import {
-  SectionList,
-  Pressable,
-  Text,
-  View,
-  Platform,
-  Vibration,
-} from 'react-native';
+import React, { useCallback, useRef, useState } from 'react';
+import { SectionList, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { headerData } from '../config/data';
-import { BoardRow, Header } from '../components';
-import { SQUARE_SIZE, ALWAYS_OPEN } from '../config/constants';
+import { BoardRow, Header, HeaderPlayers } from '../components';
+import { ALWAYS_OPEN } from '../config/constants';
 import {
   CameraModal,
   CustomizeBoardModal,
@@ -24,82 +17,6 @@ import {
   HideModal,
 } from '../modals';
 import { useTheme, useSelector } from '../hooks';
-import isEqual from 'react-fast-compare';
-
-interface PlayerHeaderProps {
-  setSelectedPlayerIndex: (index: number) => void;
-  openPlayerModal: () => void;
-}
-
-const MemoPressable = memo(Pressable, isEqual);
-
-const PlayerHeader: React.FC<PlayerHeaderProps> = ({
-  setSelectedPlayerIndex,
-  openPlayerModal,
-}) => {
-  const { colors, dark } = useTheme();
-  const { players } = useSelector(({ notes }) => notes);
-
-  return (
-    <View
-      style={{
-        borderColor: colors.border,
-        backgroundColor: colors.background,
-        width: '100%',
-        borderBottomWidth: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-      }}>
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: 20,
-          justifyContent: 'center',
-        }}>
-        <Text style={{ color: colors.text }}>Players</Text>
-      </View>
-      {headerData.map((color, key) => {
-        const onPress = useCallback(() => {
-          Vibration.vibrate(10);
-          setSelectedPlayerIndex(key);
-          openPlayerModal();
-        }, [key, setSelectedPlayerIndex, openPlayerModal]);
-
-        const style = useCallback(
-          ({ pressed }: PressableStateCallbackType) => ({
-            minHeight: SQUARE_SIZE,
-            width: SQUARE_SIZE,
-            borderColor: colors.border,
-            backgroundColor: color[dark ? 'dark' : 'light'],
-            opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
-            borderStartWidth: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }),
-          [color],
-        );
-
-        return (
-          <MemoPressable
-            key={key}
-            onPress={onPress}
-            style={style}
-            android_ripple={{ color: colors.background }}>
-            <Text
-              style={{
-                color: colors.text,
-                fontSize: 16,
-              }}>
-              {players[key]}
-            </Text>
-          </MemoPressable>
-        );
-      })}
-    </View>
-  );
-};
-
-const MemoPlayerHeader = memo(PlayerHeader, isEqual);
 
 const Home: React.FC = () => {
   const playerModalRef = useRef<Modalize>(null);
@@ -140,7 +57,7 @@ const Home: React.FC = () => {
           ]}
         />
 
-        <MemoPlayerHeader
+        <HeaderPlayers
           openPlayerModal={openPlayerModal}
           setSelectedPlayerIndex={setSelectedPlayerIndex}
         />

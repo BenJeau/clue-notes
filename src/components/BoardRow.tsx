@@ -1,14 +1,9 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import {
-  LayoutAnimation,
-  Platform,
-  Pressable,
-  Text,
-  Vibration,
-  View,
-} from 'react-native';
-import MaterialCommunityIcons from './MaterialCommunityIcons';
+import { LayoutAnimation, Platform, Text, View } from 'react-native';
+import isEqual from 'react-fast-compare';
 
+import MaterialCommunityIcons from './MaterialCommunityIcons';
+import Pressable from './Pressable';
 import { SQUARE_SIZE } from '../config/constants';
 import { headerData } from '../config/data';
 import {
@@ -17,7 +12,6 @@ import {
   setScratched,
 } from '../redux/slices/notesSlice';
 import { useTheme, useSelector, useDispatch } from '../hooks';
-import isEqual from 'react-fast-compare';
 
 interface BoardRowProps {
   item: string;
@@ -74,7 +68,6 @@ const BoardRowTitle: React.FC = ({
   const { colors } = useTheme();
 
   const toggleScratched = useCallback(() => {
-    Vibration.vibrate(10);
     dispatch(
       setScratched({
         row: rowIndex,
@@ -126,7 +119,6 @@ const BoardRowNote: React.FC<BoardRowNoteProps> = ({
   const dispatch = useDispatch();
 
   const updateBox = useCallback(() => {
-    Vibration.vibrate(10);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     dispatch(setBoardValue({ row: rowIndex, col: colIndex, section }));
   }, [colIndex, dispatch, rowIndex, section]);

@@ -5,3 +5,5 @@ export { default as HeaderButton } from './HeaderButton';
 export { default as Button } from './Button';
 export { default as Header } from './Header';
 export { default as MaterialCommunityIcons } from './MaterialCommunityIcons';
+export { default as Pressable } from './Pressable';
+export { default as HeaderPlayers } from './HeaderPlayers';

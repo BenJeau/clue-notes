@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  Pressable,
-  StyleProp,
-  Text,
-  Vibration,
-  View,
-  ViewStyle,
-} from 'react-native';
-import MaterialCommunityIcons from './MaterialCommunityIcons';
+import { StyleProp, Text, View, ViewStyle } from 'react-native';
 
+import MaterialCommunityIcons from './MaterialCommunityIcons';
+import Pressable from './Pressable';
 import { useTheme } from '../hooks';
 
 interface ButtonProps {
@@ -33,13 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <View style={[{ overflow: 'hidden', borderRadius: 10 }, style]}>
       <Pressable
-        onPress={
-          onPress &&
-          (() => {
-            Vibration.vibrate(10);
-            onPress();
-          })
-        }
+        onPress={onPress}
         android_ripple={{
           color: textColor || colors.text,
         }}

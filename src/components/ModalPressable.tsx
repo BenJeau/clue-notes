@@ -1,22 +1,13 @@
 import React, { memo, useCallback } from 'react';
-import {
-  Pressable,
-  StyleProp,
-  Text,
-  Vibration,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, Text, Vibration, View, ViewStyle } from 'react-native';
 import isEqual from 'react-fast-compare';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
+import Pressable from './Pressable';
 import { BoardEntry } from '../redux/slices/notesSlice';
 import { SQUARE_SIZE } from '../config/constants';
 import { useTheme, useSelector, useDispatch } from '../hooks';
 import { setSelected } from '../redux/slices/stateSlice';
-
-
-const MemoPressable = memo(Pressable, isEqual);
 
 interface ModalPressableProps {
   data: BoardEntry;
@@ -40,7 +31,7 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
 
   return (
     <View style={[{ overflow: 'hidden', borderRadius: 5, margin: 3 }, style]}>
-      <MemoPressable
+      <Pressable
         style={{
           backgroundColor: isSelected ? colors.text : colors.card,
           height: SQUARE_SIZE,
@@ -61,7 +52,7 @@ const ModalPressable: React.FC<ModalPressableProps> = ({
             {data}
           </Text>
         )}
-      </MemoPressable>
+      </Pressable>
     </View>
   );
 };

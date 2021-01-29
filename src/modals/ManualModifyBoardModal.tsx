@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef } from 'react';
 import {
   Pressable,
   Text,
@@ -10,7 +10,7 @@ import {
 import { Modalize } from 'react-native-modalize';
 
 import { Button, MaterialCommunityIcons, Modal } from '../components';
-import { useCombinedRefs, useDispatch, useSelector, useTheme } from '../hooks';
+import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
 import {
   addSectionItem,
   editSectionItem,
@@ -22,9 +22,7 @@ const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
   const dispatch = useDispatch();
   const { sections } = useSelector(({ settings }) => settings);
 
-  // TODO: a combined hook, since this is often used
-  const innerRef = useRef<Modalize>(null);
-  const combinedRef = useCombinedRefs(ref, innerRef);
+  const [combinedRef, innerRef] = useInnerRef(ref);
 
   return (
     <Modal
