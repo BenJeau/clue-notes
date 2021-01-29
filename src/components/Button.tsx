@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 import Pressable from './Pressable';
 import { useTheme } from '../hooks';
+import isEqual from 'react-fast-compare';
 
 interface ButtonProps {
   onPress: () => void;
@@ -62,4 +63,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default memo(Button, isEqual);

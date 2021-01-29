@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { Linking, Text } from 'react-native';
+import React, { forwardRef, useCallback } from 'react';
+import { Linking, PressableStateCallbackType, Text } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import {
@@ -21,21 +21,24 @@ const SettingsModal = forwardRef<Modalize, SettingsModalProps>(
     const { autoHide } = useSelector(({ settings }) => settings);
     const dispatch = useDispatch();
 
+    const openGithub = () => Linking.openURL('https://github.com/BenJeau');
+    const style = useCallback(
+      ({ pressed }: PressableStateCallbackType) => ({
+        flexDirection: 'row',
+        paddingBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        opacity: pressed ? 0.2 : 0.5,
+      }),
+      [],
+    );
+
     return (
       <Modal
         ref={ref}
         props={{
           FooterComponent: () => (
-            <Pressable
-              onPress={() => Linking.openURL('https://github.com/BenJeau')}
-              android_ripple={{}}
-              style={({ pressed }) => ({
-                flexDirection: 'row',
-                paddingBottom: 20,
-                justifyContent: 'center',
-                alignItems: 'center',
-                opacity: pressed ? 0.2 : 0.5,
-              })}>
+            <Pressable onPress={openGithub} android_ripple={{}} style={style}>
               <Text style={{ color: colors.text, paddingRight: 5 }}>
                 Open source and available on GitHub
               </Text>

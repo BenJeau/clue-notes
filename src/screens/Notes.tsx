@@ -42,7 +42,7 @@ const Home: React.FC = () => {
   const openCustomizeModal = () => customizeModalRef.current?.open();
   const openCameraModal = () => cameraModalRef.current?.open();
   const openQrModal = () => qrModalRef.current?.open();
-  const openPlayerModal = () => playerModalRef.current?.open();
+  const openPlayerModal = useCallback(() => playerModalRef.current?.open(), []);
   const openModifyBoardModal = () => modifyBoardModalRef.current?.open();
   const openHideModal = useCallback(() => hideModalRef.current?.open(), []);
 

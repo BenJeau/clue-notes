@@ -14,11 +14,11 @@ import { useTheme } from '../hooks';
 
 const SymbolsModal = forwardRef<Modalize>((_, ref) => {
   const { colors } = useTheme();
-  const [alwaysOpen, setAlwaysOpen] = useState(ALWAYS_OPEN);
+  const [alwaysOpen, setAlwaysOpen] = useState(0);
 
   // Fixes a bug where the modal would open completely when loading the app
   useEffect(() => {
-    setTimeout(() => setAlwaysOpen(ALWAYS_OPEN), 1500);
+    setTimeout(() => setAlwaysOpen(ALWAYS_OPEN), 1000);
   }, []);
 
   return (
@@ -44,15 +44,12 @@ const SymbolsModal = forwardRef<Modalize>((_, ref) => {
         }}>
         <View style={styles.section}>
           <ModalPressable data={{ type: 'text', data: ' ' }} />
-          {icons.map((i, key) => {
-            console.log(key, i);
-            return (
-              <ModalPressable key={key} data={{ type: 'icon', data: i }} />
-            );
-          })}
+          {icons.map((i, key) => (
+            <ModalPressable key={key} data={{ type: 'icon', data: i }} />
+          ))}
         </View>
       </View>
-      {/* {sheet.map((i, key) => (
+      {sheet.map((i, key) => (
         <View key={key}>
           <Text style={[styles.header, { color: colors.text }]}>{i.title}</Text>
           <View style={styles.section}>
@@ -61,7 +58,7 @@ const SymbolsModal = forwardRef<Modalize>((_, ref) => {
             ))}
           </View>
         </View>
-      ))} */}
+      ))}
     </Modal>
   );
 });
