@@ -124,30 +124,34 @@ const BoardRowNote: React.FC<BoardRowNoteProps> = ({
   }, [colIndex, dispatch, rowIndex, section]);
 
   return (
-    <Pressable
-      key={colIndex}
+    <View
       style={{
-        minHeight: SQUARE_SIZE,
-        width: SQUARE_SIZE,
         borderStartWidth: 1,
         borderColor: colors.border,
-        backgroundColor: `${color}20`,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-      onPress={updateBox}
-      android_ripple={{ color }}>
-      {data &&
-        (data.type === 'icon' ? (
-          <MaterialCommunityIcons
-            name={data.data}
-            size={20}
-            color={colors.text}
-          />
-        ) : (
-          <Text style={{ color: colors.text }}>{data.data}</Text>
-        ))}
-    </Pressable>
+      }}>
+      <Pressable
+        key={colIndex}
+        style={{
+          minHeight: SQUARE_SIZE,
+          width: SQUARE_SIZE - 1,
+          backgroundColor: `${color}20`,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={updateBox}
+        android_ripple={{ color }}>
+        {data &&
+          (data.type === 'icon' ? (
+            <MaterialCommunityIcons
+              name={data.data}
+              size={20}
+              color={colors.text}
+            />
+          ) : (
+            <Text style={{ color: colors.text }}>{data.data}</Text>
+          ))}
+      </Pressable>
+    </View>
   );
 };
 
