@@ -8,7 +8,6 @@ import {
   Modal,
   Pressable,
 } from '../components';
-import { colors } from '../config/data';
 import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
 import {
   addSectionItem,
@@ -67,7 +66,7 @@ const SectionHeader: React.FC<{ title: string }> = ({ title }) => {
 };
 
 const SectionFooter: React.FC<{ title: string }> = ({ title }) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const onPress = useCallback(() => {
@@ -80,7 +79,7 @@ const SectionFooter: React.FC<{ title: string }> = ({ title }) => {
       onPress={onPress}
       label={`Add ${title.toLowerCase().substr(0, title.length - 1)}`}
       style={{
-        backgroundColor: colors.blue[theme.dark ? 'dark' : 'light'],
+        backgroundColor: colors.blue,
         marginVertical: 10,
         marginHorizontal: 20,
         marginBottom: 20,
@@ -90,7 +89,7 @@ const SectionFooter: React.FC<{ title: string }> = ({ title }) => {
 };
 
 const SectionItem = ({ item, index, section }) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const removeItem = useCallback(() => {
@@ -102,7 +101,7 @@ const SectionItem = ({ item, index, section }) => {
     <View
       style={{
         flexDirection: 'row',
-        backgroundColor: theme.colors.card,
+        backgroundColor: colors.card,
         flex: 1,
         borderRadius: 10,
         alignItems: 'center',
@@ -111,16 +110,16 @@ const SectionItem = ({ item, index, section }) => {
         paddingHorizontal: 12,
         height: 43.5,
         borderWidth: 1,
-        borderColor: theme.colors.border,
+        borderColor: colors.border,
         marginHorizontal: 20,
         marginTop: 10,
       }}>
       <TextInput
         placeholder="Entry name"
-        placeholderTextColor={`${theme.colors.text}70`}
-        selectionColor={colors.blue[theme.dark ? 'dark' : 'light']}
+        placeholderTextColor={`${colors.text}70`}
+        selectionColor={colors.blue}
         style={{
-          color: theme.colors.text,
+          color: colors.text,
           padding: 0,
           margin: 0,
           flex: 1,
@@ -138,12 +137,8 @@ const SectionItem = ({ item, index, section }) => {
       </TextInput>
       <Pressable
         onPress={removeItem}
-        android_ripple={{ color: theme.colors.text, borderless: true }}>
-        <MaterialCommunityIcons
-          name="close"
-          size={24}
-          color={theme.colors.text}
-        />
+        android_ripple={{ color: colors.text, borderless: true }}>
+        <MaterialCommunityIcons name="close" size={24} color={colors.text} />
       </Pressable>
     </View>
   );

@@ -3,7 +3,6 @@ import { Modalize } from 'react-native-modalize';
 
 import { Button, Modal } from '../components';
 import { useDispatch, useTheme } from '../hooks';
-import { colors } from '../config/data';
 import { resetSections } from '../redux/slices/settingsSlice';
 
 interface CustomizeBoardModalProps {
@@ -14,7 +13,7 @@ interface CustomizeBoardModalProps {
 
 const CustomizeBoardModal = forwardRef<Modalize, CustomizeBoardModalProps>(
   ({ openCameraModal, openModifyBoardModal, openQrModal }, ref) => {
-    const theme = useTheme();
+    const { colors } = useTheme();
 
     const dispatch = useDispatch();
 
@@ -33,7 +32,7 @@ const CustomizeBoardModal = forwardRef<Modalize, CustomizeBoardModalProps>(
           label="Import board via QR code"
           onPress={openCameraModal}
           style={{
-            backgroundColor: theme.colors.card,
+            backgroundColor: colors.card,
             marginBottom: 10,
           }}
         />
@@ -41,7 +40,7 @@ const CustomizeBoardModal = forwardRef<Modalize, CustomizeBoardModalProps>(
           label="Share board via QR code"
           onPress={openQrModal}
           style={{
-            backgroundColor: theme.colors.card,
+            backgroundColor: colors.card,
             marginBottom: 10,
           }}
         />
@@ -49,14 +48,14 @@ const CustomizeBoardModal = forwardRef<Modalize, CustomizeBoardModalProps>(
           label="Manually modify board"
           onPress={openModifyBoardModal}
           style={{
-            backgroundColor: theme.colors.card,
+            backgroundColor: colors.card,
             marginBottom: 20,
           }}
         />
         <Button
           label="Reset board"
           style={{
-            backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
+            backgroundColor: colors.red,
           }}
           onPress={resetBoardSections}
         />

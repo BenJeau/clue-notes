@@ -5,7 +5,7 @@ import isEqual from 'react-fast-compare';
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 import Pressable from './Pressable';
 import { SQUARE_SIZE } from '../config/constants';
-import { headerData } from '../config/data';
+import { playerColorKeys } from '../config/data';
 import {
   BoardEntry,
   setBoardValue,
@@ -43,10 +43,10 @@ const BoardRow: React.FC<BoardRowProps> = ({ item, rowIndex, section }) => {
         {item}
       </MemoBoardRowTitle>
       <View style={{ flexDirection: 'row' }}>
-        {headerData.map((color, index) => (
+        {playerColorKeys.map((colorKey, index) => (
           <MemoBoardRowNote
             key={index}
-            color={color}
+            color={colors[colorKey]}
             colIndex={index}
             rowIndex={rowIndex}
             section={section}
@@ -101,7 +101,7 @@ const BoardRowTitle: React.FC = ({
 const MemoBoardRowTitle = memo(BoardRowTitle, isEqual);
 
 interface BoardRowNoteProps {
-  color: { dark: string; light: string };
+  color: string;
   colIndex: number;
   rowIndex: number;
   section: 'suspects' | 'weapons' | 'rooms';
@@ -115,7 +115,7 @@ const BoardRowNote: React.FC<BoardRowNoteProps> = ({
   section,
   data,
 }) => {
-  const { colors, dark } = useTheme();
+  const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const updateBox = useCallback(() => {
@@ -131,12 +131,12 @@ const BoardRowNote: React.FC<BoardRowNoteProps> = ({
         width: SQUARE_SIZE,
         borderStartWidth: 1,
         borderColor: colors.border,
-        backgroundColor: `${color[dark ? 'dark' : 'light']}20`,
+        backgroundColor: `${color}20`,
         justifyContent: 'center',
         alignItems: 'center',
       }}
       onPress={updateBox}
-      android_ripple={{ color: color[dark ? 'dark' : 'light'] }}>
+      android_ripple={{ color }}>
       {data &&
         (data.type === 'icon' ? (
           <MaterialCommunityIcons

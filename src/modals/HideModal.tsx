@@ -14,12 +14,12 @@ import {
   Modal,
   Pressable,
 } from '../components';
-import { headerData } from '../config/data';
+import { playerColorKeys } from '../config/data';
 import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
 import { toggleAutoHide } from '../redux/slices/settingsSlice';
 
 const VisibilityModal = forwardRef<Modalize>((_, ref) => {
-  const theme = useTheme();
+  const { colors, dark } = useTheme();
   const { autoHide } = useSelector(({ settings }) => settings);
   const { userPlayerIndex } = useSelector(({ notes }) => notes);
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
 
   const window = useWindowDimensions();
 
-  const color = headerData[userPlayerIndex][theme.dark ? 'dark' : 'light'];
+  const color = colors[playerColorKeys[userPlayerIndex]];
 
   const [shouldOpen, setShouldOpen] = useState(false);
   const [shouldClose, setShouldClose] = useState(true);
@@ -78,13 +78,13 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
         modalHeight: window.height,
         handleStyle: {
           marginTop: getStatusBarHeight(),
-          backgroundColor: theme.dark ? color : '#00000080',
+          backgroundColor: dark ? color : '#00000080',
         },
         childrenStyle: {
           height: window.height,
           width: window.width,
           borderTopWidth: 0,
-          backgroundColor: theme.dark ? '#00000080' : '',
+          backgroundColor: dark ? '#00000080' : '',
           padding: 0,
         },
         modalStyle: {
@@ -92,7 +92,7 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
         },
       }}>
       <Pressable
-        android_ripple={{ color: theme.dark ? color : '#00000080' }}
+        android_ripple={{ color: dark ? color : '#00000080' }}
         style={{
           height: '100%',
           width: '100%',
@@ -108,11 +108,11 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
           <MaterialCommunityIcons
             name={'eye-off-outline'}
             size={150}
-            color={theme.dark ? color : '#00000080'}
+            color={dark ? color : '#00000080'}
           />
           <Text
             style={{
-              color: theme.dark ? color : '#00000080',
+              color: dark ? color : '#00000080',
               fontWeight: 'bold',
               fontSize: 20,
               marginTop: 20,
@@ -121,7 +121,7 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
           </Text>
           <Text
             style={{
-              color: theme.dark ? color : '#00000080',
+              color: dark ? color : '#00000080',
             }}>
             Slide down or press anywhere to view your notes
           </Text>

@@ -1,26 +1,26 @@
-interface Colors {
-  text: string;
-  background: string;
-  card: string;
-  border: string;
-}
-
-interface ThemeColors {
-  light: Colors;
-  dark: Colors;
-}
-
-export const themeColors: ThemeColors = {
+export const themeColors = {
   light: {
     background: '#F2F2F2',
     card: '#FFFFFF',
     text: '#1C1C1E',
     border: '#D8D8D8',
+    red: '#ff595e',
+    yellow: '#ffca3a',
+    green: '#8ac926',
+    blue: '#1982c4',
+    purple: '#6a4c93',
+    white: '#FFFFFF',
   },
   dark: {
     background: '#010101',
     card: '#121212',
     text: '#E5E5E7',
     border: '#272729',
+    red: '#A5494F',
+    yellow: '#A7A15A',
+    green: '#48864D',
+    blue: '#4A57BA',
+    purple: '#5F388B',
+    white: '#BCBCBC',
   },
 };

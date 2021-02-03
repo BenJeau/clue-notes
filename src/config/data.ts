@@ -1,19 +1,12 @@
-export const colors = {
-  red: { dark: '#A5494F', light: '#ff595e' },
-  yellow: { dark: '#A7A15A', light: '#ffca3a' },
-  green: { dark: '#48864D', light: '#8ac926' },
-  blue: { dark: '#4A57BA', light: '#1982c4' },
-  purple: { dark: '#5F388B', light: '#6a4c93' },
-  white: { dark: '#BCBCBC', light: '#FFFFFF' },
-};
+import { themeColors } from './style';
 
-export const headerData = [
-  colors.red,
-  colors.yellow,
-  colors.green,
-  colors.blue,
-  colors.purple,
-  colors.white,
+export const playerColorKeys: (keyof typeof themeColors.light)[] = [
+  'red',
+  'yellow',
+  'green',
+  'blue',
+  'purple',
+  'white',
 ];
 
 export const icons = [

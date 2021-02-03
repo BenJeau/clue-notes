@@ -4,7 +4,7 @@ import isEqual from 'react-fast-compare';
 
 import Pressable from './Pressable';
 import { SQUARE_SIZE } from '../config/constants';
-import { headerData } from '../config/data';
+import { playerColorKeys } from '../config/data';
 import { useSelector, useTheme } from '../hooks';
 
 interface PlayerHeaderProps {
@@ -37,7 +37,7 @@ const PlayerHeader: React.FC<PlayerHeaderProps> = ({
         }}>
         <Text style={{ color: colors.text }}>Players</Text>
       </View>
-      {headerData.map((color, key) => {
+      {playerColorKeys.map((colorKey, key) => {
         const onPress = useCallback(() => {
           setSelectedPlayerIndex(key);
           openPlayerModal();
@@ -48,13 +48,13 @@ const PlayerHeader: React.FC<PlayerHeaderProps> = ({
             minHeight: SQUARE_SIZE,
             width: SQUARE_SIZE,
             borderColor: colors.border,
-            backgroundColor: color[dark ? 'dark' : 'light'],
+            backgroundColor: colors[colorKey],
             opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
             borderStartWidth: 1,
             justifyContent: 'center',
             alignItems: 'center',
           }),
-          [color],
+          [colorKey],
         );
 
         return (

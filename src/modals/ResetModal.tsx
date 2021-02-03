@@ -3,11 +3,10 @@ import { Modalize } from 'react-native-modalize';
 
 import { clearBoard, clearPlayers } from '../redux/slices/notesSlice';
 import { Button, Modal } from '../components';
-import { colors } from '../config/data';
 import { useTheme, useDispatch, useInnerRef } from '../hooks';
 
 const ResetModal = forwardRef<Modalize>((_, ref) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const dispatch = useDispatch();
 
   const [combinedRef, innerRef] = useInnerRef(ref);
@@ -36,14 +35,14 @@ const ResetModal = forwardRef<Modalize>((_, ref) => {
         label="Clear content of the board"
         onPress={clearNotes}
         style={{
-          backgroundColor: theme.colors.card,
+          backgroundColor: colors.card,
         }}
       />
       <Button
         label="Clear content of the board and players"
         onPress={clearEverything}
         style={{
-          backgroundColor: colors.red[theme.dark ? 'dark' : 'light'],
+          backgroundColor: colors.red,
           marginTop: 10,
         }}
       />

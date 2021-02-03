@@ -10,7 +10,7 @@ import { TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 import { Modal, Button } from '../components';
-import { headerData } from '../config/data';
+import { playerColorKeys } from '../config/data';
 import { useTheme, useDispatch, useSelector, useInnerRef } from '../hooks';
 import { setPlayer, setUserPlayerIndex } from '../redux/slices/notesSlice';
 
@@ -22,7 +22,7 @@ const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
   ({ selectedPlayerIndex }, ref) => {
     const { players } = useSelector(({ notes }) => notes);
     const dispatch = useDispatch();
-    const { colors, dark } = useTheme();
+    const { colors } = useTheme();
     const [name, setName] = useState('');
     const textInputRef = useRef<TextInput>(null);
 
@@ -41,8 +41,8 @@ const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
     }, [dismiss, dispatch, selectedPlayerIndex]);
 
     const buttonColor = useMemo(
-      () => headerData[selectedPlayerIndex][dark ? 'dark' : 'light'],
-      [dark, selectedPlayerIndex],
+      () => colors[playerColorKeys[selectedPlayerIndex]],
+      [colors, selectedPlayerIndex],
     );
 
     useEffect(() => {
