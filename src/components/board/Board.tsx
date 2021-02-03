@@ -1,22 +1,21 @@
 import React from 'react';
 import { SectionList, Text, View } from 'react-native';
-import { ALWAYS_OPEN } from '../config/constants';
-import { useSelector, useTheme } from '../hooks';
-import BoardRow from './BoardRow';
+import { ALWAYS_OPEN } from '../../config/constants';
+import { useSelector, useTheme } from '../../hooks';
+import BoardRow from './boardRow/BoardRow';
 
 const Board: React.FC = () => {
-  const { sections } = useSelector(({ settings }) => settings);
   const { colors } = useTheme();
+  const { rooms, suspects, weapons } = useSelector(
+    ({ settings }) => settings.sections,
+  );
 
   return (
     <SectionList
       sections={[
-        {
-          title: 'suspects',
-          data: sections.suspects,
-        },
-        { title: 'weapons', data: sections.weapons },
-        { title: 'rooms', data: sections.rooms },
+        { title: 'suspects', data: suspects },
+        { title: 'weapons', data: weapons },
+        { title: 'rooms', data: rooms },
       ]}
       keyExtractor={(item, index) => `${item}${index}`}
       renderItem={({ item, index, section }) => (

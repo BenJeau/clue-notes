@@ -145,7 +145,9 @@ const SectionItem = ({ item, index, section }) => {
 };
 
 const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
-  const { sections } = useSelector(({ settings }) => settings);
+  const { suspects, weapons, rooms } = useSelector(
+    ({ settings }) => settings.sections,
+  );
   const dispatch = useDispatch();
 
   const [combinedRef, innerRef] = useInnerRef(ref);
@@ -160,9 +162,9 @@ const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
         onClose,
         sectionListProps: {
           sections: [
-            { title: 'suspects', data: sections.suspects },
-            { title: 'weapons', data: sections.weapons },
-            { title: 'rooms', data: sections.rooms },
+            { title: 'suspects', data: suspects },
+            { title: 'weapons', data: weapons },
+            { title: 'rooms', data: rooms },
           ],
           keyExtractor: (item) => item,
           renderSectionHeader: ({ section: { title } }) => (

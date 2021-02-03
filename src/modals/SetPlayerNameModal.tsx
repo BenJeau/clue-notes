@@ -20,7 +20,9 @@ interface SetPlayerNameModalProps {
 
 const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
   ({ selectedPlayerIndex }, ref) => {
-    const { players } = useSelector(({ notes }) => notes);
+    const player = useSelector(
+      ({ notes }) => notes.players[selectedPlayerIndex],
+    );
     const dispatch = useDispatch();
     const { colors } = useTheme();
     const [name, setName] = useState('');
@@ -46,12 +48,12 @@ const SetPlayerNameModal = forwardRef<Modalize, SetPlayerNameModalProps>(
     );
 
     useEffect(() => {
-      if (players[selectedPlayerIndex]) {
-        setName(players[selectedPlayerIndex]);
+      if (player) {
+        setName(player);
       } else {
         setName('');
       }
-    }, [players, selectedPlayerIndex]);
+    }, [player]);
 
     return (
       <Modal

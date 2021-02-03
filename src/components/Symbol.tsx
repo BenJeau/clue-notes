@@ -17,7 +17,7 @@ interface SymbolProps {
 const Symbol: React.FC<SymbolProps> = ({ data: { data, type }, style }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const { selected } = useSelector(({ state }) => state);
+  const selected = useSelector(({ state }) => state.selected);
 
   const isSelected = selected.data === data && selected.type === type;
 

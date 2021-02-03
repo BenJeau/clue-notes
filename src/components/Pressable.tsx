@@ -9,7 +9,7 @@ import { useSelector, useTheme } from '../hooks';
 
 const Pressable: React.FC<PressableProps> = (props) => {
   const { colors } = useTheme();
-  const { vibrate } = useSelector(({ settings }) => settings);
+  const vibrate = useSelector(({ settings }) => settings.vibrate);
 
   const onPress = useCallback(
     (e) => {

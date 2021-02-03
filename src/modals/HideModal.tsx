@@ -20,8 +20,8 @@ import { toggleAutoHide } from '../redux/slices/settingsSlice';
 
 const VisibilityModal = forwardRef<Modalize>((_, ref) => {
   const { colors, dark } = useTheme();
-  const { autoHide } = useSelector(({ settings }) => settings);
-  const { userPlayerIndex } = useSelector(({ notes }) => notes);
+  const autoHide = useSelector(({ settings }) => settings.autoHide);
+  const userPlayerIndex = useSelector(({ notes }) => notes.userPlayerIndex);
   const dispatch = useDispatch();
 
   const [combinedRef, innerRef] = useInnerRef(ref);

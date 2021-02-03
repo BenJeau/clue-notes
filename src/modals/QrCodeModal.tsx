@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import { Dimensions, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import QRCode from 'react-native-qrcode-svg';
@@ -10,14 +10,12 @@ const window = Dimensions.get('window');
 
 const QrCodeModal = forwardRef<Modalize>((_, ref) => {
   const { colors } = useTheme();
-  const { sections } = useSelector(({ settings }) => settings);
+  const qrCodeValue = useSelector(({ settings }) =>
+    JSON.stringify(Object.values(settings.sections)),
+  );
 
   const qrSize =
     (window.width > window.height ? window.height : window.width) - 40 - 14;
-
-  const qrCodeValue = useMemo(() => JSON.stringify(Object.values(sections)), [
-    sections,
-  ]);
 
   return (
     <Modal

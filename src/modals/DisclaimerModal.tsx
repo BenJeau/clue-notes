@@ -11,7 +11,7 @@ const DisclaimerModal = () => {
   const modalRef = useRef<Modalize>(null);
   const dispatch = useDispatch();
   const { colors } = useTheme();
-  const { showDisclaimer } = useSelector(({ settings }) => settings);
+  const visible = useSelector(({ settings }) => settings.showDisclaimer);
 
   const onClose = useCallback(() => {
     dispatch(toggleDisclaimer());
@@ -19,10 +19,10 @@ const DisclaimerModal = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (showDisclaimer) {
+    if (visible) {
       modalRef.current?.open();
     }
-  }, [showDisclaimer]);
+  }, [visible]);
 
   return (
     <Modal

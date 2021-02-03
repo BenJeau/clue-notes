@@ -16,8 +16,8 @@ const PlayerHeader: React.FC<PlayerHeaderProps> = ({
   setSelectedPlayerIndex,
   openPlayerModal,
 }) => {
-  const { colors, dark } = useTheme();
-  const { players } = useSelector(({ notes }) => notes);
+  const { colors } = useTheme();
+  const players = useSelector(({ notes }) => notes.players);
 
   return (
     <View
