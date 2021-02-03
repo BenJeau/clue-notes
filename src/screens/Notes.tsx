@@ -13,6 +13,7 @@ import {
   SettingsModal,
   SymbolsModal,
   HideModal,
+  DisclaimerModal,
 } from '../modals';
 
 const Home: React.FC = () => {
@@ -79,6 +80,7 @@ const Home: React.FC = () => {
         ref={playerModalRef}
         selectedPlayerIndex={selectedPlayerIndex}
       />
+      <DisclaimerModal />
       <HideModal ref={hideModalRef} />
     </>
   );

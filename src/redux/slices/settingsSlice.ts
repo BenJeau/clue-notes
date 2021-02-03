@@ -9,12 +9,14 @@ interface SectionsType {
 interface SettingsType {
   autoHide: boolean;
   vibrate: boolean;
+  showDisclaimer: boolean;
   sections: SectionsType;
 }
 
 const initialState: SettingsType = {
   vibrate: true,
   autoHide: false,
+  showDisclaimer: true,
   sections: {
     suspects: [
       'Miss Scarlet',
@@ -55,6 +57,9 @@ const settingsSlice = createSlice({
     },
     toggleVibrate: (state) => {
       state.vibrate = !state.vibrate;
+    },
+    toggleDisclaimer: (state) => {
+      state.showDisclaimer = !state.showDisclaimer;
     },
     addSectionItem: (
       state,
@@ -108,6 +113,7 @@ const settingsSlice = createSlice({
 export const {
   toggleAutoHide,
   toggleVibrate,
+  toggleDisclaimer,
   addSectionItem,
   editSectionItem,
   removeSectionItem,

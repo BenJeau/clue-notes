@@ -30,7 +30,7 @@ const Symbol: React.FC<SymbolProps> = ({ data: { data, type }, style }) => {
       style={[
         {
           overflow: 'hidden',
-          borderRadius: 5,
+          borderRadius: 10,
           margin: 3,
           borderWidth: 1,
           borderColor: colors.border,

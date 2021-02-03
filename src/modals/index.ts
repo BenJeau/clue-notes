@@ -7,3 +7,4 @@ export { default as CameraModal } from './CameraModal';
 export { default as QrCodeModal } from './QrCodeModal';
 export { default as ManualModifyBoardModal } from './ManualModifyBoardModal';
 export { default as HideModal } from './HideModal';
+export { default as DisclaimerModal } from './DisclaimerModal';
