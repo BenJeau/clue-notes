@@ -8,15 +8,10 @@ import {
   setUpdateIntervalForType,
 } from 'react-native-sensors';
 
-import {
-  Button,
-  MaterialCommunityIcons,
-  Modal,
-  Pressable,
-} from '../components';
-import { playerColorKeys } from '../config/data';
-import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
-import { toggleAutoHide } from '../redux/slices/settingsSlice';
+import { Button, MaterialCommunityIcons, Modal, Pressable } from '~/components';
+import { playerColorKeys } from '~/config/data';
+import { useDispatch, useInnerRef, useSelector, useTheme } from '~/hooks';
+import { toggleAutoHide } from '~/redux/slices/settingsSlice';
 
 const VisibilityModal = forwardRef<Modalize>((_, ref) => {
   const { colors, dark } = useTheme();

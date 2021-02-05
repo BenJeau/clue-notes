@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Animated, Easing } from 'react-native';
 
-import { useTheme } from '../hooks';
+import { useTheme } from '~/hooks';
 
 const SplashScreen: React.FC = ({ children }) => {
   const [redOpacity] = useState(new Animated.Value(1));

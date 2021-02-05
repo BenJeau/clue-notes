@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
+import isEqual from 'react-fast-compare';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 import Pressable from './Pressable';
-import { useTheme } from '../hooks';
-import isEqual from 'react-fast-compare';
+import { useTheme } from '~/hooks';
 
 interface ButtonProps {
   onPress: () => void;

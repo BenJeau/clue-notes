@@ -9,10 +9,10 @@ import React, {
 import { TextInput } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { Modal, Button } from '../components';
-import { playerColorKeys } from '../config/data';
-import { useTheme, useDispatch, useSelector, useInnerRef } from '../hooks';
-import { setPlayer, setUserPlayerIndex } from '../redux/slices/notesSlice';
+import { Modal, Button } from '~/components';
+import { playerColorKeys } from '~/config/data';
+import { useTheme, useDispatch, useSelector, useInnerRef } from '~/hooks';
+import { setPlayer, setUserPlayerIndex } from '~/redux/slices/notesSlice';
 
 interface SetPlayerNameModalProps {
   selectedPlayerIndex: number;

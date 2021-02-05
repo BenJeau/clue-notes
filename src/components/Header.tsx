@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import isEqual from 'react-fast-compare';
 
-import { useTheme } from '../hooks';
+import { useTheme } from '~/hooks';
 import HeaderButton from './HeaderButton';
 
 interface HeaderProps {

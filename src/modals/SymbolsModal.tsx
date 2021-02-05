@@ -2,15 +2,15 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { Modal, Symbol } from '../components';
+import { Modal, Symbol } from '~/components';
 import {
   ALWAYS_OPEN,
   ALWAYS_OPEN_PADDING,
   ALWAYS_OPEN_TOP_PADDING,
   SQUARE_SIZE,
-} from '../config/constants';
-import { icons, sheet } from '../config/data';
-import { useTheme } from '../hooks';
+} from '~/config/constants';
+import { icons, sheet } from '~/config/data';
+import { useTheme } from '~/hooks';
 
 const SymbolsModal = forwardRef<Modalize>((_, ref) => {
   const { colors } = useTheme();

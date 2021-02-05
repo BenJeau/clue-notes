@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useColorScheme } from 'react-native';
-import { themeColors } from '../config/style';
+
+import { themeColors } from '~/config/style';
 
 export const useTheme = () => {
   const scheme = useColorScheme();

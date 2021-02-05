@@ -2,14 +2,9 @@ import React, { forwardRef, useCallback } from 'react';
 import { Linking, PressableStateCallbackType, Text } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import {
-  Modal,
-  MaterialCommunityIcons,
-  Button,
-  Pressable,
-} from '../components';
-import { useDispatch, useSelector, useTheme } from '../hooks';
-import { toggleAutoHide, toggleVibrate } from '../redux/slices/settingsSlice';
+import { Modal, MaterialCommunityIcons, Button, Pressable } from '~/components';
+import { useDispatch, useSelector, useTheme } from '~/hooks';
+import { toggleAutoHide, toggleVibrate } from '~/redux/slices/settingsSlice';
 
 interface SettingsModalProps {
   openCustomizeBoard: () => void;

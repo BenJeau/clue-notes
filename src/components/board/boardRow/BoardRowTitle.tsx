@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from 'react';
-import isEqual from 'react-fast-compare';
 import { Platform, Pressable, Text } from 'react-native';
+import isEqual from 'react-fast-compare';
 
-import { useTheme, useDispatch } from '../../../hooks';
-import { setScratched } from '../../../redux/slices/notesSlice';
+import { useTheme, useDispatch } from '~/hooks';
+import { setScratched } from '~/redux/slices/notesSlice';
 
 interface BoardRowTitleProps {
   scratched: boolean;

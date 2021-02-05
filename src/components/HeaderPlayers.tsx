@@ -3,9 +3,9 @@ import { Platform, PressableStateCallbackType, View, Text } from 'react-native';
 import isEqual from 'react-fast-compare';
 
 import Pressable from './Pressable';
-import { SQUARE_SIZE } from '../config/constants';
-import { playerColorKeys } from '../config/data';
-import { useSelector, useTheme } from '../hooks';
+import { SQUARE_SIZE } from '~/config/constants';
+import { playerColorKeys } from '~/config/data';
+import { useSelector, useTheme } from '~/hooks';
 
 interface PlayerHeaderProps {
   setSelectedPlayerIndex: (index: number) => void;

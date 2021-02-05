@@ -5,7 +5,8 @@ import {
   Vibration,
 } from 'react-native';
 import isEqual from 'react-fast-compare';
-import { useSelector, useTheme } from '../hooks';
+
+import { useSelector, useTheme } from '~/hooks';
 
 const Pressable: React.FC<PressableProps> = (props) => {
   const { colors } = useTheme();

@@ -6,9 +6,9 @@ import {
 } from 'react-native-camera';
 import { Modalize } from 'react-native-modalize';
 
-import { Modal, Pressable } from '../components';
-import { useDispatch, useInnerRef, useTheme } from '../hooks';
-import { setSections } from '../redux/slices/settingsSlice';
+import { Modal, Pressable } from '~/components';
+import { useDispatch, useInnerRef, useTheme } from '~/hooks';
+import { setSections } from '~/redux/slices/settingsSlice';
 
 const window = Dimensions.get('window');
 

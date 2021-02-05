@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { Board, Header, HeaderPlayers } from '../components';
+import { Board, Header, HeaderPlayers } from '~/components';
 import {
   CameraModal,
   CustomizeBoardModal,
@@ -14,7 +14,7 @@ import {
   SymbolsModal,
   HideModal,
   DisclaimerModal,
-} from '../modals';
+} from '~/modals';
 
 const Home: React.FC = () => {
   const playerModalRef = useRef<Modalize>(null);

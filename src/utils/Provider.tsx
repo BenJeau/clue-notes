@@ -4,8 +4,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider as ReduxProvider } from 'react-redux';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
-import { store, persistor } from '../redux';
-import { useTheme } from '../hooks';
+import { store, persistor } from '~/redux';
+import { useTheme } from '~/hooks';
 import SplashScreen from './SplashScreen';
 
 const Provider: React.FC = ({ children }) => {

@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import { Modalize } from 'react-native-modalize';
 
-import { Button, Modal } from '../components';
-import { useDispatch, useTheme } from '../hooks';
-import { resetSections } from '../redux/slices/settingsSlice';
+import { Button, Modal } from '~/components';
+import { useDispatch, useTheme } from '~/hooks';
+import { resetSections } from '~/redux/slices/settingsSlice';
 
 interface CustomizeBoardModalProps {
   openCameraModal: () => void;

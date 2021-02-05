@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
 
-import { useInnerRef, useTheme } from '../hooks';
+import { useInnerRef, useTheme } from '~/hooks';
 import Button from './Button';
 
 interface ModalProps {

@@ -1,10 +1,11 @@
 import React, { memo, useCallback } from 'react';
-import isEqual from 'react-fast-compare';
 import { LayoutAnimation, Pressable, Text, View } from 'react-native';
+import isEqual from 'react-fast-compare';
+
 import { MaterialCommunityIcons } from '../..';
-import { SQUARE_SIZE } from '../../../config/constants';
-import { useTheme, useDispatch } from '../../../hooks';
-import { BoardEntry, setBoardValue } from '../../../redux/slices/notesSlice';
+import { SQUARE_SIZE } from '~/config/constants';
+import { useTheme, useDispatch } from '~/hooks';
+import { BoardEntry, setBoardValue } from '~/redux/slices/notesSlice';
 
 interface BoardRowNoteProps {
   color: string;

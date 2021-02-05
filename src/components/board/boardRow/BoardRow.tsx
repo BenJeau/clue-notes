@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 import { View } from 'react-native';
 import isEqual from 'react-fast-compare';
 
-import { playerColorKeys } from '../../../config/data';
-import { useTheme, useSelector } from '../../../hooks';
+import { playerColorKeys } from '~/config/data';
+import { useTheme, useSelector } from '~/hooks';
 import BoardRowTitle from './BoardRowTitle';
 import BoardRowNote from './BoardRowNote';
 

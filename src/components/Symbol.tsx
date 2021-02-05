@@ -4,10 +4,10 @@ import isEqual from 'react-fast-compare';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 import Pressable from './Pressable';
-import { BoardEntry } from '../redux/slices/notesSlice';
-import { SQUARE_SIZE } from '../config/constants';
-import { useTheme, useSelector, useDispatch } from '../hooks';
-import { setSelected } from '../redux/slices/stateSlice';
+import { BoardEntry } from '~/redux/slices/notesSlice';
+import { SQUARE_SIZE } from '~/config/constants';
+import { useTheme, useSelector, useDispatch } from '~/hooks';
+import { setSelected } from '~/redux/slices/stateSlice';
 
 interface SymbolProps {
   data: BoardEntry;

@@ -1,8 +1,9 @@
 import React from 'react';
 import { SectionList, Text, View } from 'react-native';
-import { ALWAYS_OPEN } from '../../config/constants';
-import { useSelector, useTheme } from '../../hooks';
-import BoardRow from './boardRow/BoardRow';
+
+import { ALWAYS_OPEN } from '~/config/constants';
+import { useSelector, useTheme } from '~/hooks';
+import BoardRow from './boardRow';
 
 const Board: React.FC = () => {
   const { colors } = useTheme();

@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import { Modalize } from 'react-native-modalize';
 
-import { clearBoard, clearPlayers } from '../redux/slices/notesSlice';
-import { Button, Modal } from '../components';
-import { useTheme, useDispatch, useInnerRef } from '../hooks';
+import { clearBoard, clearPlayers } from '~/redux/slices/notesSlice';
+import { Button, Modal } from '~/components';
+import { useTheme, useDispatch, useInnerRef } from '~/hooks';
 
 const ResetModal = forwardRef<Modalize>((_, ref) => {
   const { colors } = useTheme();

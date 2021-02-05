@@ -42,7 +42,11 @@ const ModalHeader = () => {
   );
 };
 
-const SectionHeader: React.FC<{ title: string }> = ({ title }) => {
+interface SectionHeaderProps {
+  title: string;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
   const theme = useTheme();
   return (
     <View
@@ -65,7 +69,11 @@ const SectionHeader: React.FC<{ title: string }> = ({ title }) => {
   );
 };
 
-const SectionFooter: React.FC<{ title: string }> = ({ title }) => {
+interface SectionFooterProps {
+  title: string;
+}
+
+const SectionFooter: React.FC<SectionFooterProps> = ({ title }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
 
@@ -88,7 +96,13 @@ const SectionFooter: React.FC<{ title: string }> = ({ title }) => {
   );
 };
 
-const SectionItem = ({ item, index, section }) => {
+interface SectionItemProps {
+  item: string;
+  index: number;
+  section: ;
+}
+
+const SectionItem: React.FC<SectionItemProps> = ({ item, index, section }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
 

@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { Text } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
-import { Modal } from '../components';
-import { useDispatch, useSelector, useTheme } from '../hooks';
-import { clearPlayers } from '../redux/slices/notesSlice';
-import { toggleDisclaimer } from '../redux/slices/settingsSlice';
+import { Modal } from '~/components';
+import { useDispatch, useSelector, useTheme } from '~/hooks';
+import { clearPlayers } from '~/redux/slices/notesSlice';
+import { toggleDisclaimer } from '~/redux/slices/settingsSlice';
 
 const DisclaimerModal = () => {
   const modalRef = useRef<Modalize>(null);

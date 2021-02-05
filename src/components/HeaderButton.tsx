@@ -3,7 +3,7 @@ import { StyleProp, View, ViewStyle } from 'react-native';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 import Pressable from './Pressable';
-import { useTheme } from '../hooks';
+import { useTheme } from '~/hooks';
 
 interface HeaderButtonProps {
   onPress: () => void;

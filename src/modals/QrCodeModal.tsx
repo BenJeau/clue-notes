@@ -3,8 +3,8 @@ import { Dimensions, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import QRCode from 'react-native-qrcode-svg';
 
-import { Modal } from '../components';
-import { useSelector, useTheme } from '../hooks';
+import { Modal } from '~/components';
+import { useSelector, useTheme } from '~/hooks';
 
 const window = Dimensions.get('window');
 
