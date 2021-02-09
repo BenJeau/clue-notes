@@ -99,7 +99,7 @@ const SectionFooter: React.FC<SectionFooterProps> = ({ title }) => {
 interface SectionItemProps {
   item: string;
   index: number;
-  section: ;
+  section: any;
 }
 
 const SectionItem: React.FC<SectionItemProps> = ({ item, index, section }) => {
