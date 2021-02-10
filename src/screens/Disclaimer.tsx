@@ -1,32 +1,24 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { Text } from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import { NavigationFunctionComponent } from 'react-native-navigation';
 
 import { Modal } from '~/components';
-import { useDispatch, useSelector, useTheme } from '~/hooks';
+import { useDispatch, useTheme } from '~/hooks';
 import { clearPlayers } from '~/redux/slices/notesSlice';
 import { toggleDisclaimer } from '~/redux/slices/settingsSlice';
 
-const DisclaimerModal = () => {
-  const modalRef = useRef<Modalize>(null);
+const Disclaimer: NavigationFunctionComponent = ({ componentId }) => {
   const dispatch = useDispatch();
   const { colors } = useTheme();
-  const visible = useSelector(({ settings }) => settings.showDisclaimer);
 
   const onClose = useCallback(() => {
     dispatch(toggleDisclaimer());
     dispatch(clearPlayers());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (visible) {
-      modalRef.current?.open();
-    }
-  }, [visible]);
-
   return (
     <Modal
-      ref={modalRef}
+      componentId={componentId}
       showDismiss
       props={{ onClose }}
       header={{
@@ -41,4 +33,4 @@ const DisclaimerModal = () => {
   );
 };
 
-export default DisclaimerModal;
+export default Disclaimer;

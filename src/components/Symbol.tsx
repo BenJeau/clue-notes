@@ -34,6 +34,7 @@ const Symbol: React.FC<SymbolProps> = ({ data: { data, type }, style }) => {
           margin: 3,
           borderWidth: 1,
           borderColor: colors.border,
+          elevation: 1,
         },
         style,
       ]}>

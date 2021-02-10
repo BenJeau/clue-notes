@@ -1,7 +1,6 @@
 import React from 'react';
 import { SectionList, Text, View } from 'react-native';
 
-import { ALWAYS_OPEN } from '~/config/constants';
 import { useSelector, useTheme } from '~/hooks';
 import BoardRow from './boardRow';
 
@@ -20,7 +19,11 @@ const Board: React.FC = () => {
       ]}
       keyExtractor={(item, index) => `${item}${index}`}
       renderItem={({ item, index, section }) => (
-        <BoardRow item={item} rowIndex={index} section={section.title} />
+        <BoardRow
+          item={item}
+          rowIndex={index}
+          section={section.title as 'suspects' | 'weapons' | 'rooms'}
+        />
       )}
       renderSectionHeader={({ section: { title } }) => (
         <View
@@ -28,6 +31,7 @@ const Board: React.FC = () => {
             backgroundColor: colors.card,
             borderColor: colors.border,
             borderBottomWidth: 1,
+            elevation: 2,
           }}>
           <Text
             style={{
@@ -41,7 +45,9 @@ const Board: React.FC = () => {
         </View>
       )}
       stickySectionHeadersEnabled
-      ListFooterComponent={<View style={{ height: ALWAYS_OPEN - 1 }} />}
+      style={{
+        backgroundColor: colors.background,
+      }}
     />
   );
 };

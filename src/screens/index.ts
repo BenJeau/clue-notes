@@ -1,1 +1,11 @@
 export { default as Notes } from './Notes';
+export { default as SetPlayerName } from './SetPlayerName';
+export { default as Symbols } from './Symbols';
+export { default as ClearNotes } from './ClearNotes';
+export { default as Settings } from './Settings';
+export { default as CustomizeBoard } from './CustomizeBoard';
+export { default as Camera } from './Camera';
+export { default as QrCode } from './QrCode';
+export { default as ModifyBoard } from './ModifyBoard';
+export { default as HideNotes } from './HideNotes';
+export { default as Disclaimer } from './Disclaimer';

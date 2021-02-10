@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
   persistReducer,
-  persistStore,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -31,8 +30,6 @@ export const store = configureStore({
       },
     }),
 });
-
-export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof rootReducer>;
 export interface ThunkParamType {

@@ -1,32 +1,33 @@
-import React, { forwardRef } from 'react';
+import React, { useRef } from 'react';
 import { Modalize } from 'react-native-modalize';
+import { NavigationFunctionComponent } from 'react-native-navigation';
 
 import { clearBoard, clearPlayers } from '~/redux/slices/notesSlice';
 import { Button, Modal } from '~/components';
-import { useTheme, useDispatch, useInnerRef } from '~/hooks';
+import { useTheme, useDispatch } from '~/hooks';
 
-const ResetModal = forwardRef<Modalize>((_, ref) => {
+const ClearNotes: NavigationFunctionComponent = ({ componentId }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
+  const modalRef = useRef<Modalize>(null);
 
-  const [combinedRef, innerRef] = useInnerRef(ref);
+  const close = () => modalRef.current?.close();
 
   const clearNotes = () => {
     dispatch(clearBoard());
-    dimiss();
+    close();
   };
 
   const clearEverything = () => {
     dispatch(clearBoard());
     dispatch(clearPlayers());
-    dimiss();
+    close();
   };
-
-  const dimiss = () => innerRef.current?.close();
 
   return (
     <Modal
-      ref={combinedRef}
+      ref={modalRef}
+      componentId={componentId}
       header={{
         title: 'Clear Notes',
         subtitle: 'Removes the notes taken',
@@ -48,6 +49,6 @@ const ResetModal = forwardRef<Modalize>((_, ref) => {
       />
     </Modal>
   );
-});
+};
 
-export default ResetModal;
+export default ClearNotes;

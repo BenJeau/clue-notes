@@ -1,7 +1,8 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, useWindowDimensions, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { NavigationFunctionComponent } from 'react-native-navigation';
 import {
   accelerometer,
   SensorTypes,
@@ -10,18 +11,19 @@ import {
 
 import { Button, MaterialCommunityIcons, Modal, Pressable } from '~/components';
 import { playerColorKeys } from '~/config/data';
-import { useDispatch, useInnerRef, useSelector, useTheme } from '~/hooks';
+import { useDispatch, useSelector, useTheme } from '~/hooks';
 import { toggleAutoHide } from '~/redux/slices/settingsSlice';
 
-const VisibilityModal = forwardRef<Modalize>((_, ref) => {
+const HideNotes: NavigationFunctionComponent = ({ componentId }) => {
   const { colors, dark } = useTheme();
   const autoHide = useSelector(({ settings }) => settings.autoHide);
   const userPlayerIndex = useSelector(({ notes }) => notes.userPlayerIndex);
   const dispatch = useDispatch();
 
-  const [combinedRef, innerRef] = useInnerRef(ref);
+  const modalRef = useRef<Modalize>(null);
 
-  const dimiss = () => innerRef.current?.close();
+  const close = () => modalRef.current?.close();
+  const open = () => modalRef.current?.open();
 
   const window = useWindowDimensions();
 
@@ -33,7 +35,7 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
   useEffect(() => {
     if (autoHide) {
       if (shouldOpen) {
-        innerRef.current?.open();
+        open();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,9 +44,9 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
   useEffect(() => {
     if (autoHide) {
       if (shouldClose) {
-        innerRef.current?.close();
+        close();
       } else if (shouldOpen) {
-        innerRef.current?.open();
+        open();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,12 +64,13 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
       },
     );
 
-    return subscription.unsubscribe;
+    return () => subscription.unsubscribe();
   }, []);
 
   return (
     <Modal
-      ref={combinedRef}
+      ref={modalRef}
+      componentId={componentId}
       props={{
         adjustToContentHeight: false,
         modalHeight: window.height,
@@ -94,7 +97,7 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
           padding: 20,
           justifyContent: 'center',
         }}
-        onPress={dimiss}>
+        onPress={close}>
         <View
           style={{
             justifyContent: 'center',
@@ -137,6 +140,6 @@ const VisibilityModal = forwardRef<Modalize>((_, ref) => {
       </Pressable>
     </Modal>
   );
-});
+};
 
-export default VisibilityModal;
+export default HideNotes;

@@ -19,17 +19,19 @@ const HeaderButton: React.FC<HeaderButtonProps> = ({
   const { colors } = useTheme();
 
   return (
-    <View style={[{ borderRadius: 17.5, overflow: 'hidden' }, style]}>
-      <Pressable
-        onPress={onPress}
-        style={{
-          height: 35,
-          width: 35,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <MaterialCommunityIcons name={icon} color={colors.text} size={24} />
-      </Pressable>
+    <View style={{ paddingRight: 5 }}>
+      <View style={[{ borderRadius: 17.5, overflow: 'hidden' }, style]}>
+        <Pressable
+          onPress={onPress}
+          style={{
+            height: 35,
+            width: 35,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <MaterialCommunityIcons name={icon} color={colors.text} size={24} />
+        </Pressable>
+      </View>
     </View>
   );
 };

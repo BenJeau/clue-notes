@@ -102,7 +102,8 @@ const settingsSlice = createSlice({
       state.sections = action.payload;
     },
     cleanupSections: (state) => {
-      state.sections = Object.keys(state.sections).reduce((acc, key) => {
+      state.sections = Object.keys(state.sections).reduce((acc, section) => {
+        const key = section as 'suspects' | 'weapons' | 'rooms';
         acc[key] = state.sections[key].filter((i) => i.trim() !== '');
         return acc;
       }, {} as SectionsType);

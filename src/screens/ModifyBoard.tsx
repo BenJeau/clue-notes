@@ -1,20 +1,16 @@
-import React, { forwardRef, useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Text, View, TextInput, LayoutAnimation } from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import { NavigationFunctionComponent } from 'react-native-navigation';
 
-import {
-  Button,
-  MaterialCommunityIcons,
-  Modal,
-  Pressable,
-} from '../components';
-import { useDispatch, useInnerRef, useSelector, useTheme } from '../hooks';
+import { Button, MaterialCommunityIcons, Modal, Pressable } from '~/components';
+import { useDispatch, useSelector, useTheme } from '~/hooks';
 import {
   addSectionItem,
   cleanupSections,
   editSectionItem,
   removeSectionItem,
-} from '../redux/slices/settingsSlice';
+} from '~/redux/slices/settingsSlice';
 
 const ModalHeader = () => {
   const theme = useTheme();
@@ -51,7 +47,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
   return (
     <View
       style={{
-        backgroundColor: theme.colors.card,
+        backgroundColor: theme.colors.background,
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderBottomWidth: 1,
@@ -70,7 +66,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
 };
 
 interface SectionFooterProps {
-  title: string;
+  title: 'suspects' | 'weapons' | 'rooms';
 }
 
 const SectionFooter: React.FC<SectionFooterProps> = ({ title }) => {
@@ -127,6 +123,7 @@ const SectionItem: React.FC<SectionItemProps> = ({ item, index, section }) => {
         borderColor: colors.border,
         marginHorizontal: 20,
         marginTop: 10,
+        elevation: 1,
       }}>
       <TextInput
         placeholder="Entry name"
@@ -158,20 +155,21 @@ const SectionItem: React.FC<SectionItemProps> = ({ item, index, section }) => {
   );
 };
 
-const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
+const ModifyBoard: NavigationFunctionComponent = ({ componentId }) => {
   const { suspects, weapons, rooms } = useSelector(
     ({ settings }) => settings.sections,
   );
   const dispatch = useDispatch();
 
-  const [combinedRef, innerRef] = useInnerRef(ref);
-  const close = useCallback(() => innerRef.current?.close(), [innerRef]);
+  const modalRef = useRef<Modalize>(null);
+  const close = useCallback(() => modalRef.current?.close(), [modalRef]);
 
   const onClose = useCallback(() => dispatch(cleanupSections()), [dispatch]);
 
   return (
     <Modal
-      ref={combinedRef}
+      ref={modalRef}
+      componentId={componentId}
       props={{
         onClose,
         sectionListProps: {
@@ -203,6 +201,6 @@ const ManualModifyBoardModal = forwardRef<Modalize>((_, ref) => {
       }}
     />
   );
-});
+};
 
-export default ManualModifyBoardModal;
+export default ModifyBoard;

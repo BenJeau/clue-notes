@@ -1,18 +1,19 @@
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, View, Text, Linking } from 'react-native';
 import {
   GoogleVisionBarcodesDetectedEvent,
   RNCamera,
 } from 'react-native-camera';
 import { Modalize } from 'react-native-modalize';
+import { NavigationFunctionComponent } from 'react-native-navigation';
 
 import { Modal, Pressable } from '~/components';
-import { useDispatch, useInnerRef, useTheme } from '~/hooks';
+import { useDispatch, useTheme } from '~/hooks';
 import { setSections } from '~/redux/slices/settingsSlice';
 
 const window = Dimensions.get('window');
 
-const CameraModal = forwardRef<Modalize>((_, ref) => {
+const Camera: NavigationFunctionComponent = ({ componentId }) => {
   const [isFocused, setIsFocused] = useState(false);
   const dispatch = useDispatch();
   const { colors } = useTheme();
@@ -20,7 +21,7 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
   const cameraSize =
     (window.width > window.height ? window.height : window.width) - 40;
 
-  const [combinedRef, innerRef] = useInnerRef(ref);
+  const modalRef = useRef<Modalize>(null);
 
   const openSettings = useCallback(() => Linking.openSettings(), []);
 
@@ -47,7 +48,7 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
                 rooms: parsedData[2],
               }),
             );
-            innerRef.current?.close();
+            modalRef.current?.close();
           }
         } catch (e) {}
       }
@@ -56,7 +57,8 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
 
   return (
     <Modal
-      ref={combinedRef}
+      ref={modalRef}
+      componentId={componentId}
       showDismiss
       header={{
         title: 'Scan QR Code',
@@ -125,6 +127,6 @@ const CameraModal = forwardRef<Modalize>((_, ref) => {
       </View>
     </Modal>
   );
-});
+};
 
-export default CameraModal;
+export default Camera;

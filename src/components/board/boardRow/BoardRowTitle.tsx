@@ -1,9 +1,10 @@
 import React, { memo, useCallback } from 'react';
-import { Platform, Pressable, Text } from 'react-native';
+import { Platform, Text } from 'react-native';
 import isEqual from 'react-fast-compare';
 
 import { useTheme, useDispatch } from '~/hooks';
 import { setScratched } from '~/redux/slices/notesSlice';
+import Pressable from '../../Pressable';
 
 interface BoardRowTitleProps {
   scratched: boolean;

@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { Dimensions, View } from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import { NavigationFunctionComponent } from 'react-native-navigation';
 import QRCode from 'react-native-qrcode-svg';
 
 import { Modal } from '~/components';
@@ -8,7 +8,7 @@ import { useSelector, useTheme } from '~/hooks';
 
 const window = Dimensions.get('window');
 
-const QrCodeModal = forwardRef<Modalize>((_, ref) => {
+const QrCode: NavigationFunctionComponent = ({ componentId }) => {
   const { colors } = useTheme();
   const qrCodeValue = useSelector(({ settings }) =>
     JSON.stringify(Object.values(settings.sections)),
@@ -19,7 +19,7 @@ const QrCodeModal = forwardRef<Modalize>((_, ref) => {
 
   return (
     <Modal
-      ref={ref}
+      componentId={componentId}
       showDismiss
       header={{
         title: 'Share Board Layout',
@@ -45,6 +45,6 @@ const QrCodeModal = forwardRef<Modalize>((_, ref) => {
       </View>
     </Modal>
   );
-});
+};
 
-export default QrCodeModal;
+export default QrCode;

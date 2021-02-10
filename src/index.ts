@@ -1,8 +1,5 @@
-import React from 'react';
 import { Platform, UIManager } from 'react-native';
-
-import { Notes } from './screens';
-import { Provider } from './utils';
+import { launch, registerScreens } from './utils/navigation';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -10,8 +7,5 @@ if (Platform.OS === 'android') {
   }
 }
 
-export default () => (
-  <Provider>
-    <Notes />
-  </Provider>
-);
+registerScreens();
+launch();

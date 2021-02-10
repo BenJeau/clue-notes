@@ -13,18 +13,19 @@ interface HeaderProps {
   }[];
 }
 
+export const HEADER_HEIGHT = 55;
+
 const Header: React.FC<HeaderProps> = ({ icons }) => {
   const { colors } = useTheme();
 
   return (
     <View
       style={{
-        height: 55 + getStatusBarHeight(),
+        height: HEADER_HEIGHT + getStatusBarHeight(),
         width: '100%',
         paddingTop: getStatusBarHeight(),
-        borderBottomWidth: 1,
-        borderColor: colors.border,
         backgroundColor: colors.card,
+        elevation: 5,
       }}>
       <View
         style={{
@@ -44,12 +45,7 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
         </Text>
         <View style={{ flexDirection: 'row' }}>
           {icons.map(({ name, onPress }, key) => (
-            <HeaderButton
-              key={key}
-              icon={name}
-              onPress={onPress}
-              style={{ marginRight: 5 }}
-            />
+            <HeaderButton key={key} icon={name} onPress={onPress} />
           ))}
         </View>
       </View>

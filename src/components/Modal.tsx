@@ -1,8 +1,9 @@
-import React, { forwardRef, useCallback } from 'react';
+import React, { forwardRef, useCallback, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
 
 import { useInnerRef, useTheme } from '~/hooks';
+import { dismissModal } from '../utils/navigation';
 import Button from './Button';
 
 interface ModalProps {
@@ -13,21 +14,33 @@ interface ModalProps {
     subtitle?: string;
   };
   showDismiss?: boolean;
+  componentId?: string;
 }
 
 const Modal = forwardRef<Modalize, ModalProps>(
-  ({ children, props, header, showDismiss }, ref) => {
+  ({ children, props, header, showDismiss, componentId }, ref) => {
     const { colors } = useTheme();
 
     const [combinedRef, innerRef] = useInnerRef(ref);
 
     const close = useCallback(() => innerRef.current?.close(), [innerRef]);
 
+    useEffect(() => {
+      componentId && innerRef.current?.open();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [innerRef]);
+
     return (
       <Modalize
         ref={combinedRef}
         adjustToContentHeight
         handlePosition="inside"
+        openAnimationConfig={{
+          spring: { bounciness: 0.1 },
+          timing: {
+            duration: 100,
+          },
+        }}
         {...props}
         modalStyle={[
           {
@@ -38,7 +51,11 @@ const Modal = forwardRef<Modalize, ModalProps>(
           props?.modalStyle,
         ]}
         childrenStyle={{}}
-        handleStyle={[{ backgroundColor: colors.text }, props?.handleStyle]}>
+        rootStyle={{
+          elevation: 10,
+        }}
+        handleStyle={[{ backgroundColor: colors.text }, props?.handleStyle]}
+        onClosed={componentId ? () => dismissModal(componentId) : undefined}>
         {children && (
           <>
             {header && (
@@ -50,6 +67,7 @@ const Modal = forwardRef<Modalize, ModalProps>(
                   borderBottomWidth: 1,
                   borderColor: colors.border,
                   backgroundColor: colors.card,
+                  elevation: 3,
                 }}>
                 {header.title && (
                   <Text

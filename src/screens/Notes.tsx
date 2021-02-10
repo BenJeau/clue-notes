@@ -1,89 +1,52 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { View } from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import React, { useEffect } from 'react';
+import {
+  Navigation,
+  NavigationFunctionComponent,
+} from 'react-native-navigation';
 
 import { Board, Header, HeaderPlayers } from '~/components';
-import {
-  CameraModal,
-  CustomizeBoardModal,
-  ManualModifyBoardModal,
-  QrCodeModal,
-  ResetModal,
-  SetPlayerNameModal,
-  SettingsModal,
-  SymbolsModal,
-  HideModal,
-  DisclaimerModal,
-} from '~/modals';
+import { showModal } from '~/utils/navigation';
+import { useTheme } from '~/hooks';
+import { Symbols } from '.';
 
-const Home: React.FC = () => {
-  const playerModalRef = useRef<Modalize>(null);
-  const symbolsModalRef = useRef<Modalize>(null);
-  const resetModalRef = useRef<Modalize>(null);
-  const settingsModalRef = useRef<Modalize>(null);
-  const customizeModalRef = useRef<Modalize>(null);
-  const cameraModalRef = useRef<Modalize>(null);
-  const qrModalRef = useRef<Modalize>(null);
-  const modifyBoardModalRef = useRef<Modalize>(null);
-  const hideModalRef = useRef<Modalize>(null);
+const Notes: NavigationFunctionComponent = ({ componentId }) => {
+  const theme = useTheme();
 
-  const openResetModal = useCallback(() => resetModalRef.current?.open(), []);
-  const openSettingsModal = useCallback(
-    () => settingsModalRef.current?.open(),
-    [],
-  );
-  const openCustomizeModal = useCallback(
-    () => customizeModalRef.current?.open(),
-    [],
-  );
-  const openCameraModal = () => cameraModalRef.current?.open();
-  const openQrModal = () => qrModalRef.current?.open();
-  const openPlayerModal = useCallback(() => playerModalRef.current?.open(), []);
-  const openModifyBoardModal = () => modifyBoardModalRef.current?.open();
-  const openHideModal = useCallback(() => hideModalRef.current?.open(), []);
-
-  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(0);
+  useEffect(() => {
+    Navigation.mergeOptions(componentId, {
+      navigationBar: {
+        backgroundColor: theme.colors.background,
+      },
+      statusBar: {
+        style: theme.dark ? 'light' : 'dark',
+      },
+      layout: {
+        backgroundColor: theme.colors.card,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme]);
 
   return (
     <>
-      <View style={{ height: '100%' }}>
-        <Header
-          icons={[
-            { name: 'eye-off-outline', onPress: openHideModal },
-            { name: 'undo-variant', onPress: openResetModal },
-            { name: 'dots-vertical', onPress: openSettingsModal },
-          ]}
-        />
-        <HeaderPlayers
-          openPlayerModal={openPlayerModal}
-          setSelectedPlayerIndex={setSelectedPlayerIndex}
-        />
-        <Board />
-      </View>
-
-      <SymbolsModal ref={symbolsModalRef} />
-      <ResetModal ref={resetModalRef} />
-      <SettingsModal
-        ref={settingsModalRef}
-        openCustomizeBoard={openCustomizeModal}
+      <Header
+        icons={[
+          {
+            name: 'eye-off-outline',
+            onPress: () => showModal('HideNotes'),
+          },
+          {
+            name: 'undo-variant',
+            onPress: () => showModal('ClearNotes'),
+          },
+          { name: 'dots-vertical', onPress: () => showModal('Settings') },
+        ]}
       />
-      <CustomizeBoardModal
-        ref={customizeModalRef}
-        openCameraModal={openCameraModal}
-        openQrModal={openQrModal}
-        openModifyBoardModal={openModifyBoardModal}
-      />
-      <QrCodeModal ref={qrModalRef} />
-      <CameraModal ref={cameraModalRef} />
-      <ManualModifyBoardModal ref={modifyBoardModalRef} />
-      <SetPlayerNameModal
-        ref={playerModalRef}
-        selectedPlayerIndex={selectedPlayerIndex}
-      />
-      <DisclaimerModal />
-      <HideModal ref={hideModalRef} />
+      <HeaderPlayers />
+      <Board />
+      <Symbols />
     </>
   );
 };
 
-export default Home;
+export default Notes;

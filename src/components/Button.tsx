@@ -33,6 +33,8 @@ const Button: React.FC<ButtonProps> = ({
           borderRadius: 10,
           borderWidth: 1,
           borderColor: colors.border,
+          elevation: 1,
+          backgroundColor: colors.background,
         },
         style,
       ]}>
