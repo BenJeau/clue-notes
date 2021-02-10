@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
           overflow: 'hidden',
           borderRadius: 10,
           borderWidth: 1,
-          borderColor: colors.border,
+          borderColor: textColor || colors.border,
           elevation: 1,
           backgroundColor: colors.background,
         },

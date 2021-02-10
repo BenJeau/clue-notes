@@ -76,13 +76,13 @@ const HideNotes: NavigationFunctionComponent = ({ componentId }) => {
         modalHeight: window.height,
         handleStyle: {
           marginTop: getStatusBarHeight(),
-          backgroundColor: dark ? color : '#00000080',
+          backgroundColor: dark ? color : '#000000a0',
         },
         childrenStyle: {
           height: window.height,
           width: window.width,
           borderTopWidth: 0,
-          backgroundColor: dark ? '#00000080' : '',
+          backgroundColor: dark ? '#000000a0' : '',
           padding: 0,
         },
         modalStyle: {
@@ -90,7 +90,7 @@ const HideNotes: NavigationFunctionComponent = ({ componentId }) => {
         },
       }}>
       <Pressable
-        android_ripple={{ color: dark ? color : '#00000080' }}
+        android_ripple={{ color: dark ? color : '#000000a0' }}
         style={{
           height: '100%',
           width: '100%',
@@ -106,11 +106,11 @@ const HideNotes: NavigationFunctionComponent = ({ componentId }) => {
           <MaterialCommunityIcons
             name={'eye-off-outline'}
             size={150}
-            color={dark ? color : '#00000080'}
+            color={dark ? color : '#000000a0'}
           />
           <Text
             style={{
-              color: dark ? color : '#00000080',
+              color: dark ? color : '#000000a0',
               fontWeight: 'bold',
               fontSize: 20,
               marginTop: 20,
@@ -119,7 +119,7 @@ const HideNotes: NavigationFunctionComponent = ({ componentId }) => {
           </Text>
           <Text
             style={{
-              color: dark ? color : '#00000080',
+              color: dark ? color : '#000000a0',
             }}>
             Slide down or press anywhere to view your notes
           </Text>
@@ -130,9 +130,11 @@ const HideNotes: NavigationFunctionComponent = ({ componentId }) => {
             autoHide ? 'Disable' : 'Enable'
           } experimental auto screen hiding`}
           style={{
-            backgroundColor: '#00000080',
+            backgroundColor: '#000000a0',
             width: '100%',
             marginTop: 20,
+            elevation: 0,
+            borderWidth: 0,
           }}
           onPress={() => dispatch(toggleAutoHide())}
           textColor={color}
