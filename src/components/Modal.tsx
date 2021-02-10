@@ -52,7 +52,7 @@ const Modal = forwardRef<Modalize, ModalProps>(
         ]}
         childrenStyle={{}}
         rootStyle={{
-          elevation: 10,
+          elevation: 1,
         }}
         handleStyle={[{ backgroundColor: colors.text }, props?.handleStyle]}
         onClosed={componentId ? () => dismissModal(componentId) : undefined}>
@@ -67,7 +67,7 @@ const Modal = forwardRef<Modalize, ModalProps>(
                   borderBottomWidth: 1,
                   borderColor: colors.border,
                   backgroundColor: colors.card,
-                  elevation: 3,
+                  elevation: 1,
                 }}>
                 {header.title && (
                   <Text

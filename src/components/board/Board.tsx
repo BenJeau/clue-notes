@@ -31,7 +31,7 @@ const Board: React.FC = () => {
             backgroundColor: colors.card,
             borderColor: colors.border,
             borderBottomWidth: 1,
-            elevation: 2,
+            elevation: 1,
           }}>
           <Text
             style={{

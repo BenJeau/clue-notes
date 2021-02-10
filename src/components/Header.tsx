@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
         width: '100%',
         paddingTop: getStatusBarHeight(),
         backgroundColor: colors.card,
-        elevation: 5,
+        elevation: 1,
       }}>
       <View
         style={{
