@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import { Linking, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NavigationFunctionComponent } from 'react-native-navigation';
 
-import { Modal, MaterialCommunityIcons, Button, Pressable } from '~/components';
+import { Modal, MaterialCommunityIcons, Button } from '~/components';
 import { useDispatch, useSelector, useTheme } from '~/hooks';
 import { toggleAutoHide, toggleVibrate } from '~/redux/slices/settingsSlice';
 import { showModal } from '~/utils/navigation';
@@ -24,21 +25,23 @@ const Settings: NavigationFunctionComponent = ({ componentId }) => {
     dispatch,
   ]);
 
+  const openCustomizeBoard = useCallback(() => showModal('CustomizeBoard'), []);
+
   return (
     <Modal
       componentId={componentId}
       props={{
         FooterComponent: () => (
-          <Pressable
+          <TouchableOpacity
             onPress={openGithub}
-            android_ripple={{}}
-            style={({ pressed }) => ({
+            style={{
               flexDirection: 'row',
               paddingBottom: 20,
               justifyContent: 'center',
+              opacity: 0.5,
               alignItems: 'center',
-              opacity: pressed ? 0.2 : 0.5,
-            })}>
+            }}
+            activeOpacity={0.2}>
             <Text style={{ color: colors.text, paddingRight: 5 }}>
               Open source and available on GitHub
             </Text>
@@ -48,7 +51,7 @@ const Settings: NavigationFunctionComponent = ({ componentId }) => {
               size={20}
               color={colors.text}
             />
-          </Pressable>
+          </TouchableOpacity>
         ),
       }}
       header={{
@@ -58,7 +61,7 @@ const Settings: NavigationFunctionComponent = ({ componentId }) => {
       <Button
         label="Customize board"
         style={{ backgroundColor: colors.card }}
-        onPress={() => showModal('CustomizeBoard')}
+        onPress={openCustomizeBoard}
       />
 
       <Button

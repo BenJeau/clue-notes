@@ -7,7 +7,7 @@ import {
 import { Board, Header, HeaderPlayers } from '~/components';
 import { showModal } from '~/utils/navigation';
 import { useTheme } from '~/hooks';
-import { Symbols } from '.';
+import Symbols from '~/screens/Symbols';
 
 const Notes: NavigationFunctionComponent = ({ componentId }) => {
   const theme = useTheme();

@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import { Platform, View, Text, Animated } from 'react-native';
+import React, { memo, useCallback } from 'react';
+import { View, Text, Animated } from 'react-native';
 import isEqual from 'react-fast-compare';
 
 import Pressable from './Pressable';
@@ -35,24 +35,23 @@ const PlayerHeader: React.FC = () => {
           <Text style={{ color: colors.text }}>Players</Text>
         </View>
         {playerColorKeys.map((colorKey, key) => {
-          const onPress = () => {
+          const onPress = useCallback(() => {
             showModal('SetPlayerName', { selectedPlayerIndex: key });
-          };
+          }, [key]);
 
           return (
             <Pressable
               key={key}
               onPress={onPress}
-              style={({ pressed }) => ({
+              style={{
                 minHeight: SQUARE_SIZE,
                 width: SQUARE_SIZE,
                 borderColor: colors.border,
                 backgroundColor: colors[colorKey],
-                opacity: Platform.OS === 'ios' && pressed ? 0.5 : 1,
                 borderStartWidth: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
-              })}
+              }}
               android_ripple={{ color: colors.background }}>
               <Text
                 style={{

@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react';
 import { LayoutAnimation, Pressable, Text, View } from 'react-native';
 import isEqual from 'react-fast-compare';
 
-import { MaterialCommunityIcons } from '../..';
+import MaterialCommunityIcons from '~/components/MaterialCommunityIcons';
 import { SQUARE_SIZE } from '~/config/constants';
 import { useTheme, useDispatch } from '~/hooks';
 import { BoardEntry, setBoardValue } from '~/redux/slices/notesSlice';

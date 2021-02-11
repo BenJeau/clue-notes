@@ -2,6 +2,7 @@ import React from 'react';
 import { SectionList, Text, View } from 'react-native';
 
 import { useSelector, useTheme } from '~/hooks';
+import { ALWAYS_OPEN } from '~/config/constants';
 import BoardRow from './boardRow';
 
 const Board: React.FC = () => {
@@ -47,6 +48,7 @@ const Board: React.FC = () => {
       stickySectionHeadersEnabled
       style={{
         backgroundColor: colors.background,
+        marginBottom: ALWAYS_OPEN - 1,
       }}
     />
   );

@@ -123,7 +123,6 @@ const SectionItem: React.FC<SectionItemProps> = ({ item, index, section }) => {
         borderColor: colors.border,
         marginHorizontal: 20,
         marginTop: 10,
-        elevation: 1,
       }}>
       <TextInput
         placeholder="Entry name"
