@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Navigation,
   NavigationFunctionComponent,
@@ -8,9 +8,13 @@ import { Board, Header, HeaderPlayers } from '~/components';
 import { showModal } from '~/utils/navigation';
 import { useTheme } from '~/hooks';
 import Symbols from '~/screens/Symbols';
+import { Animated, ScrollView, useWindowDimensions } from 'react-native';
+import { HEADER_HEIGHT } from '../components/Header';
 
 const Notes: NavigationFunctionComponent = ({ componentId }) => {
   const theme = useTheme();
+  const window = useWindowDimensions();
+  const [headerVisibleHeight] = useState(new Animated.Value(1));
 
   useEffect(() => {
     Navigation.mergeOptions(componentId, {
@@ -29,21 +33,38 @@ const Notes: NavigationFunctionComponent = ({ componentId }) => {
 
   return (
     <>
-      <Header
-        icons={[
-          {
-            name: 'eye-off-outline',
-            onPress: () => showModal('HideNotes'),
+      <ScrollView
+        stickyHeaderIndices={[1]}
+        nestedScrollEnabled
+        showsVerticalScrollIndicator={false}
+        onScroll={({
+          nativeEvent: {
+            contentOffset: { y },
           },
-          {
-            name: 'undo-variant',
-            onPress: () => showModal('ClearNotes'),
-          },
-          { name: 'cog-outline', onPress: () => showModal('Settings') },
-        ]}
-      />
-      <HeaderPlayers />
-      <Board />
+        }) => {
+          Animated.timing(headerVisibleHeight, {
+            toValue: y,
+            useNativeDriver: true,
+          }).start();
+        }}
+        contentContainerStyle={{ height: window.height + HEADER_HEIGHT }}>
+        <Header
+          headerVisibleHeight={headerVisibleHeight}
+          icons={[
+            {
+              name: 'eye-off-outline',
+              onPress: () => showModal('HideNotes'),
+            },
+            {
+              name: 'undo-variant',
+              onPress: () => showModal('ClearNotes'),
+            },
+            { name: 'cog-outline', onPress: () => showModal('Settings') },
+          ]}
+        />
+        <HeaderPlayers />
+        <Board />
+      </ScrollView>
       <Symbols />
     </>
   );

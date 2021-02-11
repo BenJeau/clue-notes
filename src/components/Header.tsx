@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Text, View } from 'react-native';
+import { Animated, Text, View } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import isEqual from 'react-fast-compare';
 
@@ -11,12 +11,22 @@ interface HeaderProps {
     name: string;
     onPress: () => void;
   }[];
+  headerVisibleHeight?: Animated.Value;
 }
 
 export const HEADER_HEIGHT = 55;
 
-const Header: React.FC<HeaderProps> = ({ icons }) => {
+const Header: React.FC<HeaderProps> = ({
+  icons,
+  headerVisibleHeight = new Animated.Value(0),
+}) => {
   const { colors } = useTheme();
+
+  const opacity = headerVisibleHeight.interpolate({
+    inputRange: [0, HEADER_HEIGHT - 5],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
 
   return (
     <View
@@ -27,13 +37,14 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
         backgroundColor: colors.card,
         elevation: 1,
       }}>
-      <View
+      <Animated.View
         style={{
           alignItems: 'center',
           justifyContent: 'space-between',
           flexDirection: 'row',
           flex: 1,
           paddingLeft: 16,
+          opacity,
         }}>
         <Text
           style={{
@@ -48,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ icons }) => {
             <HeaderButton key={key} icon={name} onPress={onPress} />
           ))}
         </View>
-      </View>
+      </Animated.View>
     </View>
   );
 };

@@ -13,6 +13,7 @@ const Board: React.FC = () => {
 
   return (
     <SectionList
+      nestedScrollEnabled
       sections={[
         { title: 'suspects', data: suspects },
         { title: 'weapons', data: weapons },
