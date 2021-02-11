@@ -1,20 +1,21 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import isEqual from 'react-fast-compare';
 
 import MaterialCommunityIcons from './MaterialCommunityIcons';
 import Pressable from './Pressable';
-import { BoardEntry } from '~/redux/slices/notesSlice';
 import { SQUARE_SIZE } from '~/config/constants';
 import { useTheme, useSelector, useDispatch } from '~/hooks';
 import { setSelected } from '~/redux/slices/stateSlice';
+import { sheet } from '../config/data';
 
 interface SymbolProps {
-  data: BoardEntry;
+  data?: string;
+  type?: 'icon' | 'text';
   style?: StyleProp<ViewStyle>;
 }
 
-const Symbol: React.FC<SymbolProps> = ({ data: { data, type }, style }) => {
+const Symbol: React.FC<SymbolProps> = ({ data = '', type = 'icon', style }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const selected = useSelector(({ state }) => state.selected);
@@ -23,7 +24,13 @@ const Symbol: React.FC<SymbolProps> = ({ data: { data, type }, style }) => {
 
   const updateSelected = useCallback(() => {
     dispatch(setSelected({ data, type }));
-  }, [data, dispatch, type]);
+  }, [dispatch, data, type]);
+
+  const size = useMemo(
+    () =>
+      type === 'icon' && sheet.some((i) => i.data.includes(data)) ? 24 : 20,
+    [type, data],
+  );
 
   return (
     <View
@@ -51,7 +58,7 @@ const Symbol: React.FC<SymbolProps> = ({ data: { data, type }, style }) => {
         {type === 'icon' ? (
           <MaterialCommunityIcons
             name={data}
-            size={20}
+            size={size}
             color={isSelected ? colors.card : colors.text}
           />
         ) : (

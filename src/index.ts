@@ -1,3 +1,5 @@
+import './utils/wdyr';
+
 import { Platform, UIManager } from 'react-native';
 import { launch, registerScreens } from './utils/navigation';
 

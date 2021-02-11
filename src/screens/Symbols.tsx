@@ -38,9 +38,9 @@ const Symbols = () => {
           alignItems: 'center',
         }}>
         <View style={styles.section}>
-          <Symbol data={{ type: 'text', data: ' ' }} />
+          <Symbol type="text" data=" " />
           {Array.from({ length: NUM_ICONS_FIRST_ROW }, (_, key) => (
-            <Symbol key={key} data={{ type: 'icon', data: icons[key] }} />
+            <Symbol key={key} data={icons[key]} />
           ))}
           <View
             style={{
@@ -53,10 +53,7 @@ const Symbols = () => {
           {Array.from(
             { length: Math.max(icons.length - NUM_ICONS_FIRST_ROW, 0) },
             (_, key) => (
-              <Symbol
-                key={key}
-                data={{ type: 'icon', data: icons[key + NUM_ICONS_FIRST_ROW] }}
-              />
+              <Symbol key={key} data={icons[key + NUM_ICONS_FIRST_ROW]} />
             ),
           )}
         </View>
@@ -66,7 +63,7 @@ const Symbols = () => {
           <Text style={[styles.header, { color: colors.text }]}>{i.title}</Text>
           <View style={styles.section}>
             {i.data.map((j) => (
-              <Symbol key={j} data={{ type: 'text', data: j }} />
+              <Symbol key={j} data={j} />
             ))}
           </View>
         </View>

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { LayoutAnimation, Pressable, Text, View } from 'react-native';
 import isEqual from 'react-fast-compare';
 
@@ -6,6 +6,7 @@ import MaterialCommunityIcons from '~/components/MaterialCommunityIcons';
 import { SQUARE_SIZE } from '~/config/constants';
 import { useTheme, useDispatch } from '~/hooks';
 import { BoardEntry, setBoardValue } from '~/redux/slices/notesSlice';
+import { sheet } from '../../../config/data';
 
 interface BoardRowNoteProps {
   color: string;
@@ -30,6 +31,16 @@ const BoardRowNote: React.FC<BoardRowNoteProps> = ({
     dispatch(setBoardValue({ row: rowIndex, col: colIndex, section }));
   }, [colIndex, dispatch, rowIndex, section]);
 
+  const size = useMemo(
+    () =>
+      data &&
+      data.type === 'icon' &&
+      sheet.some((i) => i.data.includes(data.data))
+        ? 24
+        : 20,
+    [data],
+  );
+
   return (
     <View
       style={{
@@ -51,7 +62,7 @@ const BoardRowNote: React.FC<BoardRowNoteProps> = ({
           (data.type === 'icon' ? (
             <MaterialCommunityIcons
               name={data.data}
-              size={20}
+              size={size}
               color={colors.text}
             />
           ) : (
