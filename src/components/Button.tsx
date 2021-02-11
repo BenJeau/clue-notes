@@ -7,7 +7,7 @@ import Pressable from './Pressable';
 import { useTheme } from '~/hooks';
 
 interface ButtonProps {
-  onPress: () => void;
+  onPress?: () => void;
   label: string;
   style?: StyleProp<ViewStyle>;
   pressableStyle?: StyleProp<ViewStyle>;
@@ -40,9 +40,7 @@ const Button: React.FC<ButtonProps> = ({
       ]}>
       <Pressable
         onPress={onPress}
-        android_ripple={{
-          color: textColor || colors.text,
-        }}
+        android_ripple={textColor ? { color: textColor } : {}}
         style={[
           {
             alignItems: 'center',

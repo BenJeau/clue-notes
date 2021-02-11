@@ -59,7 +59,7 @@ const Notes: NavigationFunctionComponent = ({ componentId }) => {
               name: 'undo-variant',
               onPress: () => showModal('ClearNotes'),
             },
-            { name: 'cog-outline', onPress: () => showModal('Settings') },
+            { name: 'dots-vertical', onPress: () => showModal('Settings') },
           ]}
         />
         <HeaderPlayers />

@@ -9,3 +9,4 @@ export { default as QrCode } from './QrCode';
 export { default as ModifyBoard } from './ModifyBoard';
 export { default as HideNotes } from './HideNotes';
 export { default as Disclaimer } from './Disclaimer';
+export { default as SymbolOptions } from './SymbolOptions';

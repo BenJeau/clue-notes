@@ -8,23 +8,37 @@ import { SQUARE_SIZE } from '~/config/constants';
 import { useTheme, useSelector, useDispatch } from '~/hooks';
 import { setSelected } from '~/redux/slices/stateSlice';
 import { sheet } from '../config/data';
+import { showModal } from '../utils/navigation';
 
 interface SymbolProps {
   data?: string;
   type?: 'icon' | 'text';
   style?: StyleProp<ViewStyle>;
+  disabled?: boolean;
+  backgroundColor?: string;
 }
 
-const Symbol: React.FC<SymbolProps> = ({ data = '', type = 'icon', style }) => {
+const Symbol: React.FC<SymbolProps> = ({
+  data = '',
+  type = 'icon',
+  disabled = false,
+  style,
+  backgroundColor,
+}) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const selected = useSelector(({ state }) => state.selected);
 
-  const isSelected = selected.data === data && selected.type === type;
+  const isSelected =
+    !disabled && selected.data === data && selected.type === type;
 
   const updateSelected = useCallback(() => {
     dispatch(setSelected({ data, type }));
   }, [dispatch, data, type]);
+
+  const onLongPress = useCallback(() => {
+    showModal('SymbolOptions', { data, type });
+  }, [data, type]);
 
   const size = useMemo(
     () =>
@@ -47,13 +61,16 @@ const Symbol: React.FC<SymbolProps> = ({ data = '', type = 'icon', style }) => {
       ]}>
       <Pressable
         style={{
-          backgroundColor: isSelected ? colors.text : colors.card,
+          backgroundColor:
+            backgroundColor || (isSelected ? colors.text : colors.card),
           height: SQUARE_SIZE,
           width: SQUARE_SIZE,
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        android_ripple={{ color: isSelected ? colors.card : colors.text }}
+        android_ripple={isSelected ? { color: colors.card } : {}}
+        disabled={disabled}
+        onLongPress={onLongPress}
         onPress={updateSelected}>
         {type === 'icon' ? (
           <MaterialCommunityIcons

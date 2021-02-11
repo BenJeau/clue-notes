@@ -26,8 +26,8 @@ const Pressable: React.FC<PressableProps> = (props) => {
 
   return (
     <RNPressable
-      android_ripple={{ color: colors.text }}
       {...props}
+      android_ripple={{ color: `${colors.text}30`, ...props.android_ripple }}
       onPress={onPress}
     />
   );

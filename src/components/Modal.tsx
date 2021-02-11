@@ -12,6 +12,7 @@ interface ModalProps {
   header?: {
     title?: string;
     subtitle?: string;
+    extra?: React.ReactNode;
   };
   showDismiss?: boolean;
   componentId?: string;
@@ -68,20 +69,28 @@ const Modal = forwardRef<Modalize, ModalProps>(
                   borderColor: colors.border,
                   backgroundColor: colors.card,
                   elevation: 1,
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexDirection: 'row',
                 }}>
-                {header.title && (
-                  <Text
-                    style={{
-                      color: colors.text,
-                      fontSize: 20,
-                      fontWeight: 'bold',
-                    }}>
-                    {header.title}
-                  </Text>
-                )}
-                {header.subtitle && (
-                  <Text style={{ color: colors.text }}>{header.subtitle}</Text>
-                )}
+                <View style={{ flex: 1 }}>
+                  {header.title && (
+                    <Text
+                      style={{
+                        color: colors.text,
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                      }}>
+                      {header.title}
+                    </Text>
+                  )}
+                  {header.subtitle && (
+                    <Text style={{ color: colors.text }}>
+                      {header.subtitle}
+                    </Text>
+                  )}
+                </View>
+                {header.extra}
               </View>
             )}
             <View

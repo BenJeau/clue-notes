@@ -145,9 +145,7 @@ const SectionItem: React.FC<SectionItemProps> = ({ item, index, section }) => {
         }}>
         {item}
       </TextInput>
-      <Pressable
-        onPress={removeItem}
-        android_ripple={{ color: colors.text, borderless: true }}>
+      <Pressable onPress={removeItem} android_ripple={{ borderless: true }}>
         <MaterialCommunityIcons name="close" size={24} color={colors.text} />
       </Pressable>
     </View>
