@@ -26,6 +26,10 @@ const Settings: NavigationFunctionComponent = ({ componentId }) => {
   ]);
 
   const openCustomizeBoard = useCallback(() => showModal('CustomizeBoard'), []);
+  const openPrivacyPolicy = useCallback(
+    () => Linking.openURL('https://cluenotes.jeaurond.dev/privacy.pdf'),
+    [],
+  );
 
   return (
     <Modal
@@ -68,15 +72,17 @@ const Settings: NavigationFunctionComponent = ({ componentId }) => {
         label={`${
           autoHide ? 'Disable' : 'Enable'
         } experimental auto screen hiding`}
-        style={{ backgroundColor: colors.card, marginTop: 10 }}
+        style={{ backgroundColor: colors.card, marginVertical: 10 }}
         onPress={toggleScreenHiding}
       />
 
       <Button
         label={`${vibrate ? 'Disable' : 'Enable'} button vibration`}
-        style={{ backgroundColor: colors.card, marginTop: 10 }}
+        style={{ backgroundColor: colors.card, marginBottom: 20 }}
         onPress={toggleButtonVibration}
       />
+
+      <Button label="Privacy Policy" onPress={openPrivacyPolicy} />
     </Modal>
   );
 };
