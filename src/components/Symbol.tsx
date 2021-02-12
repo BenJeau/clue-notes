@@ -70,7 +70,7 @@ const Symbol: React.FC<SymbolProps> = ({
         }}
         android_ripple={isSelected ? { color: colors.card } : {}}
         disabled={disabled}
-        onLongPress={onLongPress}
+        // onLongPress={onLongPress}
         onPress={updateSelected}>
         {type === 'icon' ? (
           <MaterialCommunityIcons
